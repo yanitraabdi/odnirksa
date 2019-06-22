@@ -1,0 +1,48 @@
+﻿@model Askrindo.Areas.RefData.Models.OrgStruct.BagianCabangViewModel
+
+@{
+    ViewBag.Title = "BagianCabangDelete";
+    Layout = "~/Areas/RefData/Views/Shared/_OrgStruct.cshtml";
+}
+
+<h3 style="padding-bottom: 0; margin-bottom: 0">Hapus Bagian Cabang</h3>
+@*@Html.Partial("_Info_Dept", Model.DibawahDirektorat.Dept)*@
+
+<div style="padding-bottom: 12px" class="warning">
+    Bagian Cabang berikut akan dihapus. Lanjutkan?
+</div>
+
+<table class="warning">
+    <tr>
+            <td>ID</td>
+            <td>
+                @Html.DisplayFor(model => model.BagianCabang.SubBranchId)
+            </td>
+        </tr>
+        <tr>
+            <td>Cabang</td>
+            <td>
+                @Html.DisplayFor(model => model.BagianCabang.Branch.BranchName)
+            </td>
+        </tr>
+        <tr>
+            <td>Bagian</td>
+            <td>
+                @Html.DisplayFor(model => model.BagianCabang.SubBranchName)
+            </td>
+        </tr>
+        <tr>
+            <td>Supporting Unit?</td>
+            <td>
+                @Html.DisplayFor(model => model.BagianCabang.IsSupporting)
+            </td>
+        </tr>
+</table>
+
+@using (Html.BeginForm()) {
+    <div style="padding-top: 12px">
+        <input type="submit" value="Hapus" /> |
+        @Html.ActionLink("Batal", "BagianCabang")
+    </div>
+}
+

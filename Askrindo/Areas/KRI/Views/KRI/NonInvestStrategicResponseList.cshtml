@@ -1,0 +1,95 @@
+﻿@model Askrindo.Areas.KRI.Models.StrategicResponseViewModel
+@{
+    Layout = "~/Areas/KRI/Views/Shared/KRILayout.cshtml";
+}
+
+<div class="askrindo-content-box">
+    <h5>Daftar Strategic Response @Model.KRINonInvestData.KRINonInvest.Name</h5>
+
+    <div class="row">
+        <div class="col-2">Status</div>
+        <div class="col-2">
+            @if (Model.KRINonInvestData.Grade == "risk")
+            {
+                <div class="askrindo-box-merah text-center">Sangat Tinggi</div>
+            }
+            else if (Model.KRINonInvestData.Grade == "danger")
+            {
+                <div class="askrindo-box-orange text-center">Tinggi</div>
+            }
+            else if (Model.KRINonInvestData.Grade == "warning")
+            {
+                <div class="askrindo-box-kuning text-center">Sedang</div>
+            }
+            else
+            {
+                <div class="askrindo-box-hijau text-center">Rendah</div>
+            }
+
+        </div>
+        <div class="col-8"></div>
+    </div>
+    <div class="row">
+        <div class="col-2">Tanggal Input</div>
+        <div class="col-10">@Model.KRINonInvestData.TransactionDate.ToString("dddd, dd MMMM yyyy")</div>
+    </div>
+    <div class="row">
+        <div class="col-2">Nilai</div>
+        <div class="col-10">@String.Format(@*new System.Globalization.CultureInfo("id-ID"),*@ "{0:N}", Model.KRINonInvestData.Value)</div>
+    </div>
+    <div class="row">
+        <div class="col-2">Acuan</div>
+        <div class="col-10">@String.Format(@*new System.Globalization.CultureInfo("id-ID"),*@ "{0:N}", Model.KRINonInvestData.Target)</div>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Kode Strategic Response</th>
+                <th>Analisa Sebab</th>
+                <th>Strategic Respon</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.SRNonInvests)
+            {
+                <tr>
+                    <td>
+                        @item.KRINonInvestData.Code
+                        @*<i class="fa fa-exclamation-circle text-danger"></i>*@
+                    </td>
+                    <td>@item.CauseAnalysis</td>
+                    <td>
+                        @item.StrategicResponse
+                    </td>
+
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn askrindo-btn-color askrindo-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Tindakan
+                            </button>
+                            <div class="dropdown-menu askrindo-btn-color" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item askrindo-btn-color askrindo-btn" href="@Url.Action("NonInvestStrategicResponseEdit", new { Id = item.Id })">Detail</a>
+                                <a class="dropdown-item askrindo-btn-color askrindo-btn" href="@Url.Action("NISRProgressList", new { Id = item.Id })">Progress</a>
+                                <hr style="border-color: white;" />
+                                <a class="dropdown-item askrindo-btn-color askrindo-btn" href="#">Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-right">
+        <a class="btn btn-outline-danger askrindo-btn" href="@Url.Action("ManageNonInvest", new { Model.KRINonInvestData.KRINonInvest.Id })">Kembali</a>
+        <a class="btn askrindo-btn askrindo-btn-color" href="@Url.Action("NonInvestStrategicResponseNew", new { Id = Model.KRINonInvestData.Id })">Tambah</a>
+    </div>
+
+    @*<div class="text-right">
+            Page 1 of 200
+        </div>
+        <div class="text-right"><ul class="askrindo-pagination"><li class="active"><a>1</a></li><li><a href="/RCSA/Default?page=2&amp;pageSize=10">2</a></li><li><a href="/RCSA/Default?page=3&amp;pageSize=10">3</a></li><li><a href="/RCSA/Default?page=4&amp;pageSize=10">4</a></li><li><a href="/RCSA/Default?page=5&amp;pageSize=10">5</a></li><li><a href="/RCSA/Default?page=6&amp;pageSize=10">6</a></li><li><a href="/RCSA/Default?page=7&amp;pageSize=10">7</a></li><li><a href="/RCSA/Default?page=8&amp;pageSize=10">8</a></li><li><a href="/RCSA/Default?page=9&amp;pageSize=10">9</a></li><li><a href="/RCSA/Default?page=10&amp;pageSize=10">10</a></li><li class="disabled PagedList-ellipses"><a>&#8230;</a></li><li class="PagedList-skipToNext"><a href="/RCSA/Default?page=2&amp;pageSize=10" rel="next">»</a></li><li class="PagedList-skipToLast"><a href="/RCSA/Default?page=200&amp;pageSize=10">»»</a></li></ul></div>*@
+
+</div>
+

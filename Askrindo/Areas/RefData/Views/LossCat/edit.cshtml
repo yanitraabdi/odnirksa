@@ -1,0 +1,26 @@
+﻿@model Askrindo.Areas.RefData.Models.LossCatModel
+
+@{
+    ViewBag.Title = "LossCat";
+    Layout = "~/Areas/RefData/Views/Shared/_LossCat.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+<table class="edit">
+    <tr>
+        <td>ID</td>
+        <td>@Html.EditorFor(m => m.lossCat.KlasifikasiId)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Klasifikasi</td>
+        <td>@Html.TextAreaFor(m => m.lossCat.Klasifikasi)</td>
+        <td></td>
+    </tr>
+</table>
+
+<div style="padding-top: 12px">
+    <input type="Submit" value="Simpan"/> | @Html.ActionLink("Kembali", "Index")
+</div>
+}

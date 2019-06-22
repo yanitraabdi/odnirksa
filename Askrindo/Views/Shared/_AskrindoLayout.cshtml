@@ -1,0 +1,151 @@
+﻿@using Askrindo.Helpers
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Askrindo Enterprise Risk Management System</title>
+    @Styles.Render("~/Content/askrindo/css")
+    @*@Styles.Render("~/Content/fontawesome")*@
+    @*<link href="/Content/Fontawesome/css/all.css?v=eeZLpTEV4XG97GVuEDxRNXvIpkJVsaBDupn416iDP4U1" rel="stylesheet" />*@
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Home</a>
+        <a href="#">RCSA</a>
+        <a href="#">KRI</a>
+        <a href="#">Loss Event Data</a>
+        <a href="#">Report</a>
+        <a href="#">E-Knowledge</a>
+    </div>
+    <div id="main-display">
+        <nav id="askrindo-main-nav" class="navbar sticky-top navbar-expand-lg navbar-light bg-light" style="background-color: #DDDDDD !important;">
+            <a class="navbar-brand" href="#">
+                <img src="@Url.Content("~/Content/Image/logo.png")" />
+            </a>
+            <div class="collapse navbar-collapse" style="padding-left: 6em;">
+                <ul class="navbar-nav w-100 nav-fill">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><small>Home</small></a>
+                    </li>
+                    <li class="nav-separator">|</li>
+                    <li class="nav-item">
+                        <a class="nav-link @if (ViewContext.RouteData.DataTokens["area"].ToString() == "RCSA") { @("active") }" href="@Url.Action("Index", "Default", new { Area = "RCSA" })"><small>RCSA</small></a>
+                    </li>
+                    <li class="nav-separator">|</li>
+                    <li class="nav-item">
+                        <a class="nav-link @if (ViewContext.RouteData.DataTokens["area"].ToString() == "KRI") { @("active") }" href="@Url.Action("Index", "KRI", new { Area = "KRI" })"><small>KRI</small></a>
+                    </li>
+                    <li class="nav-separator">|</li>
+                    <li class="nav-item">
+                        <a class="nav-link @if (ViewContext.RouteData.DataTokens["area"].ToString() == "LossEvent") { @("active") }" href="@Url.Action("Index", "LossEvent", new { Area = "LossEvent" })"><small>Loss Event Data</small></a>
+                    </li>
+                    <li class="nav-separator">|</li>
+                    <li class="nav-item">
+                        <a class="nav-link @if (ViewContext.RouteData.DataTokens["area"].ToString() == "Report") { @("active") }" href="@Url.Action("Index", "Report", new { Area = "Report" })"><small>Report</small></a>
+                    </li>
+                    <li class="nav-separator">|</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><small>E-Knowledge</small></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="ml-auto">
+                <button class="btn orange-btn d-none d-lg-inline">Data Master</button>
+                <a href="#" class="notif-badge" data-badge="0" style="text-decoration: none;">
+                    <img src="@Url.Content("~/Content/Image/bell.png")" alt="User Avatar" style="max-width: 32px;margin-left: 16px;margin-right: 8px;border: 0;">
+                </a>
+                <div class="eskrindo-dropdown-user-container">
+                    <img class="rounded-circle" src="@Url.Content("~/Content/Image/default-avatar.png")" alt="User Avatar" style="max-width: 32px;margin-left: 4px;margin-right: 4px;">
+                    <strong class="user-full-name">Budiman</strong>
+                    <a href="#" class="d-none d-lg-inline" style="color: gray;"><i class="fa fa-chevron-down"></i></a>
+                    <div class="d-none d-lg-inline eskrindo-dropdown-user">
+                        <div class="eskrindo-dropdown-user-logout">
+                            <img class="rounded-circle d-none" src="/Content/Image/default-avatar.png" alt="User Avatar" style="max-width: 32px;margin-left: 4px;margin-right: 4px;visibility: hidden;">
+                            <strong class="eskrindo-dropdown-user-logout">Logout</strong>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+    <button class="navbar-toggler" onclick="openNav()" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div>
+        <div class="container-image">
+            <img src="@Url.Content("~/Content/Image/header-1.png")" style="width: 100%;height: 60px;" />
+            <center class="centered-text-image"><h4 style="color: white;">@ViewBag.currentPage</h4></center>
+        </div>
+    </div>
+
+    <div>
+
+        <div id="askrindo-title-line" @Html.Raw(ViewBag.breadCrumbProperty)>
+            <p>@ViewBag.breadCrumb</p>
+        </div>
+        @RenderBody()
+        <hr />
+        <footer class="text-center">
+            <p>&copy; @DateTime.Now.Year - Askrindo Enterprise Risk Management System</p>
+        </footer>
+    </div>
+    </div>
+
+    @{
+        UserData data = HttpContext.Current.Session["Data"] as UserData;
+        bool isRO = data == null ? false : data.IsRiskOwner;
+        string fullName = data == null ? "" : data.FullName;
+    }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap4")
+    <script src="~/Scripts/download.js"></script>
+    <script>
+        function doLogout() {
+            window.location.href = "/Account/LogOff";
+        }
+        $('body').data('userRole','@isRO');
+        /* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+        function isUserRiskOwner() {
+            return $('body').data('userRole');
+        }
+        $('.eskrindo-dropdown-user-container').find('.fa-chevron-down').on('click', function () {
+            $(this).parents('.eskrindo-dropdown-user-container').find('.eskrindo-dropdown-user-logout').toggleClass('d-none');
+        });
+        $('.eskrindo-dropdown-user-container').find('.eskrindo-dropdown-user-logout').on('click', function () {
+            doLogout();
+        });
+        $('.eskrindo-dropdown-user-container').find('.fa-chevron-down').click();
+        $('.eskrindo-dropdown-user-container .user-full-name').html('@fullName');
+        if (isUserRiskOwner().toLowerCase() === 'true') {
+            $('[data-eskrindo-input="true"]').hide();
+            $('[data-eskrindo-approval="true"]').show();
+        }
+        else {
+            $('[data-eskrindo-input="true"]').show();
+            $('[data-eskrindo-approval="true"]').hide();
+        }
+        /* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+    @RenderSection("scripts", false)
+
+</body>
+</html>
+

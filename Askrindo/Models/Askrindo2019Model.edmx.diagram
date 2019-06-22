@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="29da64799a7c493191ad831dcd1f7902" Name="Diagram1" ZoomLevel="80">
+        <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetRole" Width="1.5" PointX="2.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserClaim" Width="1.5" PointX="6.75" PointY="51.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserLogin" Width="1.5" PointX="6.75" PointY="71.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="4.5" PointY="5.625" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.CauseGroup" Width="1.5" PointX="6.75" PointY="55.625" />
+        <EntityTypeShape EntityType="Model.Cause" Width="1.5" PointX="6.75" PointY="58.75" />
+        <EntityTypeShape EntityType="Model.CauseType" Width="1.5" PointX="4.5" PointY="58.75" />
+        <EntityTypeShape EntityType="Model.EffectGroup" Width="1.5" PointX="6.75" PointY="62.25" />
+        <EntityTypeShape EntityType="Model.Effect" Width="1.5" PointX="6.75" PointY="65.375" />
+        <EntityTypeShape EntityType="Model.EffectType" Width="1.5" PointX="4.5" PointY="65.375" />
+        <EntityTypeShape EntityType="Model.RiskGroup" Width="1.5" PointX="6.75" PointY="1.75" />
+        <EntityTypeShape EntityType="Model.RiskType" Width="1.5" PointX="4.5" PointY="68.25" />
+        <EntityTypeShape EntityType="Model.Dept" Width="1.5" PointX="6.75" PointY="11.5" />
+        <EntityTypeShape EntityType="Model.BranchClass" Width="1.5" PointX="2.25" PointY="45.75" />
+        <EntityTypeShape EntityType="Model.ProbLevel" Width="1.5" PointX="0.75" PointY="27.5" />
+        <EntityTypeShape EntityType="Model.ImpactLevel" Width="1.5" PointX="0.75" PointY="22.25" />
+        <EntityTypeShape EntityType="Model.ImpactCat" Width="1.5" PointX="1.5" PointY="16.25" />
+        <EntityTypeShape EntityType="Model.ImpactDetail" Width="1.5" PointX="3" PointY="18.875" />
+        <EntityTypeShape EntityType="Model.ImpactType" Width="1.5" PointX="0.75" PointY="19" />
+        <EntityTypeShape EntityType="Model.MitigationCat" Width="1.5" PointX="3.75" PointY="34.5" />
+        <EntityTypeShape EntityType="Model.MitigationType" Width="1.5" PointX="3.75" PointY="37.75" />
+        <EntityTypeShape EntityType="Model.UserInfo" Width="1.5" PointX="6.75" PointY="4.75" />
+        <EntityTypeShape EntityType="Model.SerialNumber" Width="1.5" PointX="0.75" PointY="3.875" />
+        <EntityTypeShape EntityType="Model.Freq" Width="1.5" PointX="0.75" PointY="32.25" />
+        <EntityTypeShape EntityType="Model.RiskProb" Width="1.5" PointX="3" PointY="27.125" />
+        <EntityTypeShape EntityType="Model.RiskImpact" Width="1.5" PointX="3" PointY="51.75" />
+        <EntityTypeShape EntityType="Model.RiskNonMoneyImpact" Width="1.5" PointX="5.25" PointY="16" />
+        <EntityTypeShape EntityType="Model.RiskAttachment" Width="1.5" PointX="11.25" PointY="28.875" />
+        <EntityTypeShape EntityType="Model.RiskApproval" Width="1.5" PointX="17.25" PointY="21.375" />
+        <EntityTypeShape EntityType="Model.MitigationAttachment" Width="1.5" PointX="8.25" PointY="38.125" />
+        <EntityTypeShape EntityType="Model.SubDept" Width="1.5" PointX="6.75" PointY="28.75" />
+        <EntityTypeShape EntityType="Model.Division" Width="1.5" PointX="4.5" PointY="41.75" />
+        <EntityTypeShape EntityType="Model.SubDiv" Width="1.5" PointX="6.75" PointY="41.75" />
+        <EntityTypeShape EntityType="Model.Branch" Width="1.5" PointX="4.5" PointY="45" />
+        <EntityTypeShape EntityType="Model.SubBranch" Width="1.5" PointX="6.75" PointY="45.375" />
+        <EntityTypeShape EntityType="Model.BizUnit" Width="1.5" PointX="6.75" PointY="31.5" />
+        <EntityTypeShape EntityType="Model.ImpactRef" Width="1.5" PointX="8.75" PointY="10.875" />
+        <EntityTypeShape EntityType="Model.RiskState" Width="1.5" PointX="3" PointY="22.625" />
+        <EntityTypeShape EntityType="Model.RiskLevel" Width="1.5" PointX="10.75" PointY="10.875" />
+        <EntityTypeShape EntityType="Model.MitigationApproval" Width="1.5" PointX="14.25" PointY="21.75" />
+        <EntityTypeShape EntityType="Model.RiskMitigation" Width="1.5" PointX="6" PointY="20.125" />
+        <EntityTypeShape EntityType="Model.HelpDoc" Width="1.5" PointX="3" PointY="11.125" />
+        <EntityTypeShape EntityType="Model.HelpMenu" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="Model.RiskEvent" Width="1.5" PointX="6.75" PointY="68.125" />
+        <EntityTypeShape EntityType="Model.MitigationUnit" Width="1.5" PointX="11.25" PointY="17" />
+        <EntityTypeShape EntityType="Model.bisni" Width="1.5" PointX="6.75" PointY="35.25" />
+        <EntityTypeShape EntityType="Model.bisnis_aktifitas" Width="1.5" PointX="9" PointY="35.25" />
+        <EntityTypeShape EntityType="Model.aspnet_Profile" Width="1.5" PointX="12.75" PointY="10.875" />
+        <EntityTypeShape EntityType="Model.ActionApproval" Width="1.5" PointX="13.5" PointY="16" />
+        <EntityTypeShape EntityType="Model.ActionProgress" Width="1.5" PointX="13.5" PointY="27.875" />
+        <EntityTypeShape EntityType="Model.MitigationsAction" Width="1.5" PointX="11.25" PointY="20.75" />
+        <EntityTypeShape EntityType="Model.UserGroup" Width="1.5" PointX="14.75" PointY="0.875" />
+        <EntityTypeShape EntityType="Model.KlasifikasiKerugian" Width="1.5" PointX="14.75" PointY="3.875" />
+        <EntityTypeShape EntityType="Model.Korwil" Width="1.5" PointX="14.75" PointY="6.875" />
+        <EntityTypeShape EntityType="Model.sysdiagram" Width="1.5" PointX="14.75" PointY="9.875" />
+        <EntityTypeShape EntityType="Model.LossEvent" Width="1.5" PointX="16.75" PointY="0.875" />
+        <EntityTypeShape EntityType="Model.Risk" Width="1.5" PointX="9" PointY="17.625" />
+        <EntityTypeShape EntityType="Model.RiskCat" Width="1.5" PointX="4.5" PointY="1.875" />
+        <AssociationConnector Association="Model.FK_CauseTypes_CauseGroups" />
+        <AssociationConnector Association="Model.FK_Risks_CauseGroups" />
+        <AssociationConnector Association="Model.FK_Causes_CauseTypes" />
+        <AssociationConnector Association="Model.FK_Risks_Causes" />
+        <AssociationConnector Association="Model.FK_EffectTypes_EffectGroups" />
+        <AssociationConnector Association="Model.FK_Risks_EffectGroups" />
+        <AssociationConnector Association="Model.FK_Effects_EffectTypes" />
+        <AssociationConnector Association="Model.FK_Risks_Effects" />
+        <AssociationConnector Association="Model.FK_RiskTypes_RiskGroups" />
+        <AssociationConnector Association="Model.FK_Risks_RiskGroups" />
+        <AssociationConnector Association="Model.FK_RiskGroups_RiskCats" />
+        <AssociationConnector Association="Model.FK_UserInfos_Depts" />
+        <AssociationConnector Association="Model.FK_RiskApprovals_Depts" />
+        <AssociationConnector Association="Model.FK_SubDepts_Depts" />
+        <AssociationConnector Association="Model.FK_Divisions_Depts" />
+        <AssociationConnector Association="Model.FK_Branches_Depts" />
+        <AssociationConnector Association="Model.FK_Risks_Depts" />
+        <AssociationConnector Association="Model.FK_Branches_BranchClasses" />
+        <AssociationConnector Association="Model.FK_RiskProbs_ProbLevels" />
+        <AssociationConnector Association="Model.FK_RiskStates_ProbLevels" />
+        <AssociationConnector Association="Model.FK_RiskMitigations_ProbLevels" />
+        <AssociationConnector Association="Model.FK_MITIGATI_REFERENCE_PROBLEVE" />
+        <AssociationConnector Association="Model.FK_Risks_ProbLevels" />
+        <AssociationConnector Association="Model.FK_ImpactDetails_ImpactLevels" />
+        <AssociationConnector Association="Model.FK_RiskImpacts_ImpactLevels" />
+        <AssociationConnector Association="Model.FK_RiskNonMoneyImpacts_ImpactLevels" />
+        <AssociationConnector Association="Model.FK_RiskStates_ImpactLevels" />
+        <AssociationConnector Association="Model.FK_RiskMitigations_ImpactLevels" />
+        <AssociationConnector Association="Model.FK_MITIGATI_REFERENCE_IMPACTLE" />
+        <AssociationConnector Association="Model.FK_Risks_ImpactLevels" />
+        <AssociationConnector Association="Model.FK_ImpactTypes_ImpactCats" />
+        <AssociationConnector Association="Model.FK_MitigationTypes_MitigationCats" />
+        <AssociationConnector Association="Model.FK_RiskMitigations_MitigationCats" />
+        <AssociationConnector Association="Model.FK_RiskProbs_Freqs" />
+        <AssociationConnector Association="Model.FK_RiskNonMoneyImpacts_ImpactDetails" />
+        <AssociationConnector Association="Model.FK_RiskAttachments_Risks" />
+        <AssociationConnector Association="Model.FK_MitigationAttachments_RiskMitigations" />
+        <AssociationConnector Association="Model.FK_SubDivs_Divisions" />
+        <AssociationConnector Association="Model.FK_RiskApprovals_SubDivs" />
+        <AssociationConnector Association="Model.FK_UserInfos_SubDivs" />
+        <AssociationConnector Association="Model.FK_Risks_SubDivs" />
+        <AssociationConnector Association="Model.FK_SubBranches_Branches" />
+        <AssociationConnector Association="Model.FK_RiskApprovals_SubBranches" />
+        <AssociationConnector Association="Model.FK_UserInfos_SubBranches" />
+        <AssociationConnector Association="Model.FK_Risks_SubBranches" />
+        <AssociationConnector Association="Model.FK_BizUnits_Branches" />
+        <AssociationConnector Association="Model.FK_RiskApprovals_BizUnits" />
+        <AssociationConnector Association="Model.FK_UserInfos_BizUnits" />
+        <AssociationConnector Association="Model.FK_Risks_BizUnits" />
+        <AssociationConnector Association="Model.FK_MitigationApprovals_UserInfos" />
+        <AssociationConnector Association="Model.FK_MitigationApprovals_RiskMitigations" />
+        <AssociationConnector Association="Model.FK_HelpDocs_HelpMenus" />
+        <AssociationConnector Association="Model.FK_RiskEvent_RiskTypes" />
+        <AssociationConnector Association="Model.FK_Risks_RiskEvent" />
+        <AssociationConnector Association="Model.FK_Mitigationunit2" />
+        <AssociationConnector Association="Model.FK_Mitigationunit1" />
+        <AssociationConnector Association="Model.FK_BISNIS_A_REFERENCE_BISNIS" />
+        <AssociationConnector Association="Model.FK_Risks_bisnis" />
+        <AssociationConnector Association="Model.FK_ACTIONAP_REFERENCE_MITIGATI" />
+        <AssociationConnector Association="Model.FK_ACTIONAP_REFERENCE_USERINFO" />
+        <AssociationConnector Association="Model.FK_ACTIONPR_REFERENCE_MITIGATI" />
+        <AssociationConnector Association="Model.AspNetUserUserInfo" />
+        <EntityTypeShape EntityType="Model.RiskCauseLine" Width="1.5" PointX="4.5" PointY="54.875" />
+        <EntityTypeShape EntityType="Model.RiskEffectLine" Width="1.5" PointX="4.5" PointY="61.5" />
+        <AssociationConnector Association="Model.RiskCauseLineCauseType" />
+        <AssociationConnector Association="Model.RiskCauseLineCause1" />
+        <AssociationConnector Association="Model.CauseGroupRiskCauseLine" />
+        <AssociationConnector Association="Model.RiskEffectLineEffect" />
+        <AssociationConnector Association="Model.EffectTypeRiskEffectLine" />
+        <AssociationConnector Association="Model.RiskEffectLineEffectGroup" />
+        <AssociationConnector Association="Model.RiskCauseLineRisk" />
+        <AssociationConnector Association="Model.RiskEffectLineRisk" />
+        <AssociationConnector Association="Model.RiskRiskMitigation" />
+        <AssociationConnector Association="Model.RiskRiskApproval" />
+        <AssociationConnector Association="Model.UserInfoRiskApproval" />
+        <AssociationConnector Association="Model.UserInfoRisk" />
+        <AssociationConnector Association="Model.DivisionRisk" />
+        <AssociationConnector Association="Model.ImpactTypeRiskNonMoneyImpact" />
+        <AssociationConnector Association="Model.ImpactTypeImpactDetail" />
+        <AssociationConnector Association="Model.MitigationTypeRiskMitigation" />
+        <AssociationConnector Association="Model.UserInfoRiskMitigation" />
+        <AssociationConnector Association="Model.RiskMitigationMitigationsAction" />
+        <EntityTypeShape EntityType="Model.KRINonInvest" Width="1.5" PointX="6.75" PointY="48.75" />
+        <EntityTypeShape EntityType="Model.KRIInvest" Width="1.5" PointX="9.75" PointY="2.75" />
+        <EntityTypeShape EntityType="Model.KRINonInvestParameter" Width="1.5" PointX="9" PointY="47.75" />
+        <EntityTypeShape EntityType="Model.KRIInvestParameter" Width="1.5" PointX="12" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.KRINonInvestData" Width="1.5" PointX="9" PointY="6.125" />
+        <AssociationConnector Association="Model.UserInfoKRINonInvestData" />
+        <EntityTypeShape EntityType="Model.KRIInvestData" Width="1.5" PointX="12" PointY="6.125" />
+        <AssociationConnector Association="Model.UserInfoKRIInvestData" />
+        <AssociationConnector Association="Model.KRINonInvestKRINonInvestParameter" />
+        <AssociationConnector Association="Model.KRINonInvestKRINonInvestData" />
+        <AssociationConnector Association="Model.KRIInvestKRIInvestData" />
+        <AssociationConnector Association="Model.KRIInvestKRIInvestParameter" />
+        <AssociationConnector Association="Model.BranchRisk" />
+        <AssociationConnector Association="Model.RiskCatRisk" />
+        <AssociationConnector Association="Model.RiskTypeRisk" />
+        <AssociationConnector Association="Model.SubDeptRisk" />
+        <EntityTypeShape EntityType="Model.LossEventKantorView" Width="1.5" PointX="16.375" PointY="16.75" />
+        <EntityTypeShape EntityType="Model.LossEventPemilikView" Width="1.5" PointX="18.375" PointY="10.75" />
+        <EntityTypeShape EntityType="Model.LossEventTahunView" Width="1.5" PointX="18.375" PointY="14.75" />
+        <EntityTypeShape EntityType="Model.LossEventBulanView" Width="1.5" PointX="18.75" PointY="0.5" />
+        <EntityTypeShape EntityType="Model.Risks" Width="1.5" PointX="12" PointY="32.5" />
+        <AssociationConnector Association="Model.DivisionUserInfo" />
+        <AssociationConnector Association="Model.SubDeptUserInfo" />
+        <AssociationConnector Association="Model.BranchUserInfo" />
+        <EntityTypeShape EntityType="Model.SRNonInvest" Width="1.5" PointX="19.25" PointY="5.625" />
+        <EntityTypeShape EntityType="Model.SRNonInvestProgress" Width="1.5" PointX="21.25" PointY="5.625" />
+        <AssociationConnector Association="Model.KRINonInvestDataSRNonInvest" />
+        <AssociationConnector Association="Model.SRNonInvestSRNonInvestProgress" />
+        <EntityTypeShape EntityType="Model.SRNIProgressAction" Width="1.5" PointX="23.25" PointY="5.625" />
+        <AssociationConnector Association="Model.SRNonInvestProgressSRNIProgressAction" />
+        <EntityTypeShape EntityType="Model.KRIRisk" Width="1.5" PointX="24.625" PointY="9.125" />
+        <EntityTypeShape EntityType="Model.KRIRiskCauseLine" Width="1.5" PointX="22.75" PointY="9.125" />
+        <EntityTypeShape EntityType="Model.KRIRiskEffectLine" Width="1.5" PointX="21.125" PointY="9.125" />
+        <EntityTypeShape EntityType="Model.KRIRiskAttachment" Width="1.5" PointX="26.5" PointY="9" />
+        <EntityTypeShape EntityType="Model.KRIRiskApproval" Width="1.5" PointX="28.625" PointY="9" />
+        <EntityTypeShape EntityType="Model.KRIRiskMitigation" Width="1.5" PointX="31.25" PointY="11.25" />
+        <EntityTypeShape EntityType="Model.KRIMitigationAttachment" Width="1.5" PointX="33.375" PointY="11.25" />
+        <EntityTypeShape EntityType="Model.KRIMitigationApproval" Width="1.5" PointX="35.5" PointY="11.25" />
+        <EntityTypeShape EntityType="Model.KRIMitigationAction" Width="1.5" PointX="37.75" PointY="11.25" />
+        <EntityTypeShape EntityType="Model.KRIActionProgress" Width="1.5" PointX="42" PointY="11.25" />
+        <AssociationConnector Association="Model.CauseKRIRiskCauseLine" />
+        <AssociationConnector Association="Model.CauseGroupKRIRiskCauseLine" />
+        <AssociationConnector Association="Model.CauseTypeKRIRiskCauseLine" />
+        <AssociationConnector Association="Model.EffectKRIRiskEffectLine" />
+        <AssociationConnector Association="Model.EffectGroupKRIRiskEffectLine" />
+        <AssociationConnector Association="Model.EffectTypeKRIRiskEffectLine" />
+        <AssociationConnector Association="Model.KRIRiskKRIRiskCauseLine" />
+        <AssociationConnector Association="Model.KRIRiskKRIRiskEffectLine" />
+        <AssociationConnector Association="Model.KRIRiskKRIRiskApproval" />
+        <AssociationConnector Association="Model.UserInfoKRIRiskApproval" />
+        <AssociationConnector Association="Model.KRIRiskKRIRiskAttachment" />
+        <AssociationConnector Association="Model.KRIRiskMitigationKRIMitigationAttachment" />
+        <EntityTypeShape EntityType="Model.KRIActionApproval" Width="1.5" PointX="39.875" PointY="11.25" />
+        <AssociationConnector Association="Model.UserInfoKRIRisk" />
+        <EntityTypeShape EntityType="Model.KRIRiskProb" Width="1.5" PointX="31.25" PointY="6" />
+        <AssociationConnector Association="Model.FreqKRIRiskProb" />
+        <AssociationConnector Association="Model.ProbLevelKRIRiskProb" />
+        <AssociationConnector Association="Model.KRIRiskKRIRiskProb" />
+        <EntityTypeShape EntityType="Model.KRIRiskImpact" Width="1.5" PointX="33.375" PointY="6" />
+        <EntityTypeShape EntityType="Model.KRIRiskNonMoneyImpact" Width="1.5" PointX="35.5" PointY="6" />
+        <AssociationConnector Association="Model.ImpactLevelKRIRiskImpact" />
+        <AssociationConnector Association="Model.KRIRiskKRIRiskImpact" />
+        <AssociationConnector Association="Model.KRIRiskKRIRiskNonMoneyImpact" />
+        <AssociationConnector Association="Model.ImpactDetailKRIRiskNonMoneyImpact" />
+        <AssociationConnector Association="Model.ImpactLevelKRIRiskNonMoneyImpact" />
+        <AssociationConnector Association="Model.ImpactTypeKRIRiskNonMoneyImpact" />
+        <AssociationConnector Association="Model.KRIRiskKRIRiskMitigation" />
+        <AssociationConnector Association="Model.KRIRiskMitigationKRIMitigationAction" />
+        <AssociationConnector Association="Model.KRIRiskMitigationKRIMitigationApproval" />
+        <AssociationConnector Association="Model.UserInfoKRIMitigationApproval" />
+        <AssociationConnector Association="Model.KRIMitigationActionKRIActionApproval" />
+        <AssociationConnector Association="Model.KRIMitigationActionKRIActionProgress" />
+        <AssociationConnector Association="Model.UserInfoKRIActionApproval" />
+        <EntityTypeShape EntityType="Model.SRInvest" Width="1.5" PointX="21" PointY="1.25" />
+        <EntityTypeShape EntityType="Model.SRInvestProgress" Width="1.5" PointX="23.25" PointY="1.25" />
+        <EntityTypeShape EntityType="Model.SRIProgressAction" Width="1.5" PointX="25.625" PointY="1.25" />
+        <AssociationConnector Association="Model.SRInvestSRInvestProgress" />
+        <AssociationConnector Association="Model.SRInvestProgressSRIProgressAction" />
+        <AssociationConnector Association="Model.KRIInvestDataSRInvest" />
+        <EntityTypeShape EntityType="Model.LossEventKantorView1" Width="1.5" PointX="15.375" PointY="12.75" />
+        <EntityTypeShape EntityType="Model.LossEventPemilikView1" Width="1.5" PointX="19.375" PointY="18.75" />
+        <EntityTypeShape EntityType="Model.LossEventsBulanView" Width="1.5" PointX="20.375" PointY="13.75" />
+        <EntityTypeShape EntityType="Model.LossEventTahunView1" Width="1.5" PointX="21.375" PointY="17.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

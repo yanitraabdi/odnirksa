@@ -1,0 +1,148 @@
+﻿@model PagedList.IPagedList<Askrindo.Models.RiskMitigation>
+@using PagedList.Mvc;
+@{
+    ViewBag.breadCrumb = "Data Risiko / Mitigasi";
+    Layout = "~/Areas/RCSA/Views/Shared/RCSALayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-9 text-right">
+        Status:
+        <span onclick="filterStatus('')" class="askrindo-status-filter
+                          @if (string.IsNullOrEmpty(Request.Params["statusFilter"])) {
+                              @("askrindo-link-active")
+                          }
+                          ">Belum di-approve</span> |
+        <span onclick="filterStatus('process')" class="askrindo-status-filter
+                          @if (Request.Params["statusFilter"] == "process") {
+                             @( "askrindo-link-active")
+                          }
+                          ">Dalam Proses Approval</span> |
+        <span onclick="filterStatus('approved')" class="askrindo-status-filter
+                          @if (Request.Params["statusFilter"] == "approved") {
+                              @("askrindo-link-active")
+                          }
+                          ">Approved</span>
+    </div>
+</div>
+
+<div class="askrindo-content-header" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col">
+            <select id="page-size" style="vertical-align: middle;">
+                <option @(ViewBag.CurrentPageSize == 10 ? "selected" : "") value="10">10</option>
+                <option @(ViewBag.CurrentPageSize == 20 ? "selected" : "") value="20">20</option>
+                <option @(ViewBag.CurrentPageSize == 50 ? "selected" : "") value="50">50</option>
+                <option @(ViewBag.CurrentPageSize == 100 ? "selected" : "") value="100">100</option>
+            </select>
+        </div>
+        <div class="col text-right">
+            @using (Html.BeginForm("Index", "Mitigation", FormMethod.Get))
+            {
+                <span>Search</span>
+                <input name="searchString" value="@Request.Params["searchString"]" type="text" class="form-control askrindo-form-control" style="width: auto;display: inline-block;margin-bottom: 0;">
+                <input type="submit" class="btn askrindo-btn askrindo-btn-color" value="Cari" style="padding-top: 6px;padding-bottom: 6px;vertical-align: top;">
+            }
+        </div>
+    </div>
+</div>
+<div class="askrindo-content-box">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Kode Mitigasi</th>
+                <th>Peristiwa Risiko</th>
+                <th>Tanggal</th>
+                <th>Kode Risiko</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MitigationCode</td>
+                    <td>@item.Risk.RiskName</td>
+                    <td>
+                        @item.MitigationDate.ToString("dddd, dd MMMM yyyy")
+                    </td>
+                    <td>@item.Risk.RiskCode</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn askrindo-btn-color askrindo-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Tindakan
+                            </button>
+                            <div class="dropdown-menu askrindo-btn-color" aria-labelledby="dropdownMenuButton">
+                                @if (Request.Params["statusFilter"] != "approved")
+                                {
+                                    <a data-btn-type="approve" class="dropdown-item askrindo-btn-color askrindo-btn" data-eskrindo-approval="true" href="@Url.Action("Approve", new { id = item.MitigationId })">Approve</a>
+                                    <hr style="border-color: white;" data-eskrindo-approval="true" />
+                                }
+                                <a data-btn-type="Detail" class="dropdown-item askrindo-btn-color askrindo-btn" href="@Url.Action("Detail", new { id = item.MitigationId })">Detail</a>
+                                <a  data-btn-type="Edit" class="dropdown-item askrindo-btn-color askrindo-btn" data-eskrindo-input="true" href="@Url.Action("Edit", new { id = item.MitigationId })">Edit</a>
+                                <hr style="border-color: white;" />
+                                <a class="dropdown-item askrindo-btn-color askrindo-btn" data-eskrindo-input="true" href="#">Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-right">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    </div>
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, pageSize = ViewBag.CurrentPageSize }), new PagedListRenderOptions {
+            UlElementClasses = new string[] { "askrindo-pagination" },
+            ContainerDivClasses = new string[] { "text-right" }
+        })
+</div>
+
+@section scripts{
+    <script>
+        $('#page-size').change(function (e) {
+            let selectedPageSize = $(this).val();
+            var params = new URLSearchParams(location.search);
+            params.set('pageSize', selectedPageSize);
+            window.location.search = params.toString();
+        });
+
+        function filterRiskGroup(currentFilter) {
+            var params = new URLSearchParams(location.search);
+
+            if (currentFilter == '') {
+                params.delete('currentFilter');
+                window.location.search = params.toString();
+            }
+            else {
+                params.set('currentFilter', currentFilter);
+                window.location.search = params.toString();
+            }
+
+        }
+        function roleSegregation() {
+            if (!isUserRiskOwner()) {
+                $('[data-btn-type="approve"]').hide();
+                $('[data-btn-type="delete"]').hide();
+            }
+        }
+        function filterStatus(statusFilter) {
+            var params = new URLSearchParams(location.search);
+
+            if (statusFilter == '') {
+                params.delete('statusFilter');
+                window.location.search = params.toString();
+            }
+            else {
+                params.set('statusFilter', statusFilter);
+                window.location.search = params.toString();
+            }
+
+        }
+    </script>
+}

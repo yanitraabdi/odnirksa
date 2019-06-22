@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/_AskrindoLayout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <div class="col-md-3">
+            <div class="askrindo-content-box">
+                <ul id="askrindo-left-nav" class="nav flex-column">
+                    <li class="nav-item">
+                        <p>Menu Data Risiko</p>
+                    </li>
+                    <li class="nav-item position-relative @if (ViewBag.title == "NonInvest") { @("active") } ">
+                        @if (ViewBag.title == "NonInvest")
+                        {<i class="fa fa-caret-right askrindo-menu-pointer"></i>}<a class="nav-link d-inline-block @if (ViewBag.title == "Index") { @("active-nav") }" href="@Url.Action("Index", "KRI")">KRI Non Investasi</a>
+                    </li>
+                    <li class="nav-item position-relative @if (ViewBag.title == "Invest") { @("active") } ">
+                        @if (ViewBag.title == "Invest")
+                        {<i class="fa fa-caret-right askrindo-menu-pointer"></i>}<a class="nav-link d-inline-block @if (ViewBag.title == "Invest") { @("active-nav") }" href="@Url.Action("Invest", "KRI")">KRI Investasi</a>
+                    </li>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link d-inline-block">Daftar Strategic Response</a>
+                    </li>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link d-inline-block">Daftar Risiko KRI</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/airdatepickerjs")
+    @Styles.Render("~/Content/airdatepickercss")
+    <script src="~/Scripts/Numbox/jquery.numbox-1.3.0.min.js"></script>
+    @RenderSection("scripts", false)
+}

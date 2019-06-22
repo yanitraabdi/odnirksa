@@ -1,0 +1,126 @@
+﻿@model Askrindo.Areas.KRI.Models.StrategicResponseViewModel
+@{
+    ViewBag.Title = "NonInvestSRProgressList";
+    Layout = "~/Areas/KRI/Views/Shared/KRILayout.cshtml";
+}
+
+@*<div class="askrindo-content-box">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group row">
+                    <label class="col-3 col-form-label">Kode KRI</label>
+                    <label class="col-9 col-form-label">: @Model.KRINonInvestData.Code</label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3 col-form-label">Indikator</label>
+                    <label class="col-9 col-form-label">: @Model.KRINonInvestData.KRINonInvest.Name</label>
+                </div>
+            </div>
+
+        </div>
+        <hr>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">PIC</label>
+            <div class="col-sm-10">
+                <input class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Resource Requirement</label>
+            <div class="col-sm-10">
+                <textarea class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Estimasi Biaya Mitigasi (Rp.)</label>
+            <div class="col-sm-10">
+                <input class="form-control">
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Masuk ke RKAP tahun depan</label>
+            <div class="col-sm-10">
+                <label>
+                    <input type="checkbox" value="" style="margin-top:30px;"> Ya
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Tanggal Target Penyelesaian	</label>
+            <div class="col-sm-10">
+                <input name="risk_date" type="datetime" value="Sunday, 26 May 2019" data-date-format='DD, dd MM yyyy' class="form-control askrindo-form-control datepicker-here" data-language='en'>
+            </div>
+        </div>
+
+        <hr>
+        <div id="form-warning" class="alert alert-warning d-none" role="alert">
+            Data belum terisi dengan benar.
+        </div>
+        <div class="text-right">
+            <button type="submit" class="btn btn-outline-danger askrindo-btn">Batal</button>
+            <button type="submit" class="btn btn-secondary askrindo-btn askrindo-btn-color">Submit</button>
+        </div>
+
+
+
+    </div>*@
+<link rel="stylesheet" href="~/Content/bootstrap-tagsinput.css" />
+<div class="askrindo-content-box">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(d => d.SRNonInvest.Id);
+        @Html.HiddenFor(d => d.SRNonInvestProgress.SRId, new { Value = Model.SRNonInvest.Id + "" });
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">PIC</label>
+            <div class="col-sm-10">
+                <input name="@Html.NameFor(d => d.SRNonInvestProgress.PIC)" class="form-control askrindo-form-control taginput" data-role="tagsinput" required />
+                <br />
+                *pisahkan PIC dengan karakter ,
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Sumber Daya</label>
+            <div class="col-sm-10">
+                <input name="@Html.NameFor(d => d.SRNonInvestProgress.Resources)" class="form-control askrindo-form-control taginput" data-role="tagsinput" />
+                <br />
+                *pisahkan Sumber Daya dengan karakter ,
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Terget Penyelesaian</label>
+            <div class="col-sm-10">
+                <input name="@Html.NameFor(d => d.SRNonInvestProgress.FTargetDate)" type="datetime" value="@DateTime.Now.ToString("dddd, dd MMMM yyyy")" data-date-format='DD, dd MM yyyy' class="form-control askrindo-form-control datepicker-here" data-language='en'>
+
+                <label>@Html.CheckBoxFor(d => d.SRNonInvestProgress.RKAPF) Masuk ke RKAP tahun depan</label>
+            </div>
+
+        </div>
+
+        <hr>
+        <div id="form-warning" class="alert alert-warning d-none" role="alert">
+            Data belum terisi dengan benar.
+        </div>
+        <div class="text-right">
+            <button type="submit" class="btn btn-outline-danger askrindo-btn">Batal</button>
+            <button type="submit" class="btn btn-secondary askrindo-btn askrindo-btn-color">Submit</button>
+        </div>
+    }
+
+</div>
+
+@section scripts{
+    <script src="~/Scripts/bootstrap-tagsinput.js"></script>
+    <script>
+        //$("#taginput").tagsinput('items');
+        $(".taginput").val();
+    </script>
+}

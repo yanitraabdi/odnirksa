@@ -1,0 +1,24 @@
+﻿@model Askrindo.Models.bisnis_aktifitas
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/RefData/Views/Shared/_Aktivitas.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <table class="edit">
+        <tr>
+            <td>ID</td>
+            <td>@Html.TextBoxFor(m => m.aktifitasid)</td>
+        </tr>
+        <tr>
+            <td>Aktivitas Bisnis</td>
+            <td>@Html.TextAreaFor(m => m.aktifitas)</td>
+        </tr>
+    </table>
+    <div style="padding-top: 12px">
+        <input type="Submit" value="Hapus"/>
+        <input type="Button" value="Batal" onclick="location.href='@Url.Action("AktivitasIndex", "RiskBiz", new { id = Model.bisnisid })';return false;"/>
+    </div>
+}

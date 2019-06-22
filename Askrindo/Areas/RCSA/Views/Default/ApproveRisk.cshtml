@@ -1,0 +1,94 @@
+﻿@using Askrindo.Models
+@using Askrindo.Helpers
+
+@model Askrindo.Models.RiskApproval
+
+@{
+    ViewBag.breadCrumb = "Data Risiko";
+    Layout = "~/Areas/RCSA/Views/Shared/RCSALayout.cshtml";
+
+
+    RiskApproval prevApr = null;
+    if (Model.LastApproval)
+    {
+
+        AskrindoEntities db = new AskrindoEntities();
+        prevApr = db.RiskApprovals.Where(p => p.RiskId == Model.RiskId && p.ApprovalDate != null && p.ApprovalId != Model.ApprovalId).FirstOrDefault();
+    }
+}
+<div class="askrindo-content-box">
+    <table class="display">
+        <tr>
+            <td style="width: 150px">Kode Risiko</td>
+            <td>:</td>
+            <td>
+                @Html.ActionLink(Model.Risk.RiskCode, "Detail",
+            new { id = Model.RiskId, area = "RCSA", controller = "Default" },
+            new { target = "_blank" })
+            </td>
+        </tr>
+        <tr>
+            <td>Peristiwa Risiko</td>
+            <td>:</td>
+            <td>@Html.DisplayFor(m => m.Risk.RiskName)</td>
+        </tr>
+        <tr>
+            <td>Tanggal</td>
+            <td>:</td>
+            <td>@Html.DisplayFor(m => m.Risk.RiskDate)</td>
+        </tr>
+        <tr>
+            <td>Tingkat Probabilitas</td>
+            <td>:</td>
+            <td>@Html.DisplayFor(m => m.Risk.ProbLevelId) - @Html.DisplayFor(m => m.Risk.ProbLevel.ProbLevelName)</td>
+        </tr>
+        <tr>
+            <td>Tingkat Dampak</td>
+            <td>:</td>
+            <td>@Html.DisplayFor(m => m.Risk.ImpactLevelId) - @Html.DisplayFor(m => m.Risk.ImpactLevel.ImpactLevelName)</td>
+        </tr>
+        <tr>
+            <td>Tingkat Risiko</td>
+            <td>:</td>
+            <td>@Html.DisplayFor(m => m.Risk.RiskLevel)</td>
+        </tr>
+    </table>
+</div>
+
+@if (prevApr != null)
+{
+    <div class="askrindo-content-box">
+        <div style="padding-top: 12px">
+            <table class="display">
+                <tr>
+                    <td colspan="3"><strong>Approval Sebelumnya</strong></td>
+                </tr>
+                <tr>
+                    <td>Oleh</td>
+                    <td>:</td>
+                    <td>@prevApr.UserInfo.FullName</td>
+                </tr>
+                <tr>
+                    <td>Jabatan</td>
+                    <td>:</td>
+                    <td>@prevApr.JobTitle</td>
+                </tr>
+                <tr>
+                    <td>Tanggal</td>
+                    <td>:</td>
+                    <td>@string.Format("{0:d}", prevApr.ApprovalDate)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}
+
+<div class="askrindo-content-box">
+    @using (Html.BeginForm("ApproveRisk", "Default", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" value="@Model.ApprovalId" name="id" />
+        <input type="submit" value="Approve" class="btn askrindo-btn askrindo-btn-color" />
+        <a href="@Url.Action("Index", "Default")" class="btn askrindo-btn btn-outline-secondary">Kembali</a>
+    }
+</div>

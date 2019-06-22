@@ -1,0 +1,52 @@
+﻿@model Askrindo.Areas.RefData.Models.OrgStruct.BagianCabangViewModel
+           
+@{
+    ViewBag.Title = "BagianCabangEdit";
+    Layout = "~/Areas/RefData/Views/Shared/_OrgStruct.cshtml";
+}
+
+<h3>Bagian Cabang Edit</h3>
+@*@Html.Partial("_Info_Dept", Model.Dept)*@
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.BagianCabang.SubBranchId)
+    <table class="edit">
+        <tr>
+            <td>ID</td>
+            <td>
+                @Html.DisplayFor(model => model.BagianCabang.SubBranchId)
+                @*@Html.ValidationMessageFor(model => model.Param.DibawahDirektorat)*@
+            </td>
+        </tr>
+        <tr>
+            <td>Cabang</td>
+            <td>
+                @Html.DropDownListFor(model => model.BagianCabang.BranchId, Model.Param.CabangList, "")
+                @*@Html.ValidationMessageFor(model => model.Param.SubDeptName)*@
+            </td>
+        </tr>
+        <tr>
+            <td>Bagian</td>
+            <td>
+                @Html.EditorFor(model => model.BagianCabang.SubBranchName)
+                @*@Html.ValidationMessageFor(model => model.Param.SubDeptName)*@
+            </td>
+        </tr>
+        <tr>
+            <td>Supporting Unit?</td>
+            <td>
+                @Html.CheckBoxFor(model => model.BagianCabang.IsSupporting)
+                @*@Html.ValidationMessageFor(m => m.Param.IsApproved)*@
+            </td>
+        </tr>
+    </table>
+    
+    <div style="padding-top: 12px">
+        <input type="submit" value="Simpan" /> |
+        @Html.ActionLink("Batal", "BagianCabang")
+    </div>
+}

@@ -1,0 +1,297 @@
+﻿@model Askrindo.Areas.Report.Models.LossEvent.LossEventViewModel
+           
+@using Askrindo.Helpers
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Report/Views/Shared/_LossEvent.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#params").accordion({
+            collapsible: true,
+            active: -1
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ddlLokasi').change(function () {
+            var selectedValue = $(this).val();
+            $.getJSON('@VirtualPathUtility.ToAbsolute("~/RiskChart/LoadUnitKerja")', { Id: selectedValue }, function (callbackData) {
+                var select = $("#ddlUnitKerja");
+                select.empty();
+                select.append($("<option/>", {
+                    value: "",
+                    text: ""
+                }));
+                $.each(callbackData, function (index, itemData) {
+                    select.append($("<option/>", {
+                        value: itemData.Value,
+                        text: itemData.Text
+                    }));
+                });
+            });
+        });
+    });
+</script>
+
+<div id="params" style="padding-bottom: 12px">
+    <h3>
+        <a href="#">Parameter</a>
+    </h3>
+    <div>
+        @using (Html.BeginForm()) {
+            <table class="edit">
+                <tr style="background-color: #ddd">
+                    <td colspan="2"><b>FILTER</b></td>
+                </tr>
+                <tr>
+                    <td>Lokasi</td>
+                    <td>@Html.DropDownListFor(m => m.Param.PosId, Model.Param.PosList, "",
+                        new { id = "ddlLokasi", style = "width: 200px;" })</td>
+                </tr>
+                <tr>
+                    <td>Unit Kerja</td>
+                    <td>@Html.DropDownListFor(m => m.Param.BranchId, Model.Param.Unit, "",
+                        new { id = "ddlUnitKerja", style = "width: 200px;" })</td>
+                </tr>
+                <tr>
+                    <td>Klasifikasi Kerugian</td>
+                    <td>@Html.DropDownListFor(m => m.Param.KlasId, Model.Param.klasList, "",
+                        new { style = "width: 200px;" })</td>
+                </tr>
+                <tr>
+                    <td>Tanggal</td>
+                    <td>@Html.EditorFor(m => m.Param.ReportDate) s/d @Html.EditorFor(m => m.Param.ReportDate2)</td>
+                </tr>
+                <tr>
+                    <td>Approved?</td>
+                    <td>
+                        @Html.CheckBoxFor(m => m.Param.IsApproved)
+                        @Html.ValidationMessageFor(m => m.Param.IsApproved)
+                    </td>
+                </tr>
+                <tr style="background-color: #ddd">
+                    <td colspan="2"><b>TAMPILAN</b></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowLossCode) Kode Loss Event
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowLossDate) Tanggal Input
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowOrg) Pemilik Kerugian
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowLossEvent) Peristiwa Kerugian
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowLossCat) Klasifikasi Kerugian
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowLossCause) Sebab Kerugian
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowLossEffectFinancial) Dampak Risiko Keuangan
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowLossEffectNonFinancial) Dampak Risiko Non Keuangan
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowPihakTerlibat) Pihak yang Terlibat
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowLossAction) Tindakan Koreksi
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowAssets) Nilai Asset
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowLocation) Lokasi
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowKeterangan) Keterangan
+                    </td>
+                </tr>
+            </table>
+        
+            <div style="padding-top: 12px">
+                <input type="submit" value="Refresh" />
+            </div>
+        }
+    </div>
+</div>
+
+
+<table class="list">
+    <tr >
+        @if (Model.Param.ShowLossCode)
+        { 
+        <th>Kode Loss Event</th>
+        }
+        @if (Model.Param.ShowLossEvent)
+        { 
+        <th>Peristiwa Kerugian</th>
+        }
+        @if (Model.Param.ShowLossDate)
+        { 
+        <th>Tanggal</th>
+        }
+        @if (Model.Param.ShowOrg)
+        { 
+            <th>Pemilik Kerugian</th>
+        }
+        @if (Model.Param.ShowLossCat)
+        { 
+            <th>Klasifikasi Kerugian</th>
+        }
+        @if (Model.Param.ShowLossCause)
+        { 
+            <th>Sebab Kerugian</th>
+        }
+        @if (Model.Param.ShowLossEffectFinancial)
+        { 
+            <th>Dampak Risiko Keuangan</th>
+        }
+        @if (Model.Param.ShowLossEffectNonFinancial)
+        { 
+            <th>Dampak Risiko Non Keuangan</th>
+        }
+        @if (Model.Param.ShowPihakTerlibat)
+        { 
+            <th>Pihak Terlibat</th>
+        }
+        @if (Model.Param.ShowLossAction)
+        { 
+            <th>Tindakan Korektif</th>
+        }
+        @if (Model.Param.ShowAssets)
+        { 
+            <th>Nilai Asset</th>
+        }
+        @if (Model.Param.ShowLocation)
+        { 
+            <th>Lokasi</th>
+        }
+        @if (Model.Param.ShowKeterangan)
+        { 
+            <th>Keterangan</th>
+        }
+    </tr>
+@foreach (var item in Model.LossList)
+{
+    <tr style="background-color:White">
+        @if (Model.Param.ShowLossCode)
+        { 
+        <td>@Html.DisplayFor(m => item.lossEvent.LossEventCode)</td>
+        }
+        @if (Model.Param.ShowLossEvent)
+        { 
+        <td>@Html.DisplayFor(m => item.lossEvent.LossEventName)</td>
+        }
+        @if (Model.Param.ShowLossDate)
+        { 
+        <td>@Html.DisplayFor(m => item.lossEvent.LossDate)</td>
+        }
+        @if (Model.Param.ShowOrg)
+        { 
+            <td>@Html.DisplayFor(m => item.pemilik)</td>
+        }
+        @if (Model.Param.ShowLossCat)
+        { 
+            <td>@Html.DisplayFor(m => item.klas.Klasifikasi)</td>
+        }
+        @if (Model.Param.ShowLossCause)
+        { 
+            <td>@Html.DisplayFor(m => item.lossEvent.LossCause)</td>
+        }
+        @if (Model.Param.ShowLossEffectFinancial)
+        { 
+            <td>@Html.DisplayFor(m => item.lossEvent.ImpactFinancial)</td>
+        }
+        @if (Model.Param.ShowLossEffectNonFinancial)
+        { 
+            <td>@Html.DisplayFor(m => item.lossEvent.ImpactNonFinancial)</td>
+        }
+        @if (Model.Param.ShowPihakTerlibat)
+        { 
+            <td>@Html.DisplayFor(m => item.lossEvent.PihakTerlibat)</td>
+        }
+        @if (Model.Param.ShowLossAction)
+        { 
+            <td>@Html.DisplayFor(m => item.lossEvent.Action)</td>
+        }
+        @if (Model.Param.ShowAssets)
+        { 
+            <td>@Html.DisplayFor(m => item.lossEvent.Assets)</td>
+        }
+        @if (Model.Param.ShowLocation)
+        { 
+            <td>@Html.DisplayFor(m => item.lossEvent.Location)</td>
+        }
+        @if (Model.Param.ShowKeterangan)
+        { 
+            <td>@Html.DisplayFor(m => item.lossEvent.Keterangan)</td>
+        }
+    </tr>
+}
+</table>
+
+<div style="padding-top: 12px">
+    @Html.ActionLink("Ekspor ke Excel", "ExportToExcel",
+        new
+        {
+            posId = Model.Param.PosId,
+            branchId = Model.Param.BranchId,
+            riskLevelId = Model.Param.KlasId,
+            reportDate = Model.Param.ReportDate,
+            reportDate2 = Model.Param.ReportDate2,
+            isApproved = Model.Param.IsApproved,
+            showAssets = Model.Param.ShowAssets,
+            showKeterangan = Model.Param.ShowKeterangan,
+            showOrg = Model.Param.ShowOrg,
+            showLocation = Model.Param.ShowLocation,
+            showLossAction = Model.Param.ShowLossAction,
+            showLossCat = Model.Param.ShowLossCat,
+            showLossCause = Model.Param.ShowLossCause,
+            showLossCode = Model.Param.ShowLossCode,
+            showLossDate = Model.Param.ShowLossDate,
+            showLossEffectFinancial = Model.Param.ShowLossEffectFinancial,
+            showLossEffectNonFinancial = Model.Param.ShowLossEffectNonFinancial,
+            showLossEvent = Model.Param.ShowLossEvent,
+            showPihakTerlibat = Model.Param.ShowPihakTerlibat
+        }, null)
+</div>
+

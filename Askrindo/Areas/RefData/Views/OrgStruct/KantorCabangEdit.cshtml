@@ -1,0 +1,73 @@
+﻿@model Askrindo.Areas.RefData.Models.OrgStruct.KantorCabangViewModel
+           
+@{
+    ViewBag.Title = "KantorCabangEdit";
+    Layout = "~/Areas/RefData/Views/Shared/_OrgStruct.cshtml";
+}
+
+<h3>Edit Kantor Cabang</h3>
+@*@Html.Partial("_Info_Dept", Model.Dept)*@
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.KantorCabang.BranchId)
+    <table class="edit">
+        <tr>
+            <td>ID</td>
+            <td>
+                @Html.DisplayFor(model => model.KantorCabang.BranchId)
+                @*@Html.ValidationMessageFor(model => model.Param.DibawahDirektorat)*@
+            </td>
+        </tr>
+        <tr>
+            <td>Direktorat</td>
+            <td>
+                @Html.DropDownListFor(model => model.KantorCabang.DeptId, Model.Param.DirektoratList, "")
+                @*@Html.ValidationMessageFor(model => model.Param.DeptId)*@
+            </td>
+        </tr>
+        <tr>
+            <td>Cabang</td>
+            <td>
+                @Html.EditorFor(model => model.KantorCabang.BranchName)
+                @*@Html.ValidationMessageFor(model => model.Param.SubDeptName)*@
+            </td>
+        </tr>
+        <tr>
+            <td>Kelas</td>
+            <td>
+                @Html.DropDownListFor(model => model.KantorCabang.ClassId, Model.Param.KelasList, "")
+                @*@Html.ValidationMessageFor(model => model.Param.DeptId)*@
+            </td>
+        </tr>
+        <tr>
+            <td>Kode Kantor</td>
+            <td>
+                @Html.EditorFor(model => model.KantorCabang.BranchCode)
+                @*@Html.ValidationMessageFor(model => model.Param.SubDeptName)*@
+            </td>
+        </tr>
+        <tr>
+            <td>Korwil</td>
+            <td>
+                @Html.DropDownListFor(model => model.korwil.KorwilId, Model.Param.KorwilList, "")
+                @*Html.ValidationMessageFor(model => model.BranchCode)*@
+            </td>
+        </tr>
+        <tr>
+            <td>Supporting Unit?</td>
+            <td>
+                @Html.CheckBoxFor(model => model.KantorCabang.IsSupporting)
+                @*@Html.ValidationMessageFor(m => m.Param.IsApproved)*@
+            </td>
+        </tr>
+    </table>
+    
+    <div style="padding-top: 12px">
+        <input type="submit" value="Simpan" /> |
+        @Html.ActionLink("Batal", "KantorCabang")
+    </div>
+}

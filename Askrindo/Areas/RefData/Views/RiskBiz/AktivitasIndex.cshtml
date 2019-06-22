@@ -1,0 +1,31 @@
+﻿@model Askrindo.Areas.RefData.Models.Aktivitas.AktivitasModel
+
+@{
+    ViewBag.Title = "Aktivitas";
+    Layout = "~/Areas/RefData/Views/Shared/_Aktivitas.cshtml";
+}
+
+@Html.ActionLink("Kembali", "edit", new { id = Model.bisnisid })
+<br />
+<br />
+<table class="list">
+    <tr>
+        <th>ID</th>
+        <th>Bisnis</th>
+        <th colspan=2>Proses</th>
+    </tr>
+    @foreach (var item in Model.listAktivitas)
+    {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.aktifitasid)</td>
+        <td>@Html.DisplayFor(modelItem => item.aktifitas)</td>
+        <td>@Html.ActionLink("Edit", "AktivitasEdit", new { id = item.aktifitasid })</td>
+        <td>@Html.ActionLink("Delete", "AktivitasDelete", new { id = item.aktifitasid })</td>
+    </tr>
+    }
+</table>
+
+
+<div style="padding-top: 12px">
+    <input type="Button" value="Tambah" onclick="location.href='@Url.Action("AktivitasInsert", "RiskBiz", new { id = Model.bisnisid })';return false;"/>
+</div>

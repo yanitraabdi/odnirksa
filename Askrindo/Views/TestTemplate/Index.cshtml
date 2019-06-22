@@ -1,0 +1,167 @@
+﻿@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Askrindo Enterprise Risk Management System</title>
+    @Styles.Render("~/Content/askrindo/css")
+    @Styles.Render("~/Content/fontawesome")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Home</a>
+        <a href="#">Dashboard</a>
+        <a href="#">RCSA</a>
+        <a href="#">Risk Limit / KRI</a>
+        <a href="#">Fraud Risk Assessment</a>
+        <a href="#">Lost Event</a>
+        <a href="#">Business Process</a>
+        <a href="#">E-Knowledge</a>
+    </div>
+    <div id="main-display">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" style="background-color: #DDDDDD !important;">
+            <a class="navbar-brand" href="#">
+                <img src="@Url.Content("~/Content/Image/logo.png")" />
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><small>Home</small></a>
+                    </li>
+                    <li class="nav-separator">|</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><small>Dashboard</small></a>
+                    </li>
+                    <li class="nav-separator">|</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><small>RCSA</small></a>
+                    </li>
+                    <li class="nav-separator">|</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><small>Risk Limit / KRI</small></a>
+                    </li>
+                    <li class="nav-separator">|</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><small>Fraud Risk Assessment</small></a>
+                    </li>
+                    <li class="nav-separator">|</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><small>Lost Event</small></a>
+                    </li>
+                    <li class="nav-separator">|</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><small>Business Process</small></a>
+                    </li>
+                    <li class="nav-separator">|</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><small>E-Knowledge</small></a>
+                    </li>
+                </ul>
+            </div>
+
+            <span class="ml-auto">
+                <button class="btn orange-btn d-none d-lg-inline">Data Master</button>
+                <a href="#" class="notif-badge" data-badge="27" style="text-decoration: none;">
+                    <img src="@Url.Content("~/Content/Image/bell.png")" alt="User Avatar" style="max-width: 32px;margin-left: 16px;margin-right: 8px;border: 0;">
+                </a>
+                <span class="d-none d-lg-inline">
+                    <img class="rounded-circle" src="@Url.Content("~/Content/Image/default-avatar.png")" alt="User Avatar" style="max-width: 32px;margin-left: 4px;margin-right: 4px;">
+                    <strong>Budiman</strong>
+                </span>
+                <a href="#" class="d-none d-lg-inline" style="color: gray;"><i class="fa fa-chevron-down"></i></a>
+            </span>
+            <button class="navbar-toggler" onclick="openNav()" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+
+        <div>
+            <div class="container-image">
+                <img src="@Url.Content("~/Content/Image/header-1.png")" style="width: 100%;min-height: 100px;" />
+                <center class="centered-text-image"><h4 style="color: white;">Dashboard Direksi</h4></center>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <div class="row" style="margin-left: 0;margin-right: 0;color: white;">
+                    <div class="col-md askrindo-risk-bg">
+                        Total Risiko Perusahaan
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="font-weight-normal">5000</h3>
+                            </div>
+                            <div class="col">
+                                <img src="@Url.Content("~/Content/Image/icon-risiko.png")" class="float-right" style="max-width: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md askrindo-mitigation-bg">
+                        Total Mitigasi Perusahaan
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="font-weight-normal">6000</h3>
+                            </div>
+                            <div class="col">
+                                <img src="@Url.Content("~/Content/Image/icon-mitigasi.png")" class="float-right" style="max-width: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md askrindo-branch-bg">
+                        Total Cabang Perusahaan
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="font-weight-normal">40</h3>
+                            </div>
+                            <div class="col">
+                                <img src="@Url.Content("~/Content/Image/icon-company.png")" class="float-right" style="max-width: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md askrindo-rcp-bg">
+                        Total Risk Owner &amp; RCP
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="font-weight-normal">120</h3>
+                            </div>
+                            <div class="col">
+                                <img src="@Url.Content("~/Content/Image/icon-user.png")" class="float-right" style="max-width: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            @for (var i = 0; i < 50; i++)
+            {
+                <div>hamina</div>
+            }
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Askrindo Enterprise Risk Management System</p>
+            </footer>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap4")
+    <script>
+        /* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        /* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+</body>
+</html>

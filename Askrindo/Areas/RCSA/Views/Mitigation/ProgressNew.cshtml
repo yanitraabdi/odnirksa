@@ -1,0 +1,33 @@
+﻿@model Askrindo.Areas.RCSA.Models.MitigationActionModel
+
+@{
+    ViewBag.Title = "ProgressNew";
+    Layout = "~/Areas/RCSA/Views/Shared/RCSALayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <table class="table">
+        @Html.HiddenFor(m => m.actionId)
+        <tr>
+            <td>Kode Progress Mitigasi</td>
+            <td>@Html.DisplayFor(m => m.action.ActionCode)</td>
+        </tr>
+        <tr>
+            <td>Uraian</td>
+            <td>@Html.TextAreaFor(m => m.action.ActionName, new { @style = "width:300px; height:100px;" })</td>
+        </tr>
+        <tr>
+            <td>Progress</td>
+            <td>@Html.EditorFor(m => m.ActionProgress)</td>
+            <td> %</td>
+        </tr>
+    </table>
+
+    <div style="padding-top: 12px">
+        <input type="submit" value="Simpan" /> |
+        @Html.ActionLink("Batal", "ProgressIndex", new { id = Model.actionId })
+    </div>
+}
+
+

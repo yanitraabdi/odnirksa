@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Peta Risiko";
+    Layout = "~/Areas/Report/Views/Shared/_Report.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row no-gutters">
+
+        <div class="col-md-3">
+            <ul id="askrindo-left-nav" class="nav flex-column">
+                @*@Html.ActionLink("TreeView", "TreeView")*@
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="askrindo-content-box">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>
+@RenderSection("scripts", false)
+
+

@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Struktur Organisasi";
+    Layout = "~/Areas/RefData/Views/Shared/_refdata.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        $('#urlddl').change(function () {
+            var url = $(this).val();
+            if (url != null && url != '') {
+                window.location.href = url;
+            }
+        });
+    });
+</script>
+<div class="pagetitle">
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <h2>Struktur Organisasi</h2>
+            </td>
+            <td align="right">
+                @Html.ActionLink("Tree View", "TreeView")
+            </td>
+        </tr>
+    </table>
+</div>
+<div>
+    <table>
+        <tr>
+            <td>Organisasi</td>
+            <td>
+                @Html.DropDownList(
+                    "url",
+                    new SelectList(new[]
+                    {
+                        new SelectListItem { Text = "Direktorat", Value = Url.Action("Direktorat", "OrgStruct") },
+                        new SelectListItem { Text = "Bagian di bawah Direktorat", Value = Url.Action("DibawahDirektorat", "OrgStruct") },
+                        new SelectListItem { Text = "Divisi", Value = Url.Action("Divisi", "OrgStruct") },
+                        new SelectListItem { Text = "Bagian", Value = Url.Action("Bagian", "OrgStruct") },
+                        new SelectListItem { Text = "Kantor Cabang", Value = Url.Action("KantorCabang", "OrgStruct") },
+                        new SelectListItem { Text = "Bagian Cabang", Value = Url.Action("BagianCabang", "OrgStruct") },
+                        new SelectListItem { Text = "Kantor Unit", Value = Url.Action("KantorUnit", "OrgStruct") },
+                    }, "Value", "Text"),
+                    "- Silahkan Pilih -",
+                    new { id = "urlddl" }
+                )          
+            </td>
+        </tr>   
+        <tr>
+            <td>
+            </td>
+        </tr>
+    </table>
+</div>
+@RenderBody()

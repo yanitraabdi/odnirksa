@@ -1,0 +1,895 @@
+﻿@model Askrindo.Areas.RCSA.Models.RCSANewViewModel
+@{
+    ViewBag.breadCrumb = "Data Risiko / Data Risiko Baru";
+    Layout = "~/Areas/RCSA/Views/Shared/RCSALayout.cshtml";
+}
+<script>
+    var addRiskCause = null;
+    var addRiskEffect = null;
+    var removeLine = null;
+</script>
+@*@using (Html.BeginForm("SubmitRisk", "New", FormMethod.Post, new { onsubmit = "return validateForm();" }))
+    {*@
+@Html.AntiForgeryToken()
+<div class="askrindo-content-header row no-gutters">
+    <div class="col-7">
+        <div class="row no-gutters" style="margin-top: 4px;margin-bottom: 4px;">
+            <div class="col text-center">
+                <small>Pilih Salah Satu: </small>
+            </div>
+            <div class="col" style="padding: 0 4px;">
+                <button onclick="changeRiskType('')" class="btn askrindo-btn btn-block text-center @if(Request.Params["riskType"] == "" || Request.Params["riskType"] == null){ @("askrindo-btn-color") }">7 Kelompok Risiko</button>
+            </div>
+            <div class="col" style="padding: 0 4px;">
+                <button onclick="changeRiskType('Bisnis')" class="btn askrindo-btn btn-block text-center @if(Request.Params["riskType"] == "Bisnis"){ @("askrindo-btn-color") }">Proses Bisnis</button>
+            </div>
+            <div class="col" style="padding: 0 4px;">
+                <button onclick="changeRiskType('Fraud')" class="btn askrindo-btn btn-block text-center @if(Request.Params["riskType"] == "Fraud"){ @("askrindo-btn-color") }">Fraud</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-5 clearfix">
+        <a href="http://localhost:56103/RCSA/New/Index#" class="askrindo-header-link float-right text-center"><i class="fa fa-info-circle"></i> PETUNJUK </a>
+    </div>
+    <div class="col-12 clearfix">
+        <hr>
+        <ul class="nav askrindo-nav-tab-btn nav-fill">
+            <li class="nav-item">
+                <a class="nav-link active show" id="risk-data-tab" data-toggle="tab" data-curr-nav="risk-data" href="#risk-data" role="tab" aria-controls="risk-data" aria-selected="true" data-index="1">1. Data Risiko</a>
+            </li>
+            <li class="nav-item">
+                <a data-index="2" class="nav-link" id="probability-tab" data-toggle="tab" data-curr-nav="probability" href="#probability" role="tab" aria-controls="probability" aria-selected="false">
+                    2. Probabilitas
+                    <i class="fa fa-exclamation-circle text-danger"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a data-index="3" class="nav-link" id="impact-tab" data-toggle="tab" href="#impact" data-curr-nav="impact" role="tab" aria-controls="impact" aria-selected="false">
+                    3. Dampak
+                    <i class="fa fa-exclamation-circle text-danger"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="attachment-tab" data-toggle="tab" href="#attachment" role="tab" data-curr-nav="attachment" aria-controls="attachment" aria-selected="false">Attachment</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="tab-content" id="riskTabContent">
+    <div class="tab-pane fade active show" id="risk-data" role="tabpanel" aria-labelledby="risk-data-tab">
+        <div class="askrindo-content-box">
+
+            <div class="form-group row">
+                <label class="col-2 col-form-label">Kode Risiko</label>
+                <label class="col-10 col-form-label">: @Model.KodeRisiko</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Klasifikasi Risiko</label>
+                <div class="col-sm-10" data-verify-fields="true">
+                    <div>
+                        <select class="form-control askrindo-form-control riskcat">
+                            <option value="0">=====silahkan pilih=====</option>
+                            @foreach (var item in Model.RiskCats)
+                            {
+                                <option value="@item.RiskCatId">@item.RiskCatName</option>
+                            }
+                        </select>
+                    </div>
+                    <div style="padding-left: 20px;">
+                        <select class="form-control askrindo-form-control riskgroup"></select>
+                    </div>
+                    <div style="padding-left: 40px;">
+                        <select class="form-control askrindo-form-control risktype"></select>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Peristiwa Risiko</label>
+                <div class="col-sm-10" data-verify-fields="true">
+                    <select name="risk_event" class="form-control askrindo-form-control riskevent"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Pengendalian yang telah dilakukan</label>
+                <div class="col-sm-10" data-verify-fields="true">
+                    <textarea class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-10 col-form-label">
+                    <a href="@Url.Action("Search")" target="_blank" class="btn askrindo-btn-color">
+                        <i class="fa fa-search"></i>
+                        Cek Klasifikasi Risiko
+                    </a><br />
+                    <span>* Tekan tombol ini untuk menggunakan fitur untuk mencari klasifikasi risiko.</span>
+                </label>
+                <!--
+                <div class="col-sm-10" style="padding-top: 20px;">
+                    @*<textarea name="risk_event_note" class="form-control askrindo-form-control" rows="5"></textarea>*@
+                    <br />
+                    <input type="hidden" name="risk_event_note" value="" />
+                </div>
+                -->
+            </div>
+            <hr>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Tanggal Input</label>
+                <label class="col-10 col-form-label">: @Model.CurrentDateTime.ToString("dddd, dd MMMM yyyy") </label>
+                <label class="col-10 col-form-label"></label>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" data-verify-fields="true">Tanggal Awal Muncul Risiko</label>
+                <div class="col-sm-10">
+                    <input name="risk_date" type="datetime" value="@DateTime.Now.ToString("dddd, dd MMMM yyyy")" data-date-format='DD, dd MM yyyy' class="form-control askrindo-form-control datepicker-here" data-language='en'>
+                </div>
+            </div>
+        </div>
+        <div id="askrindo-risk-cause-form" class="askrindo-content-box">
+            <div class="cause-line">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Sebab Risiko</label>
+                    <div class="col-sm-10" data-verify-fields="true">
+                        <select class="form-control askrindo-form-control causegroup">
+                            <option value="0">=====silahkan pilih=====</option>
+                            @foreach (var item in Model.CauseGroups)
+                            {
+                                <option value="@item.CauseGroupId">@item.CauseGroupName</option>
+                            }
+                        </select>
+                        <select class="form-control askrindo-form-control causetype"></select>
+                        <select name="risk_causes" class="form-control askrindo-form-control causeevent"></select>
+                        @*<textarea name="risk_cause_notes" class="form-control askrindo-form-control" rows="5"></textarea>*@
+                        <input type="hidden" name="risk_cause_notes" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <span class="pointer-cursor" onclick="if (addRiskCause) addRiskCause(this)">
+                    <i class="fa fa-plus-circle" style="color: #FF512E"></i>
+                    <small>Tambah Form Sebab Risiko</small>
+                </span>
+            </div>
+        </div>
+        <div id="askrindo-risk-effect-form" class="askrindo-content-box">
+            <div class="effect-line">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Akibat Risiko</label>
+                    <div class="col-sm-10" data-verify-fields="true">
+                        <select class="form-control askrindo-form-control effectgroup">
+                            <option value="0">=====silahkan pilih=====</option>
+                            @foreach (var item in Model.EffectGroups)
+                            {
+                                <option value="@item.EffectGroupId">@item.EffectGroupName</option>
+                            }
+                        </select>
+                        <select class="form-control askrindo-form-control effecttype"></select>
+                        <select name="risk_effects" class="form-control askrindo-form-control effectevent"></select>
+                        @*<textarea name="risk_effect_notes" class="form-control askrindo-form-control" rows="5"></textarea>*@
+                        <input type="hidden" name="risk_effect_notes" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <span class="pointer-cursor" onclick="if (addRiskEffect) addRiskEffect(this)">
+                    <i class="fa fa-plus-circle" style="color: #FF512E"></i>
+                    <small>Tambah Form Akibat Risiko</small>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="probability" role="tabpanel" aria-labelledby="probability-tab">
+
+        <div class="row no-gutters" style="margin-top: 1rem;">
+            <div class="col-sm-3">
+                <div class="askrindo-bg-blue" style="padding: 10px;margin-right: 2px;height: 100%;">
+                    <div>Kode Risiko</div>
+                    <h5>@Model.KodeRisiko</h5>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="askrindo-bg-blue" style="padding: 10px;height: 100%;">
+                    <div>Peristiwa Risiko (Wednesday, 26 December 2018)</div>
+                    <h5>Gangguan jaringan</h5>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="askrindo-probability-form" class="askrindo-content-box">
+            <div class="row">
+                <div class="col">
+                    <label class="col-form-label"><input name="prob-type" value="avail" type="radio" data-probability-type="av" checked=""> Probabilita Statistik <br> (Data Tersedia)</label>
+                </div>
+                <div class="col">
+                    <label class="col-form-label"><input name="prob-type" value="appr" type="radio" data-probability-type="ap" disabled> Aproksimasi<br> (Data Tidak Tersedia)</label>
+                </div>
+                <div class="col">
+                    <label class="col-form-label"><input name="prob-type" value="diff" type="radio" data-probability-type="df" disabled> Perbandingan<br> (Data Tidak Tersedia)</label>
+                </div>
+                <div class="col">
+                    <label class="col-form-label"><input name="prob-type" value="freq" type="radio" data-probability-type="f"> Frekuensi<br> (Data Tidak Tersedia)</label>
+                </div>
+            </div>
+            <input type="hidden" name="riskId" value="6183">
+            <div id="askrindo-prob-avail" class="askrindo-probability-type">
+                <div class="col-sm-2">Probabilitas</div>
+                <div class="col-sm-10" data-verify-fields="true"><input name="tb-avail" type="number" value="0" class="form-control percent-input"></div>
+            </div>
+            <div id="askrindo-prob-approx" class="askrindo-probability-type d-none">
+                <div class="row form-row">
+                    <div class="col-sm-2">Aproksimasi pesimis (%)</div>
+                    <div class="col-sm-10" data-verify-fields="true"><input name="tb-ap1" type="number" value="0" class="form-control percent-input"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">Aproksimasi moderat (%)</div>
+                    <div class="col-sm-10" data-verify-fields="true">
+                        <input name="tb-ap2" type="number" value="0" class="form-control percent-input">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">Aproksimasi optimis (%)</div>
+                    <div class="col-sm-10" data-verify-fields="true">
+                        <input name="tb-ap3" type="number" value="0" class="form-control percent-input">
+                    </div>
+                </div>
+            </div>
+            <div id="askrindo-prob-diff" class="askrindo-probability-type d-none">
+                <div class="row">
+                    <div class="col-sm-2">Perbandingan</div>
+                    <div class="col-sm-10" data-verify-fields="true"><input type="number" value="0" name="tb-diff" class="form-control percent-input"></div>
+                </div>
+            </div>
+            <div id="askrindo-prob-freq" class="askrindo-probability-type d-none">
+                <div class="row">
+                    <div class="col-sm-2">Frekuensi</div>
+                    <div class="col-sm-10" data-verify-fields="true">
+                        <select name="sb-freq" class="form-control">
+                            <option value="1">Sangat jarang - Belum pernah mendengar kejadian ini</option>
+                            <option value="2">Kecil kemungkinan - Pernah mendengar ada kejadian semacam itu</option>
+                            <option value="3">Mungkin - Menurut pengalaman baru terjadi satu kali</option>
+                            <option value="4">Mungkin sekali - Menurut pengalaman kejadian itu muncul beberapa kali</option>
+                            <option value="5">Hampir pasti - hampir pasti terjad setiap waktu</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="tab-pane fade" id="impact" role="tabpanel" aria-labelledby="impact-tab">
+
+        <div class="row no-gutters" style="margin-top: 1rem;">
+            <div class="col-sm-3">
+                <div class="askrindo-bg-blue" style="padding: 10px;margin-right: 2px;height: 100%;">
+                    <div>Kode Risiko</div>
+                    <h5>@Model.KodeRisiko</h5>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="askrindo-bg-blue" style="padding: 10px;height: 100%;">
+                    <div>Peristiwa Risiko (Wednesday, 26 December 2018)</div>
+                    <h5>Gangguan jaringan</h5>
+                </div>
+            </div>
+        </div>
+
+        <div id="askrindo-impact-form" class="">
+            <div class="askrindo-content-box">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Pilih Jenis Dampak</label>
+                    <div class="col-sm-10">
+                        <label class="col-form-label"><input name="impact-type" type="radio" onclick="showMoneyImpact(true);" value="money" checked="">Dampak Keuangan</label>
+                        <label class="col-form-label"><input name="impact-type" type="radio" onclick="showMoneyImpact(false);" value="not">Dampak Non Keuangan</label>
+                    </div>
+                </div>
+            </div>
+            <div id="askrindo-money-impact" class="askrindo-content-box">
+                <input type="hidden" name="RiskImpact.RiskId" value="6183">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Kerugian Langsung</label>
+                    <div class="col-sm-8" data-verify-fields="true">
+                        <input class="form-control money-input" data-val="true" data-val-number="The field MoneyDirect must be a number." id="RiskImpact_MoneyDirect" name="RiskImpact.MoneyDirect" type="number" value="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Kerugian Tidak Langsung</label>
+                    <div class="col-sm-8" data-verify-fields="true">
+                        <input class="form-control money-input" data-val="true" data-val-number="The field MoneyIndirect must be a number." id="RiskImpact_MoneyIndirect" name="RiskImpact.MoneyIndirect" type="number" value="">
+                    </div>
+                </div>
+
+            </div>
+            <div id="askrindo-non-money-impact" class="askrindo-content-box d-none">
+                <input name="__RequestVerificationToken" type="hidden" value="SVD-B7sFjuFpdoWPSzPOM6Tml34AEl26vnHZF27B23gFO1PfjH-FISX8le_V_ypzsXg_lNIJussoGikPPofuzC31BM4AN1olonk_Igp8CVoaaNKMj-hCpyulnHqttT8eNoPk22k-ispLdqomJDMwmA2"><input data-val="true" data-val-number="The field Id must be a number." data-val-required="The Id field is required." id="RiskNonMoneyImpact_Id" name="RiskNonMoneyImpact.Id" type="hidden" value="3686">                        <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Dampak</label>
+                    <div class="col-sm-10">
+                        <select id="askrindo-impact-select" name="RiskNonMoneyImpact.ImpactTypeId" class="form-control">
+                            <option value="0">=====silahkan pilih=====</option>
+                            <optgroup label="Strategik">
+                                <option value="14">Pencapaian Kinerja Strategik</option>
+                                <option value="11">Penempatan Investasi</option>
+                                <option value="12">Hasil Pengembangan Investasi</option>
+                                <option value="13">Reputasi Perusahaan</option>
+                            </optgroup>
+                            <optgroup label="Operasional">
+                                <option value="21">Kompetensi SDM</option>
+                                <option value="22">Kepatuhan Menjalankan SOP</option>
+                                <option value="23">Kinerja Perusahaan - Pendapatan</option>
+                                <option value="24">Kinerja Perusahaan - Klaim</option>
+                                <option value="25">Kinerja Perusahaan - Laba Usaha</option>
+                                <option value="26">Kepatuhan pada Peraturan/Perundangan</option>
+                                <option value="27">Teknologi, Informasi dan Komunikasi (ICT)</option>
+                                <option value="28">Efektifitas pelaksanaan mitigasi risiko </option>
+                                <option value="29">Efektifitas pelaporan risiko oleh RCP melalui Website MR</option>
+                                <option value="30">Efektifitas Pengelolaan Risiko Non Transaksional-1</option>
+                                <option value="45">Efektifitas Pengelolaan Risiko Non Transaksional-2</option>
+                                <option value="46">Kesehatan dan keselamatan pegawai</option>
+                                <option value="47">Keluhan Pelanggan</option>
+                                <option value="48">Keluhan Pegawai</option>
+                                <option value="50">Gangguan  Kerja</option>
+                                <option value="51">Kinerja Pendapatan Premi/IJP - EWS</option>
+                                <option value="52">Kinerja Klaim Rasio - EWS</option>
+                                <option value="53">Kinerja Rasio BOPO - EWS</option>
+                                <option value="54">Kinerja EBT - EWS</option>
+                                <option value="55">Dampak kerugian risiko fraud Korporat</option>
+                                <option value="56">Dampak kerugian risiko fraud di Kantor Cabang Kelas I</option>
+                                <option value="57">Dampak kerugian risiko fraud di Kantor Cabang Kelas II </option>
+                                <option value="58">Dampak kerugian risiko fraud di Kantor Cabang Kelas III </option>
+                                <option value="59">Dampak kerugian risiko fraud di Kantor Cabang Kelas IV </option>
+                            </optgroup>
+                            <optgroup label="Kebijakan dan Pemasaran">
+                                <option value="31">Program Kerja Perusahaan</option>
+                                <option value="32">Limit Penutupan</option>
+                                <option value="33">Networking dan Perjanjian Kerja Sama</option>
+                                <option value="34">Inovasi Produk</option>
+                                <option value="35">Target pemasaran</option>
+                            </optgroup>
+                            <optgroup label="Eksternal">
+                                <option value="41"> Hukum Finansial</option>
+                                <option value="42">Hukum Non Finansial</option>
+                                <option value="43">Perubahan Makro/Global</option>
+                                <option value="44">Perubahan Misi dan Visi</option>
+                                <option value="49">Peringatan atau Pembatasan Aktifitas oleh Regulator (antara lain: OJK)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Level</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="askrindo-impact-table"></tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <input type="hidden" name="RiskNonMoneyImpact.RiskId" value="6183">
+                    <div class="col">
+                        <label>
+                            <input name="RiskNonMoneyImpact.ImpactLevelId" value="1" type="radio" checked=""> 1 - Rendah
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label>
+                            <input name="RiskNonMoneyImpact.ImpactLevelId" value="2" type="radio"> 2 - Sedang Rendah
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label>
+                            <input name="RiskNonMoneyImpact.ImpactLevelId" value="3" type="radio"> 3 - Sedang Tinggi
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label>
+                            <input name="RiskNonMoneyImpact.ImpactLevelId" value="4" type="radio"> 4 - Tinggi
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label>
+                            <input name="RiskNonMoneyImpact.ImpactLevelId" value="5" type="radio"> 5 - Sangat Tinggi
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="tab-pane fade" id="attachment" role="tabpanel" aria-labelledby="attachment-tab">
+
+        <div class="row no-gutters" style="margin-top: 1rem;">
+            <div class="col-sm-3">
+                <div class="askrindo-bg-blue" style="padding: 10px;margin-right: 2px;height: 100%;">
+                    <div>Kode Risiko</div>
+                    <h5>@Model.KodeRisiko</h5>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="askrindo-bg-blue" style="padding: 10px;height: 100%;">
+                    <div>Peristiwa Risiko (@Model.CurrentDateTime)</div>
+                    <h5>Gangguan jaringan</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="askrindo-content-box">
+
+            <div id="askrindo-attachment-form">
+
+                <h5>Form Attachment</h5>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Nama</label>
+                    <div class="col-sm-10">
+                        <input name="name" type="text" value="" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Keterangan</label>
+                    <div class="col-sm-10">
+                        <textarea name="description" cols="40" rows="5" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">File</label>
+                    <div class="col-sm-10">
+                        <input type="file" name="file">
+                        <div>
+                            Catatan : Ukuran file maksimal 10MB
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="form-warning" class="alert alert-warning d-none" role="alert">
+    Data belum terisi dengan benar.
+</div>
+<div class="text-right">
+    @*<button type="submit" class="btn btn-outline-danger askrindo-btn">Batal</button>*@
+    <button type="submit" class="btn btn-secondary askrindo-btn askrindo-btn-color askrindo-btn-back">Back</button>
+    <button type="submit" class="btn btn-secondary askrindo-btn askrindo-btn-color askrindo-btn-next">Next</button>
+    <button type="submit" class="btn btn-secondary askrindo-btn askrindo-btn-color askrindo-btn-submit">Submit</button>
+</div>
+@*}*@
+
+<div id="risk-cause-template" style="display: none;">
+    <div class="additional-line cause-line">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">
+                <i class="fa fa-window-close pointer-cursor text-danger" onclick="if (removeLine) removeLine(this);"></i>
+            </label>
+            <div class="col-sm-10">
+                <hr />
+                <select class="form-control askrindo-form-control causegroup">
+                    <option value="0">=====silahkan pilih=====</option>
+                    @foreach (var item in Model.CauseGroups)
+                    {
+                        <option value="@item.CauseGroupId">@item.CauseGroupName</option>
+                    }
+                </select>
+                <select class="form-control askrindo-form-control causetype"></select>
+                <select name="risk_causes" class="form-control askrindo-form-control causeevent"></select>
+                @*<textarea name="risk_cause_notes" class="form-control askrindo-form-control" rows="5"></textarea>*@
+                <input type="hidden" name="risk_cause_notes" value="" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="risk-effect-template" style="display: none;">
+    <div class="additional-line effect-line">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">
+                <i class="fa fa-window-close pointer-cursor text-danger" onclick="if (removeLine) removeLine(this);"></i>
+            </label>
+            <div class="col-sm-10" data-verify-fields="true">
+                <hr />
+                <select class="form-control askrindo-form-control effectgroup">
+                    <option value="0">=====silahkan pilih=====</option>
+                    @foreach (var item in Model.EffectGroups)
+                    {
+                        <option value="@item.EffectGroupId">@item.EffectGroupName</option>
+                    }
+                </select>
+                <select class="form-control askrindo-form-control effecttype"></select>
+                <select name="risk_effects" class="form-control askrindo-form-control effectevent"></select>
+                @*<textarea name="risk_effect_notes" class="form-control askrindo-form-control" rows="5"></textarea>*@
+                <input type="hidden" name="risk_effect_notes" value="" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/airdatepickerjs")
+    @Styles.Render("~/Content/airdatepickercss")
+    <script>
+           $('#askrindo-impact-select').change(function (e) {
+            var self = this;
+            $.get('@Url.Action("GetImpactDetail", "Default")', { id: self.value }, function (res) {
+                var htmlTemp = '';
+                for (var i = 0; i < res.length; i++) {
+                    var item = res[i];
+                    htmlTemp += '<tr>' +
+                        '<td>' + item.TypeName + '</td>' +
+                        '<td>' +
+                            '<div>' + item.LevelId + ' - ' + item.LevelName + '</div>' +
+                            '<small>' + item.Detail + '</small>' +
+                        '</td>' +
+                        + '</tr>';
+                }
+
+                $('#askrindo-impact-table').html(htmlTemp);
+            });
+        });
+        @if (Request.Params["riskType"] == "Fraud")
+        {
+            @("var isFraud = true;");
+        }
+        $('.askrindo-btn-back').hide();
+        $('.askrindo-btn-submit').hide();
+        $('.askrindo-nav-tab-btn').find('.nav-item').find("a:not(#attachment-tab)").on('click', function () {
+            return false;
+
+        });
+        $('.askrindo-nav-tab-btn').find('.nav-item').find("a#attachment-tab").on('click', function () {
+            $('.askrindo-btn-back').data('reference', $('.askrindo-nav-tab-btn').find('.nav-link.active.show').attr('id'));
+
+        });
+        $('.askrindo-nav-tab-btn').find('.nav-item a').on("shown.bs.tab", function () {
+
+            if ($(this).attr('data-curr-nav') === "probability") {
+                showProbabilityForm(true);
+            }
+            else if ($(this).attr('data-curr-nav') === "impact") {
+                showImpactForm(true);
+            }
+            else if ($(this).attr('data-curr-nav') === "attachment")
+            {
+                $('.askrindo-btn-next').hide();
+                $('.askrindo-btn-submit').hide();
+                $('.askrindo-btn-back').show();
+            }
+            else {
+                $('.askrindo-btn-back').hide();
+                $('.askrindo-btn-submit').hide();
+                $('.askrindo-btn-next').show();
+            }
+            checkBlankFields();
+        });
+        function bindNextButton() {
+            $('.askrindo-btn-next').on('click', function () {
+                var $nextEl = $('.askrindo-nav-tab-btn').find('.nav-link.active.show').parent('.nav-item').next().find("a");
+                $nextEl.tab('show');
+            });
+        }
+        function bindBackButton(){
+            $('.askrindo-btn-back').on('click', function () {
+                var reference = $(this).data('reference');
+                if (reference) {
+                    var $prevEl = $('#' + reference);
+                    $prevEl.tab('show');
+                    $(this).data('reference', undefined);
+                }
+                else {
+                    var $prevEl = $('.askrindo-nav-tab-btn').find('.nav-link.active.show').parent('.nav-item').prev().find("a");
+                    $prevEl.tab('show');
+                }
+
+            });
+
+        }
+        //$('#askrindo-attachment-form').find('input[name="file"]').on('change', function () {
+        //    var reader = new FileReader();
+        //    var self = this;
+        //    reader.readAsArrayBuffer(new Blob(self.files));
+        //    reader.onload = function () {
+        //        var arrayBuffer = reader.result
+        //        bytes = [];/* new Uint8Array(arrayBuffer);*/
+        //        $(self).data('attachment.this', bytes);
+        //    };
+
+        //});
+        function constructRiskModel() {
+            var risk_causes = [];
+            var risk_effects = [];
+            var $collectionOfCauses = $('#askrindo-risk-cause-form').find('select[name="risk_causes"]');
+            var $collectionOfEffects = $('#askrindo-risk-effect-form').find('select[name="risk_effects"]');
+            $.each($collectionOfCauses, function (ix, $ex) { risk_causes.push($($ex).val()) });
+            $.each($collectionOfEffects, function (ix, $ex) { risk_effects.push($($ex).val()) });
+            var formData = new FormData();
+            if ($('#askrindo-attachment-form').find('input[name="file"]')[0] && $('#askrindo-attachment-form').find('input[name="file"]')[0].files.length > 0) {
+                formData.append('files', $('#askrindo-attachment-form').find('input[name="file"]')[0].files[0])
+            }
+            formData.append('risk_event', $('select[name="risk_event"]').val());
+            formData.append('risk_event_note', "");
+            formData.append('risk_date', $('input[name="risk_date"]').val());
+            formData.append('risk_causes', risk_causes);
+            formData.append('risk_effects', risk_effects);
+            formData.append('risk_cause_notes', "");
+            formData.append('risk_effect_notes', "");
+            formData.append('attachName', $('#askrindo-attachment-form').find('[name="name"]').val());
+            formData.append('notes', $('#askrindo-attachment-form').find('[name="description"]').val());
+            formData.append('impact_type', $('#askrindo-impact-form').find('[name="impact-type"]:checked').val());
+            formData.append('moneyDirect', $('#RiskImpact_MoneyDirect').val());
+            formData.append('impactTypeId', $('#askrindo-impact-select').val());
+            formData.append('impactLevelId', $('[name="RiskNonMoneyImpact.ImpactLevelId"]:checked').val());
+            formData.append('moneyIndirect', $('#RiskImpact_MoneyIndirect').val());
+            formData.append('prob_type', $('#askrindo-probability-form').find('[name="prob-type"]:checked').attr('data-prob-type'));
+            formData.append('tb_avail', $('[name="tb-avail"]').val());
+            formData.append('tb_ap1', $('[name="tb-ap1"]').val());
+            formData.append('tb_ap2', $('[name="tb-ap3"]').val());
+            formData.append('tb_ap3', $('[name="tb-ap3"]').val());
+            formData.append('tb_diff', $('[name="tb-diff"]').val());
+            formData.append('sb_freq', $('[name="sb-freq"]').val());
+            formData.append('__RequestVerificationToken', $("input[name='__RequestVerificationToken']").val());
+            return formData;
+        };
+        function submitAllForms() {
+            var dfd = new $.Deferred();
+            $.when(submitRisk(constructRiskModel(), ), submitRisk(constructRiskModel(), "/RCSA/New/SubmitRisk"),
+                submitRisk(constructRiskModel(), "/RCSA/New/SubmitRisk")).done(function () {
+                    dfd.resolve(); console.log('done submit risk');
+                });
+           return dfd.promise();
+        };
+
+        function submitRisk(riskModel) {
+            return $.ajax({
+                url: "/RCSA/New/SubmitRisk",
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                headers: {
+                    __RequestVerificationToken: $("input[name='__RequestVerificationToken']").val()
+                },
+                data: riskModel
+            });
+        }
+        function checkBlankFields() {
+            var $domId = $('.askrindo-nav-tab-btn').find('.nav-link.active.show').attr('data-curr-nav');
+            var isDisabled = false;
+            var $inputComponents = $('#' + $domId).find('[data-verify-fields="true"]').find('textarea, input[type=number], input[type=text], input[type=radio], select');
+            $.each($inputComponents, function (ix, $el) {
+                if (($($el).find('option').length > 0 && $($el).val() === "0") || $($el).val() === null ||$($el).val() === "") {
+                    isDisabled=true;
+                    return;
+                }
+            });
+            if ($('.askrindo-btn-next:visible').length===0) {
+                $('.askrindo-btn-submit').prop('disabled', isDisabled);
+            }
+            else {
+                $('.askrindo-btn-next').prop('disabled', isDisabled);
+            }
+            if ($('.askrindo-nav-tab-btn').find('.nav-link.active.show').parent('.nav-item').prev().length>0) {
+            }
+            return isDisabled;
+        }
+        function bindFields() {
+            $('.askrindo-content-box').on('keyup', '[data-verify-fields="true"] textarea, [data-verify-fields="true"] input[type=text], [data-verify-fields="true"] input[type=number]', function () {
+                checkBlankFields();
+            });
+            $('.askrindo-content-box').on('change', '[data-verify-fields="true"] select','[data-verify-fields="true"] input[type=radio]', function () {
+                checkBlankFields();
+            });
+        }
+        function showImpactForm(s) {
+            if (s) {
+                $('#askrindo-impact-form').removeClass('d-none');
+                $('.askrindo-btn-next').hide();
+                $('.askrindo-btn-submit').show();
+                $('.askrindo-btn-back').show();
+            }
+            else
+                $('#askrindo-impact-form').addClass('d-none');
+        }
+        function showMoneyImpact(showMoney) {
+            if (showMoney) {
+                $('#askrindo-money-impact').removeClass('d-none');
+                $('#askrindo-money-impact').find('.col-sm-8').attr('data-verify-fields', true);
+                $('#askrindo-non-money-impact').addClass('d-none');
+                $('#askrindo-non-money-impact').find("[data-verify-fields='true']").removeAttr("data-verify-fields");
+            }
+            else {
+                $('#askrindo-money-impact').addClass('d-none');
+                $('#askrindo-non-money-impact').find('.col-sm-10').attr('data-verify-fields', true);
+                $('#askrindo-money-impact').find("[data-verify-fields='true']").removeAttr("data-verify-fields");
+                $('#askrindo-non-money-impact').removeClass('d-none');
+            }
+            checkBlankFields();
+        }
+        function bindSubmitButton() {
+            $('.askrindo-btn-submit').on('click', function () {
+                submitRisk(constructRiskModel()).done(function (riskid) {
+                    window.location.href = "/RCSA/Default/Detail/" + riskid;
+                });
+                constructRiskModel()
+            });
+        }
+        function showProbabilityForm(s) {
+            if (s) {
+                $('#askrindo-probability-form').removeClass('d-none');
+                $('.askrindo-btn-next').show();
+                $('.askrindo-btn-submit').hide();
+                $('.askrindo-btn-back').show();
+                var isChecked=$('#askrindo-probability-form').find('[name="prob-type"]:checked').click();
+            }
+            else
+                $('#askrindo-probability-form').addClass('d-none');
+        }
+        function loadSelectList(url, source, target) {
+            var sval = $(source).val();
+
+            if (!sval) {
+                $(target).html('');
+                return;
+            }
+            if (typeof isFraud !== 'undefined') {
+                $.get(url, { filterId: sval, isFraud: true }, function (result) {
+                    $(target).html('');
+                    $(target).append($("<option value='0'/>", {
+                        text: "=====silahkan pilih====="
+                    }));
+                    $.each(result, function (index, itemData) {
+                        $(target).append($("<option/>", {
+                            value: itemData.Value,
+                            text: itemData.Text
+                        }));
+                    });
+                });
+            }
+            else {
+                $.get(url, { filterId: sval }, function (result) {
+                    $(target).html('');
+                    $(target).append($("<option value='0' />", {
+                        text: "=====silahkan pilih====="
+                    }));
+                    $.each(result, function (index, itemData) {
+                        $(target).append($("<option/>", {
+                            value: itemData.Value,
+                            text: itemData.Text
+                        }));
+                    });
+                });
+            }
+        }
+
+        $('.riskcat').change(function (e) {
+            $('.risktype').html('');
+            $('.riskevent').html('');
+            loadSelectList('@Url.Action("GetRiskGroup", "New")', e.target, ".riskgroup");
+        });
+        $('.riskgroup').change(function (e) {
+            $('.riskevent').html('');
+            loadSelectList('@Url.Action("GetRiskType", "New")', e.target, ".risktype");
+        });
+        $('.risktype').change(function (e) {
+            loadSelectList('@Url.Action("GetRiskEvent", "New")', e.target, ".riskevent");
+        });
+
+        $('#askrindo-risk-cause-form').on('change', '.causegroup', function (e) {
+            $(e.target).closest('.cause-line').find('.causeevent').html('');
+            var targetEl = $(e.target).closest('.cause-line').find('.causetype');
+
+            loadSelectList('@Url.Action("GetCauseTypes", "New")', e.target, targetEl);
+        });
+
+        $('#askrindo-risk-cause-form').on('change', '.causetype', function (e) {
+            var targetEl = $(e.target).closest('.cause-line').find('.causeevent');
+
+            loadSelectList('@Url.Action("GetCauses", "New")', e.target, targetEl);
+        });
+
+        $('#askrindo-risk-effect-form').on('change', '.effectgroup', function (e) {
+            $(e.target).closest('.effect-line').find('.effectevent').html('');
+            var targetEl = $(e.target).parents('.effect-line').find('.effecttype');
+
+            loadSelectList('@Url.Action("GetEffectTypes", "New")', e.target, targetEl);
+        });
+
+        $('#askrindo-risk-effect-form').on('change', '.effecttype', function (e) {
+            var targetEl = $(e.target).parents('.effect-line').find('.effectevent');
+
+            loadSelectList('@Url.Action("GetEffects", "New")', e.target, targetEl);
+        });
+
+        addRiskCause = function (el) {
+            var rc_tmpl = $('#risk-cause-template').html();
+            $(el).parent().before(rc_tmpl);
+            checkBlankFields();
+        }
+        addRiskEffect = function (el) {
+            var re_tmpl = $('#risk-effect-template').html();
+            $(el).parent().before(re_tmpl);
+            checkBlankFields();
+        }
+
+        removeLine = function (el) {
+            $(el).closest('.additional-line').remove();
+            checkBlankFields();
+        }
+
+        validateForm = function () {
+            let selects = $('form select');
+            let formValid = true;
+
+            $.each(selects, function (k, v) {
+                var cv = $(v).val();
+
+                if (!cv) {
+                    formValid = false;
+
+                    $('#form-warning').removeClass('d-none');
+
+                    $('#form-warning').focus();
+
+                    return false;
+                }
+            });
+
+            return formValid;
+        }
+
+
+        function changeRiskType(riskType) {
+            var params = new URLSearchParams(location.search);
+
+            if (riskType == '') {
+                params.delete('riskType');
+                window.location.search = params.toString();
+            }
+            else {
+                params.set('riskType', riskType);
+                window.location.search = params.toString();
+            }
+
+        }
+        $('[data-probability-type]').on('click', function () {
+            var ttype = $(this).attr('data-probability-type');
+            $('.askrindo-probability-type').addClass('d-none');
+            $('.askrindo-probability-type').find("[data-verify-fields=true]").removeAttr('data-verify-fields');
+            if (ttype == 'av') {
+                $('#askrindo-prob-avail').attr('data-prob-url', '/RCSA/Default/SubmitProbability');
+                $(this).attr('data-prob-type', 'avail');
+                $('#askrindo-prob-avail').removeClass('d-none');
+                $('#askrindo-prob-avail').find('.col-sm-10').attr('data-verify-fields', "true");
+            }
+            else if (ttype == 'ap') {
+                $('#askrindo-prob-approx').attr('data-prob-url', '/RCSA/Default/SubmitProbability');
+                $(this).attr('data-prob-type', 'appr');
+                $('#askrindo-prob-approx').removeClass('d-none');
+                $('#askrindo-prob-approx').find('.col-sm-10').attr('data-verify-fields', "true");
+            }
+            else if (ttype == 'df') {
+                $('#askrindo-prob-approx').attr('data-prob-url', '/RCSA/Default/SubmitProbability');
+                $(this).attr('data-prob-type', 'diff');
+                $('#askrindo-prob-diff').removeClass('d-none');
+                $('#askrindo-prob-diff').find('.col-sm-10').attr('data-verify-fields', "true");
+            }
+            else if (ttype == 'f') {
+                $('#askrindo-prob-approx').attr('data-prob-url', '/RCSA/Default/SubmitProbability');
+                $(this).attr('data-prob-type', 'freq');
+                $('#askrindo-prob-freq').removeClass('d-none');
+                $('#askrindo-prob-freq').find('.col-sm-10').attr('data-verify-fields', "true");
+            }
+            checkBlankFields();
+        });
+        bindFields();
+        checkBlankFields();
+        bindNextButton();
+        bindBackButton();
+        bindSubmitButton();
+    </script>
+}
