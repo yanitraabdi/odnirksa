@@ -13,6 +13,7 @@
     <link href="/Content/Fontawesome/css/all.css?v=eeZLpTEV4XG97GVuEDxRNXvIpkJVsaBDupn416iDP4U1" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 
+    @RenderSection("", false)
 </head>
 <body>
     <div id="mySidenav" class="sidenav">
@@ -33,6 +34,10 @@
                 <ul class="navbar-nav w-100 nav-fill">
                     <li class="nav-item">
                         <a class="nav-link" href="#"><small>Home</small></a>
+                    </li>
+                    <li class="nav-separator">|</li>
+                    <li class="nav-item">
+                        <a class="nav-link @if (ViewContext.RouteData.DataTokens["area"].ToString() == "Dashboard") { @("active") }" href="@Url.Action("Index", "Default", new { Area = "Dashboard" })"><small>Dashboard</small></a>
                     </li>
                     <li class="nav-separator">|</li>
                     <li class="nav-item">
