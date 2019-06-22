@@ -1,0 +1,71 @@
+﻿@model Askrindo.Areas.RCSA.Models.MitigationActionModel
+@{
+    ViewBag.Title = "MitigationActionNew";
+    Layout = "~/Areas/RCSA/Views/Shared/RCSALayout.cshtml";
+}
+
+<div class="askrindo-content-box">
+
+    @using (Html.BeginForm())
+    {
+        <table class="edit">
+            <tr>
+                @Html.HiddenFor(m => m.mitigationcode)
+                @Html.HiddenFor(m => m.mitigationactioncode)
+                @Html.HiddenFor(m => m.mitigationid)
+                <td>Kode Mitigasi</td>
+                <td>
+                    @Html.DisplayFor(m => m.mitigationcode)
+                    @Html.ValidationMessageFor(m => m.mitigationcode)
+                </td>
+            </tr>
+            <tr>
+                <td>Kode Progress Mitigasi</td>
+                <td>
+                    @Html.DisplayFor(m => m.mitigationactioncode)
+                    @Html.ValidationMessageFor(m => m.mitigationactioncode)
+                </td>
+            </tr>
+            <tr>
+                <td>Person In Charge(PIC)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.pic)
+                    @Html.ValidationMessageFor(m => m.pic)
+                </td>
+            </tr>
+            <tr>
+                <td>Resource Requirement</td>
+                <td>
+                    @Html.TextAreaFor(m => m.require)
+                    @Html.ValidationMessageFor(m => m.require)
+                </td>
+            </tr>
+            <tr>
+                <td>Estimasi Biaya Mitigasi (Rp.)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.require)
+                    @Html.ValidationMessageFor(m => m.require)
+                </td>
+            </tr>
+            <tr>
+                <td>Usulan Dimasukkan dlm RKAP/RTL<br>Tahun Berikutnya?</td>
+                <td>
+                    @Html.CheckBoxFor(m => m.isRKAP1)Ya
+                    @Html.ValidationMessageFor(m => m.isRKAP1)
+                </td>
+            </tr>
+            <tr>
+                <td>Tanggal Target Penyelesaian</td>
+                <td>
+                    <input type="date" name="@Html.NameFor(m => m.limitDate)" />
+                    @Html.ValidationMessageFor(m => m.limitDate)
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding-top: 12px">
+            <input type="submit" value="Simpan" /> |
+            @Html.ActionLink("Batal", "MitigationActionList", new { id = Model.mitigationid })
+        </div>
+    }
+</div>

@@ -1,0 +1,37 @@
+﻿@model List<Askrindo.Areas.LossEvent.Models.joinLossEvent>  
+
+@{
+    ViewBag.Title = "LossEvent";
+    Layout = "~/Areas/LossEvent/Views/Shared/_LossEventList.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>Kode Loss Event</th>
+        <th>Pemilik Kerugian</th>
+        <th>Klasifikasi</th>
+        <th>Peristiwa Kerugian</th>
+        <th>Nilai Pembelian Aset</th>
+        <th colspan=2></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.lossEvent.LossEventCode)</td>
+        @if (item.pos == 1)
+        {
+            <td>@Html.DisplayFor(modelItem => item.subdiv.SubDivName)</td>
+        }
+        else
+        {
+            <td>@Html.DisplayFor(modelItem => item.branch.BranchName)</td>
+        }
+        <td>@Html.DisplayFor(modelItem => item.klas.Klasifikasi)</td>
+        <td>@Html.DisplayFor(modelItem => item.lossEvent.LossEventName)</td>
+        <td>@Html.DisplayFor(modelItem => item.lossEvent.Assets)</td>
+        <td>@Html.ActionLink("Edit", "Edit", new { i = item.lossEvent.LossEventId })</td>
+        <td>@Html.ActionLink("Delete", "Delete", new { i = item.lossEvent.LossEventId })</td>
+    </tr>
+    }
+</table>
+

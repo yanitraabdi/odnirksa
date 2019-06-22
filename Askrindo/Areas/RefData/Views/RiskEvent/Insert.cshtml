@@ -1,0 +1,33 @@
+﻿@model Askrindo.Areas.RefData.Models.RiskEventModel
+
+@{
+    ViewBag.Title = "Insert";
+    Layout = "~/Areas/RefData/Views/Shared/_RiskReference.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <table class="edit">
+        <tr>
+        @Html.HiddenFor(m => m.typeId)
+        @*Html.HiddenFor(m => m.reId)*@
+            <td>ID</td>
+            <td>
+                @Html.EditorFor(m => m.reId, new { disabled = "disabled", @readonly = "readonly" })
+                @Html.ValidationMessageFor(m => m.reId)
+            </td>
+        </tr>
+        <tr>
+            <td>Peristiwa Resiko</td>
+            <td>@Html.TextAreaFor(m => m.riskEvent.RiskEvent1)</td>
+        </tr>
+    </table>
+    <div style="padding-top: 12px">
+        <input type="Submit" value="Simpan"/>
+        <input type="Button" value="Batal" onclick="location.href='@Url.Action("index", "RiskEvent", new { id = Model.typeId })';return false;"/>
+    </div>
+}
+
+
+
+

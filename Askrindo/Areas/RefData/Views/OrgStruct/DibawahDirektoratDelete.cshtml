@@ -1,0 +1,44 @@
+﻿@model Askrindo.Areas.RefData.Models.OrgStruct.DibawahDirektoratViewModal
+
+@{
+    ViewBag.Title = "DibawahDirektoratDelete";
+    Layout = "~/Areas/RefData/Views/Shared/_OrgStruct.cshtml";
+}
+
+<h3 style="padding-bottom: 0; margin-bottom: 0">Hapus Bagian di bawah Direktorat</h3>
+@*@Html.Partial("_Info_Dept", Model.DibawahDirektorat.Dept)*@
+
+<div style="padding-bottom: 12px" class="warning">
+    Bagian di bawah Direktorat berikut akan dihapus. Lanjutkan?
+</div>
+
+<table class="warning">
+    <tr>
+        <td>ID</td>
+        <td>:</td>
+        <td>@Html.DisplayFor(model => model.DibawahDirektorat.SubDeptId)</td>
+    </tr>
+    <tr>
+        <td>Direktorat</td>
+        <td>:</td>
+        <td>@Html.DisplayFor(model => model.DibawahDirektorat.Dept.DeptName)</td>
+    </tr>
+    <tr>
+        <td>Bagian di bawah Direktorat</td>
+        <td>:</td>
+        <td>@Html.DisplayFor(model => model.DibawahDirektorat.SubDeptName)</td>
+    </tr>
+    <tr>
+        <td>Supporting Unit?</td>
+        <td>:</td>
+        <td>@Html.DisplayFor(model => model.DibawahDirektorat.IsSupporting)</td>
+    </tr>
+</table>
+
+@using (Html.BeginForm()) {
+    <div style="padding-top: 12px">
+        <input type="submit" value="Hapus" /> |
+        @Html.ActionLink("Batal", "DibawahDirektorat")
+    </div>
+}
+

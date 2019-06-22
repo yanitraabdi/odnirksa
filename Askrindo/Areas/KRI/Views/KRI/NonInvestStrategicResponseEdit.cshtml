@@ -1,0 +1,72 @@
+﻿@model Askrindo.Areas.KRI.Models.StrategicResponseViewModel
+@{
+    Layout = "~/Areas/KRI/Views/Shared/KRILayout.cshtml";
+}
+
+<div class="askrindo-content-box">
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Lokas</label>
+                <label class="col-9 col-form-label">: @Model.User.OrgPosName</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Unit Kerja</label>
+                <label class="col-9 col-form-label">: Major Account</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Kode</label>
+                <label class="col-9 col-form-label">: @Model.KRINonInvestData.Code</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Indikator</label>
+                <label class="col-9 col-form-label">: @Model.KRINonInvestData.KRINonInvest.Name</label>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Status</label>
+                <label class="col-9 col-form-label">: @Model.KRINonInvestData.Grade</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Nilai / Acuan </label>
+                <label class="col-9 col-form-label">: @String.Format("{0:n}", Model.KRINonInvestData.Value) / @String.Format("{0:n}", Model.KRINonInvestData.Target)</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Tanggal Transaksi</label>
+                <label class="col-9 col-form-label">: @DateTime.Now.ToString("dddd, dd MMMM yyyy")</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Penginput</label>
+                <label class="col-9 col-form-label">: @Model.User.FullName</label>
+            </div>
+        </div>
+    </div>
+    <hr>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(d => d.KRINonInvestData.Id)
+        @Html.HiddenFor(r => r.SRNonInvest.Id)
+        @Html.HiddenFor(r => r.SRNonInvest.KRIDataId)
+        @Html.HiddenFor(r => r.SRNonInvest.SubmitDate)
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Analisa Sebab</label>
+            <div class="col-sm-10">
+                @Html.TextAreaFor(d => d.SRNonInvest.CauseAnalysis, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Strategic Respon/Mitigasi</label>
+            <div class="col-sm-10">
+                @Html.TextAreaFor(d => d.SRNonInvest.StrategicResponse, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="text-right">
+            <a class="btn btn-outline-danger askrindo-btn" href="@Url.Action("NonInvestStrategicResponseList", new { Id = Model.KRINonInvestData.Id })">Batal</a>
+            <button type="submit" class="btn btn-secondary askrindo-btn askrindo-btn-color">Submit</button>
+        </div>
+    }
+
+</div>

@@ -1,0 +1,66 @@
+﻿@model Askrindo.Areas.RefData.Models.OrgStruct.KantorUnitViewModel   
+
+@{
+    ViewBag.Title = "KantorUnitDelete";
+    Layout = "~/Areas/RefData/Views/Shared/_OrgStruct.cshtml";
+}
+
+<h3 style="padding-bottom: 0; margin-bottom: 0">Hapus Kantor Unit</h3>
+@*@Html.Partial("_Info_Dept", Model.DibawahDirektorat.Dept)*@
+
+<div style="padding-bottom: 12px" class="warning">
+    Kantor Unit berikut akan dihapus. Lanjutkan?
+</div>
+
+<table class="warning">
+    <tr>
+            <td>ID</td>
+            <td>
+                @Html.DisplayFor(model => model.KantorUnit.BizUnitId)
+                @*@Html.ValidationMessageFor(model => model.Param.DibawahDirektorat)*@
+            </td>
+        </tr>
+        <tr>
+            <td>Cabang</td>
+            <td>
+                @Html.DisplayFor(model => model.KantorUnit.Branch.BranchName)
+                @*@Html.ValidationMessageFor(model => model.Param.SubDeptName)*@
+            </td>
+        </tr>
+        <tr>
+            <td>Kantor Unit</td>
+            <td>
+                @Html.DisplayFor(model => model.KantorUnit.BizUnitName)
+                @*@Html.ValidationMessageFor(model => model.Param.SubDeptName)*@
+            </td>
+        </tr>
+        <tr>
+            <td>Kode</td>
+            <td>
+                @Html.DisplayFor(model => model.KantorUnit.BizUnitCode)
+                @*@Html.ValidationMessageFor(model => model.Param.SubDeptName)*@
+            </td>
+        </tr>
+        <tr>
+            <td>Supporting Unit?</td>
+            <td>
+                @Html.DisplayFor(model => model.KantorUnit.IsSupporting)
+                @*@Html.ValidationMessageFor(m => m.Param.IsApproved)*@
+            </td>
+        </tr>
+        <tr>
+            <td>Non Aktif</td>
+            <td>
+                @Html.DisplayFor(model => model.KantorUnit.statusf)
+                @*@Html.ValidationMessageFor(m => m.Param.IsApproved)*@
+            </td>
+        </tr>
+</table>
+
+@using (Html.BeginForm()) {
+    <div style="padding-top: 12px">
+        <input type="submit" value="Hapus" /> |
+        @Html.ActionLink("Batal", "KantorUnit")
+    </div>
+}
+

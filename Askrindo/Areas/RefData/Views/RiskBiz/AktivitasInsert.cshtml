@@ -1,0 +1,35 @@
+﻿@model Askrindo.Areas.RefData.Models.Aktivitas.AktivitasModel
+
+@{
+    ViewBag.Title = "Insert";
+    Layout = "~/Areas/RefData/Views/Shared/_Aktivitas.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <table class="edit">
+        <tr>
+            <td>ID</td>
+            <td>
+                @Html.HiddenFor(m => m.aktivitas.bisnisid)
+                @Html.TextBoxFor(m => m.aktivitas.aktifitasid)
+                @Html.ValidationMessageFor(m => m.aktivitas.aktifitasid)
+            </td>
+        </tr>
+        <tr>
+            <td>Aktivitas Bisnis</td>
+            <td>@Html.TextAreaFor(m => m.aktivitas.aktifitas)
+                @Html.ValidationMessageFor(m => m.aktivitas.aktifitas)
+            </td>
+        </tr>
+
+    </table>
+    <div style="padding-top: 12px">
+        <input type="Submit" value="Simpan"/>
+        <input type="Button" value="Batal" onclick="location.href='@Url.Action("AktivitasIndex", "RiskBiz", new { id = Model.bisnisid })';return false;"/>
+    </div>
+}
+
+
+
+

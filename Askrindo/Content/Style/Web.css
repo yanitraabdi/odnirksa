@@ -1,0 +1,391 @@
+﻿body {
+    background-color: #F2F2F2;
+}
+
+nav .navbar-nav li {
+    position: relative;
+}
+nav .navbar-nav li a {
+    padding: 0.1rem 1rem 0.2rem;
+    color: black !important;
+    font-size: 1.2em;
+}
+nav .navbar-nav li a.active {
+    color: #FA8D2E !important;
+}
+
+.nav-separator {
+    font-weight: 300;
+    font-size: 1.3em;
+}
+
+#askrindo-main-nav a.active small {
+    font-weight: bold !important;
+    border-bottom: 2px solid #FA8D2E;
+}
+
+.orange-btn {
+    -moz-box-shadow: inset 0px 1px 0px 0px #fce2c1;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #fce2c1;
+    box-shadow: inset 0px 1px 0px 0px #fce2c1;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f1981a), color-stop(1, #fb622a));
+    background: -moz-linear-gradient(top, #f1981a 5%, #fb622a 100%);
+    background: -webkit-linear-gradient(top, #f1981a 5%, #fb622a 100%);
+    background: -o-linear-gradient(top, #f1981a 5%, #fb622a 100%);
+    background: -ms-linear-gradient(top, #f1981a 5%, #fb622a 100%);
+    background: linear-gradient(to bottom, #f1981a 5%, #fb622a 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1981a', endColorstr='#fb622a',GradientType=0);
+    background-color: #f1981a;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 10px;
+    border: 1px solid #eeb44f;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 0.8em;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #cc9f52;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+        .orange-btn:hover {
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #fb622a), color-stop(1, #f1981a));
+            background: -moz-linear-gradient(top, #fb622a 5%, #f1981a 100%);
+            background: -webkit-linear-gradient(top, #fb622a 5%, #f1981a 100%);
+            background: -o-linear-gradient(top, #fb622a 5%, #f1981a 100%);
+            background: -ms-linear-gradient(top, #fb622a 5%, #f1981a 100%);
+            background: linear-gradient(to bottom, #fb622a 5%, #f1981a 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb622a', endColorstr='#f1981a',GradientType=0);
+            background-color: #fb622a;
+        }
+
+        .orange-btn:active {
+            position: relative;
+            top: 1px;
+        }
+
+    /* Container holding the image and the text */
+    .container-image {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+    /* Centered text */
+    .centered-text-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .askrindo-risk-bg {
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff3019+0,cf0404+100;Red+3D */
+        background: #ff3019; /* Old browsers */
+        background: -moz-linear-gradient(top, #ff3019 0%, #cf0404 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #ff3019 0%,#cf0404 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #ff3019 0%,#cf0404 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 ); /* IE6-9 */
+    }
+
+    .askrindo-mitigation-bg {
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#34d100+0,299a0b+100 */
+        background: #34d100; /* Old browsers */
+        background: -moz-linear-gradient(top, #34d100 0%, #299a0b 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #34d100 0%,#299a0b 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #34d100 0%,#299a0b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#34d100', endColorstr='#299a0b',GradientType=0 ); /* IE6-9 */
+    }
+
+    .askrindo-branch-bg {
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffb76b+0,ff7c00+100,ff7f04+100 */
+        background: #ffb76b; /* Old browsers */
+        background: -moz-linear-gradient(top, #ffb76b 0%, #ff7c00 100%, #ff7f04 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #ffb76b 0%,#ff7c00 100%,#ff7f04 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #ffb76b 0%,#ff7c00 100%,#ff7f04 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb76b', endColorstr='#ff7f04',GradientType=0 ); /* IE6-9 */
+    }
+
+    .askrindo-rcp-bg {
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2c539e+0,2c539e+100;Blue+3D+%232 */
+        background: #2c539e; /* Old browsers */
+        background: -moz-linear-gradient(top, #2c539e 0%, #2c539e 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #2c539e 0%,#2c539e 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #2c539e 0%,#2c539e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2c539e', endColorstr='#2c539e',GradientType=0 ); /* IE6-9 */
+    }
+
+.notif-badge {
+    position: relative;
+}
+
+.notif-badge[data-badge]:after {
+    content: attr(data-badge);
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    font-size: .7em;
+    background: red;
+    color: white;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 50%;
+    box-shadow: 0 0 1px #333;
+}
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 9999; /* Stay on top */
+    top: 0; /* Stay at the top */
+    right: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+#askrindo-title-line {
+    background-color: #3B4966;
+    text-align: center;
+}
+
+#askrindo-title-line p {
+    color: white;
+    padding: 2px;
+}
+
+#askrindo-rcsa-menu a, #askrindo-left-nav a{
+    color: black;
+}
+
+#askrindo-rcsa-menu p, #askrindo-left-nav p{
+    font-size: 1.1em;
+}
+
+.askrindo-content-box {
+    background-color: #EEEEEE;
+    padding: 1em;
+    margin-bottom: 10px;
+}
+
+.askrindo-content-header {
+    background-color: #D5D5D5;
+    padding: 0.5rem;
+}
+
+.askrindo-content-header a {
+    color: #3C4965;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+    .askrindo-content-header a.active {
+        font-weight: bold;
+        border-bottom: solid 2px #3C4965;
+    }
+
+.askrindo-risk-box {
+    background-color: black;
+    color: white;
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+}
+
+.askrindo-btn {
+    padding: 2px 24px;
+    border-radius: 0;
+}
+
+.askrindo-btn-color {
+    background-color: #3B4966;
+    color: white;
+}
+
+.askrindo-form-control {
+    border-radius: 0;
+    -webkit-box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+    padding: 2px 12px;
+}
+
+.askrindo-menu-pointer {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.pointer-cursor {
+    cursor: pointer;
+}
+
+.askrindo-header-link {
+    background-color: #F77922;
+    color: white !important;
+    text-decoration: none !important;
+    padding: 6px 18px;
+    display: inline-block;
+    margin: 6px;
+}
+
+#askrindo-rcsa-menu li.active, #askrindo-rcsa-menu li.active a, .askrindo-link-active, #askrindo-left-nav li.active, #askrindo-left-nav li.active a {
+    color: #E6954C;
+    font-weight: bold;
+}
+
+#askrindo-rcsa-menu a.active-nav, #askrindo-left-nav a.ative-nav {
+    border-bottom: solid 2px #E6954C;
+}
+
+#askrindo-rcsa-menu li, #askrindo-left-nav li{
+    margin-bottom: 0.5rem;
+}
+
+#askrindo-rcsa-menu a, #askrindo-left-nav a{
+    padding: 0;
+    margin-left: 10px;
+}
+
+.askrindo-table th {
+    background-color: #D5D5D5;
+    font-weight: normal;
+}
+
+.askrindo-nav-tab-btn a {
+    opacity: 0.7;
+}
+.askrindo-nav-tab-btn a.active {
+    opacity: 1;
+}
+
+.askrindo-bg-color {
+    background-color: #d5d5d5;
+}
+
+ul.askrindo-pagination li {
+    background-color: #a7a7a7;
+    display: inline-block;
+    margin: 2px;
+}
+
+ul.askrindo-pagination li a {
+    display: inline-block;
+    padding: 2px 12px;
+    color: black;
+}
+
+ul.askrindo-pagination li.active a {
+    background-color: #3c4966;
+    color: white;
+}
+
+.askrindo-status-filter {
+    cursor: pointer;
+}
+
+.askrindo-bg-blue {
+    background-color: #3c4966;
+    color: white;
+}
+
+
+
+.askrindo-box-merah {
+    padding: 8px;
+    background-color: crimson;
+    color: white;
+}
+
+.askrindo-box-kuning {
+    padding: 8px;
+    background-color: #FFFF00;
+    color: black;
+}
+
+.askrindo-box-hijau {
+    padding: 8px;
+    background-color: forestgreen;
+    color: white;
+}
+
+.askrindo-box-orange {
+    padding: 8px;
+    background-color: darkorange;
+    color: white;
+}
+.eskrindo-dropdown-user-container {
+    position: relative;
+    display: inline-block;
+}
+.eskrindo-dropdown-user-logout{
+    cursor:pointer;
+}
+.eskrindo-dropdown-user {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    background-color: #DDDDDD !important;
+    display: block;
+}
+.eskrindo-dropdown-user-logout {
+    padding: 5px;
+}
+.askrindo-table td {
+    vertical-align: middle !important;
+}
+/*.askrindo-btn-submit {
+    display:none;
+}
+.askrindo-btn-next.hide-next {
+    display: none;
+}
+.askrindo-btn-next.hide-next + .askrindo-btn-submit{
+    display:inline;
+}*/

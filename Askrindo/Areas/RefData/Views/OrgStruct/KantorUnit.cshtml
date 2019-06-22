@@ -1,0 +1,53 @@
+﻿@model IList<Askrindo.Models.JoinOrganisasi>
+
+@{
+    Layout = "~/Areas/RefData/Views/Shared/_orgstruct.cshtml";
+
+    var canModify = (bool)ViewBag.CanModify;
+}
+<h3>Daftar Kantor Unit</h3>
+
+@if (canModify)
+{
+<div style="padding-bottom: 12px">
+    @Html.ActionLink("Tambah", "KantorUnitNew")
+</div>
+}
+
+<table class="list">
+    <tr>
+        <td align=center style="background-color: Silver;"><b>ID</b></th>
+        <td align=center style="background-color: Silver;"><b>Direktorat</b></td>
+        <td align=center style="background-color: Silver;"><b>Cabang</b></td>
+        <td align=center style="background-color: Silver;"><b>Kelas</b></td>
+        <td align=center style="background-color: Silver;"><b>Kode Cabang</b></td>
+        <td align=center style="background-color: Silver;"><b>Kantor Unit</b></td>
+        <td align=center style="background-color: Silver;"><b>Supporting Unit</b></td>
+        <td align=center style="background-color: Silver;"><b>Status</b></td>
+        @if (canModify)
+        {
+        <td align=center style="background-color: Silver;"><b>Proses</b></td>
+        }
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.BizUnit.BizUnitId)</td>
+        <td>@Html.DisplayFor(modelItem => item.Dept.DeptName)</td>
+        <td>@Html.DisplayFor(modelItem => item.Branch.BranchName)</td>
+        <td>@Html.DisplayFor(modelItem => item.BranchClass.ClassName)</td>
+        <td>@Html.DisplayFor(modelItem => item.Branch.BranchCode)</td>
+        <td>@Html.DisplayFor(modelItem => item.BizUnit.BizUnitName)</td>
+        <td align=center>@Html.DisplayFor(modelItem => item.BizUnit.IsSupporting)</td>
+        <td align=center>@Html.DisplayFor(modelItem => item.BizUnit.statusf)</td>
+        @if (canModify)
+        {
+        <td>
+            @Html.ActionLink("Edit", "KantorUnitEdit", new { id = item.BizUnit.BizUnitId }) |
+            @Html.ActionLink("Hapus", "KantorUnitDelete", new { id = item.BizUnit.BizUnitId })
+        </td>
+        }
+    </tr>
+}
+
+</table>

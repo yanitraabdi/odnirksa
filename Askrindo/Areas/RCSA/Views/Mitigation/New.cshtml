@@ -1,0 +1,153 @@
+﻿@model Askrindo.Areas.RCSA.Models.MitigationViewModel
+@using Askrindo.Helpers
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Areas/RCSA/Views/Shared/RCSALayout.cshtml";
+}
+
+<script>
+    function updateMitigationCatList(el) {
+        let selectedValue = $(el).val();
+        var params = new URLSearchParams(location.search);
+        params.set('mitigationCatId', selectedValue);
+        window.location.search = params.toString();
+    }
+</script>
+<div class="askrindo-content-box">
+    <div class="row text-center">
+        <div class="col-4">
+            <p>Tk. Prob Inherent</p>
+            <h5>@Model.Risk.ProbLevelId</h5>
+        </div>
+        <div class="col-4">
+            <p>Tk. Dampak Inherent</p>
+            <h5>@Model.Risk.ImpactLevelId</h5>
+        </div>
+        <div class="col-4">
+            <p>Tk. Risiko Inherent</p>
+            <h5>@(Model.Risk.ProbLevelId * Model.Risk.ImpactLevelId)</h5>
+        </div>
+    </div>
+    @using (Html.BeginForm("New", "Mitigation", FormMethod.Post, new { onsubmit = "return validateForm();" }))
+    {
+        @Html.HiddenFor(m => m.RiskMitigation.RiskId)
+        @Html.HiddenFor(m => m.RiskMitigation.MitigationCode)
+        @Html.HiddenFor(m => m.RiskMitigation.InputDate)
+        @Html.HiddenFor(m => m.RiskMitigation.MitigationDate)
+        @Html.HiddenFor(m => m.RiskMitigation.OrgPos)
+        <div class="card">
+            <div class="card-header askrindo-bg-blue text-center">
+                <h5>Detail Mitigasi</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col text-center">
+                        Kode Mitigasi
+                        <div>@Model.RiskMitigation.MitigationCode</div>
+                    </div>
+                    <div class="col text-center">
+                        Tanggal
+                        <div>
+                            @DateTime.Now.ToString("dddd, dd MMMM yyyy")
+                            <input name="@Html.NameFor(m => m.RiskMitigation.MitigationDate)" type="hidden" value="@DateTime.Now.ToString("dddd, dd MMMM yyyy")">
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div>
+                    Kelompok Mitigasi
+                    <div>
+                        @Html.DropDownListFor(m => m.RiskMitigation.MitigationCatId, Model.MitigationCats, "",
+                            new { id = "ddlMitigationCat", @class = "form-control askrindo-form-control" })
+                        @Html.ValidationMessageFor(m => m.RiskMitigation.MitigationCatId)
+                    </div>
+                </div>
+                <div>
+                    Jenis Mitigasi
+                    @Html.DropDownListFor(m => m.RiskMitigation.MitigationTypeId, Model.MitigationTypes, "",
+                        new { id = "ddlMitigationType", @class = "form-control askrindo-form-control" })
+                    @Html.ValidationMessageFor(m => m.RiskMitigation.MitigationTypeId)
+                </div>
+            </div>
+            <hr />
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        Tingkat Probability Residual
+                        <div>
+                            @Html.DropDownListFor(m => m.RiskMitigation.ProbLevelId, Model.ProbLevels, "",
+                                new { id = "ddlProbLevel", @class = "form-control askrindo-form-control" })
+                            @Html.ValidationMessageFor(m => m.RiskMitigation.ProbLevelId)
+                        </div>
+                    </div>
+                    <div class="col">
+                        Tingkat Dampak Residual
+                        <div>
+                            @Html.DropDownListFor(m => m.RiskMitigation.ImpactLevelId, Model.ImpactLevels, "",
+                                new { id = "ddlImpactLevel", @class = "form-control askrindo-form-control" })
+                            @Html.ValidationMessageFor(m => m.RiskMitigation.ImpactLevelId)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="card-body">
+                <label>Uraian</label>
+                @Html.TextAreaFor(m => m.RiskMitigation.MitigationName, new { @class = "form-control askrindo-form-control", rows = 5 })
+                @Html.ValidationMessageFor(m => m.RiskMitigation.MitigationName)
+            </div>
+        </div>
+        <div class="text-right" style="margin-top: 20px;">
+            <input type="submit" value="Simpan" class="btn askrindo-btn askrindo-btn-color" />
+        </div>
+    }
+</div>
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/airdatepickerjs")
+    @Styles.Render("~/Content/airdatepickercss")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ddlMitigationCat").change(function () {
+            var selectedValue = $(this).val();
+            $.getJSON('@Url.Action("LoadMitigationTypes", "Mitigation")', { catId: selectedValue }, function (callbackData) {
+                var select = $("#ddlMitigationType");
+                select.empty();
+                select.append($("<option/>", {
+                    value: "",
+                    text: ""
+                }));
+                $.each(callbackData, function (index, itemData) {
+                    select.append($("<option/>", {
+                        value: itemData.Value,
+                        text: itemData.Text
+                    }));
+                });
+            });
+        });
+
+    });
+
+
+    var validateForm = function () {
+        let selects = $('form select');
+        let formValid = true;
+
+        $.each(selects, function (k, v) {
+            var cv = $(v).val();
+
+            if (!cv) {
+                $(v).focus();
+                $(v).addClass('border-warning');
+
+                formValid = false;
+                return false;
+            }
+        });
+
+        return formValid;
+    }
+</script>
+}

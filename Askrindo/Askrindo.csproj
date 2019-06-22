@@ -1,0 +1,1181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0A58EEC7-C9B1-4E9F-8C85-804C38E6E3A7}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Askrindo</RootNamespace>
+    <AssemblyName>Askrindo</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.4\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.0\lib\net451\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.0\lib\net451\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.0\lib\net451\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.0\lib\net451\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.0\lib\net451\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.0\lib\net451\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.0\lib\net451\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DocMgrController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserMaintenanceController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserMgrController.cs" />
+    <Compile Include="Areas\Admin\Models\AdminModels.cs" />
+    <Compile Include="Areas\Admin\Models\DocMgr\DocMgrVM.cs" />
+    <Compile Include="Areas\Admin\Models\UserMaintenance\UserViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\UserMgr\UserMgrVM.cs" />
+    <Compile Include="Areas\Doc\Controllers\DocController.cs" />
+    <Compile Include="Areas\Doc\DocAreaRegistration.cs" />
+    <Compile Include="Areas\Doc\Models\Doc\DocVM.cs" />
+    <Compile Include="Areas\KRI\Controllers\KRIController.cs" />
+    <Compile Include="Areas\KRI\KRIAreaRegistration.cs" />
+    <Compile Include="Areas\KRI\Models\InvestViewModel.cs" />
+    <Compile Include="Areas\KRI\Models\NonInvestViewModel.cs" />
+    <Compile Include="Areas\LossEvent\Controllers\LossEventController.cs" />
+    <Compile Include="Areas\LossEvent\LossEventAreaRegistration.cs" />
+    <Compile Include="Areas\LossEvent\Models\LossEventModel.cs" />
+    <Compile Include="Areas\RCSA\Controllers\DefaultController.cs" />
+    <Compile Include="Areas\RCSA\Controllers\MitigationController.cs" />
+    <Compile Include="Areas\RCSA\Controllers\NewController.cs" />
+    <Compile Include="Areas\RCSA\Models\RCSAInputIAttachmentModel.cs" />
+    <Compile Include="Areas\RCSA\Models\RCSAInputImpactModel.cs" />
+    <Compile Include="Areas\RCSA\Models\RCSANewViewModel.cs" />
+    <Compile Include="Areas\RCSA\Models\RCSAInputProbabilityModel.cs" />
+    <Compile Include="Areas\RCSA\Models\RCSARiskInputModel.cs" />
+    <Compile Include="Areas\RCSA\RCSAAreaRegistration.cs" />
+    <Compile Include="Areas\RefData\Controllers\AktivitasController.cs" />
+    <Compile Include="Areas\RefData\Controllers\ImpactLevelController.cs" />
+    <Compile Include="Areas\RefData\Controllers\LossCatController.cs" />
+    <Compile Include="Areas\RefData\Controllers\MitigationController.cs" />
+    <Compile Include="Areas\RefData\Controllers\NonMoneyImpactController.cs" />
+    <Compile Include="Areas\RefData\Controllers\OrgStructController.cs" />
+    <Compile Include="Areas\RefData\Controllers\ProbLevelController.cs" />
+    <Compile Include="Areas\RefData\Controllers\RefDataController.cs" />
+    <Compile Include="Areas\RefData\Controllers\RiskBizController.cs" />
+    <Compile Include="Areas\RefData\Controllers\RiskCauseController.cs" />
+    <Compile Include="Areas\RefData\Controllers\RiskClassController.cs" />
+    <Compile Include="Areas\RefData\Controllers\RiskEffectController.cs" />
+    <Compile Include="Areas\RefData\Controllers\RiskEventController.cs" />
+    <Compile Include="Areas\RefData\Controllers\RiskLevelController.cs" />
+    <Compile Include="Areas\RefData\Models\Aktivitas\AktivitasModel.cs" />
+    <Compile Include="Areas\RefData\Models\ImpactLevel\ImpactValueViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\LossCat\LossCatModel.cs" />
+    <Compile Include="Areas\RefData\Models\Mitigation\MitigationTypeViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\NonMoneyImpact\ImpactDetailViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\NonMoneyImpact\ImpactTypeViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\OrgStruct\BagianCabangViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\OrgStruct\BagianViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\OrgStruct\BizUnitViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\OrgStruct\DibawahDirektoratViewModal.cs" />
+    <Compile Include="Areas\RefData\Models\OrgStruct\DivisiViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\OrgStruct\KantorCabangViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\OrgStruct\KantorUnitViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\OrgStruct\SubBranchViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\OrgStruct\SubDeptViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\OrgStruct\SubDivViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\RiskCause\CauseTypeViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\RiskCause\CauseViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\RiskClass\RiskGroupViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\RiskClass\RiskTypeViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\RiskEffect\EffectTypeViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\RiskEffect\EffectViewModel.cs" />
+    <Compile Include="Areas\RefData\Models\RiskEvent\RiskEventModel.cs" />
+    <Compile Include="Areas\RefData\RefDataAreaRegistration.cs" />
+    <Compile Include="Areas\Report\Controllers\LossEventController.cs" />
+    <Compile Include="Areas\Report\Controllers\ReportController.cs" />
+    <Compile Include="Areas\Report\Controllers\RisikoBerulangController.cs" />
+    <Compile Include="Areas\Report\Controllers\RiskChartController.cs" />
+    <Compile Include="Areas\Report\Controllers\RiskMapController.cs" />
+    <Compile Include="Areas\Report\Controllers\RiskRegisterController.cs" />
+    <Compile Include="Areas\Report\Controllers\RiskTableController.cs" />
+    <Compile Include="Areas\Report\Controllers\TopTenRiskController.cs" />
+    <Compile Include="Areas\Report\Models\LossEvent\LossEventViewModel.cs" />
+    <Compile Include="Areas\Report\Models\RisikoBerulang\RisikoBerulangViewModel.cs" />
+    <Compile Include="Areas\Report\Models\RiskChart\RiskChartViewModel.cs" />
+    <Compile Include="Areas\Report\Models\RiskMap\RiskMapViewModel.cs" />
+    <Compile Include="Areas\Report\Models\RiskRegister\RiskRegisterViewModel.cs" />
+    <Compile Include="Areas\Report\Models\RiskTable\RiskTableViewModel.cs" />
+    <Compile Include="Areas\Report\Models\TopTenRisk\TopTenViewModel.cs" />
+    <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TestTemplateController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Stat\binomialdistr.cs" />
+    <Compile Include="Helpers\Stat\gammaf.cs" />
+    <Compile Include="Helpers\Stat\ibetaf.cs" />
+    <Compile Include="Helpers\Stat\igammaf.cs" />
+    <Compile Include="Helpers\Stat\libs\ap.cs" />
+    <Compile Include="Helpers\Stat\nearunityunit.cs" />
+    <Compile Include="Helpers\Stat\normaldistr.cs" />
+    <Compile Include="Helpers\Stat\poissondistr.cs" />
+    <Compile Include="Helpers\Utils.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ActionApproval.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ActionProgress.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Askrindo2019Model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Askrindo2019Model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Askrindo2019Model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Askrindo2019Model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Askrindo2019Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Profile.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bisni.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bisnis_aktifitas.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BizUnit.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Branch.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BranchClass.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cause.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CauseGroup.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CauseType.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Dept.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Division.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Effect.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EffectGroup.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EffectType.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Freq.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HelpDoc.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HelpMenu.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ImpactCat.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ImpactDetail.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ImpactLevel.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ImpactRef.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ImpactType.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JoinOrganisasi.cs" />
+    <Compile Include="Models\KlasifikasiKerugian.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Korwil.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIActionApproval.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIActionProgress.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIInvest.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIInvestData.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIInvestParameter.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIMitigationAction.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIMitigationApproval.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIMitigationAttachment.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRINonInvest.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRINonInvestData.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRINonInvestParameter.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIRisk.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIRiskApproval.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIRiskAttachment.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIRiskCauseLine.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIRiskEffectLine.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIRiskImpact.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIRiskMitigation.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIRiskNonMoneyImpact.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KRIRiskProb.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LossEvent.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LossEventBulanView.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LossEventKantorView.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LossEventPemilikView.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LossEventTahunView.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MitigationApproval.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MitigationAttachment.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MitigationCat.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MitigationsAction.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MitigationType.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MitigationUnit.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProbLevel.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RisikoBerulangKantorCabang_Result.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RisikoBerulangKantorCabang_Result1.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RisikoBerulangKantorPusat_Result.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RisikoBerulangKantorPusat_Result1.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RisikoBerulangRisikoUtama_Result.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RisikoBerulangRisikoUtama_Result1.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RisikoBerulangSebabUtama_Result.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RisikoBerulangSebabUtama_Result1.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RisikoBerulangTingkatRisiko_Result.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RisikoBerulangTingkatRisiko_Result1.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Risk.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskApproval.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskAttachment.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskCat.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskCause.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskCauseLine.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskEffectLine.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskEvent.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskGroup.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskImpact.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskLevel.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskMitigation.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskNonMoneyImpact.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskProb.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskState.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskType.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SerialNumber.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SRInvest.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SRInvestProgress.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SRIProgressAction.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SRNIProgressAction.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SRNonInvest.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SRNonInvestProgress.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubBranch.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubDept.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubDiv.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserGroup.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserInfo.cs">
+      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-tagsinput.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Fontawesome\css\all.css" />
+    <Content Include="Content\Fontawesome\css\all.min.css" />
+    <Content Include="Content\Fontawesome\css\brands.css" />
+    <Content Include="Content\Fontawesome\css\brands.min.css" />
+    <Content Include="Content\Fontawesome\css\fontawesome.css" />
+    <Content Include="Content\Fontawesome\css\fontawesome.min.css" />
+    <Content Include="Content\Fontawesome\css\regular.css" />
+    <Content Include="Content\Fontawesome\css\regular.min.css" />
+    <Content Include="Content\Fontawesome\css\solid.css" />
+    <Content Include="Content\Fontawesome\css\solid.min.css" />
+    <Content Include="Content\Fontawesome\css\svg-with-js.css" />
+    <Content Include="Content\Fontawesome\css\svg-with-js.min.css" />
+    <Content Include="Content\Fontawesome\css\v4-shims.css" />
+    <Content Include="Content\Fontawesome\css\v4-shims.min.css" />
+    <Content Include="Content\Fontawesome\LICENSE.txt" />
+    <Content Include="Content\Fontawesome\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\Fontawesome\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\Fontawesome\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\Image\bg-login-with-text.jpg" />
+    <Content Include="Content\Image\bg-login.jpg" />
+    <Content Include="Content\Image\default-avatar.png" />
+    <Content Include="Content\Image\header-1.png" />
+    <Content Include="Content\Image\icon-alert.png" />
+    <Content Include="Content\Image\icon-company.png" />
+    <Content Include="Content\Image\icon-info.png" />
+    <Content Include="Content\Image\icon-mitigasi.png" />
+    <Content Include="Content\Image\icon-risiko.png" />
+    <Content Include="Content\Image\icon-user.png" />
+    <Content Include="Content\Image\logo-login.png" />
+    <Content Include="Content\Image\logo.png" />
+    <Content Include="Content\jquery.numbox-1.3.0.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Style\bootstrap-grid.css" />
+    <Content Include="Content\Style\bootstrap-grid.min.css" />
+    <Content Include="Content\Style\bootstrap-reboot.css" />
+    <Content Include="Content\Style\bootstrap-reboot.min.css" />
+    <Content Include="Content\Style\bootstrap.css" />
+    <Content Include="Content\Style\bootstrap.min.css" />
+    <Content Include="Content\Style\Web.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Helpers\Stat\libs\ap.english.html" />
+    <Content Include="Helpers\Stat\libs\ap.russian.html" />
+    <Content Include="Models\Askrindo2019Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Askrindo2019Model.edmx</DependentUpon>
+      <LastGenOutput>Askrindo2019Model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Askrindo2019Model.edmx.sql" />
+    <Content Include="Models\Askrindo2019Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Askrindo2019Model.edmx</DependentUpon>
+      <LastGenOutput>Askrindo2019Model.cs</LastGenOutput>
+    </Content>
+    <Content Include="Content\AirDatepicker\css\datepicker.css" />
+    <Content Include="Content\AirDatepicker\css\datepicker.min.css" />
+    <Content Include="Scripts\AirDatepicker\js\datepicker.js" />
+    <Content Include="Scripts\AirDatepicker\js\datepicker.min.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.cs.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.da.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.de.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.en.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.es.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.fi.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.fr.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.hu.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.nl.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.pl.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.pt-BR.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.pt.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.ro.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.sk.js" />
+    <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.zh.js" />
+    <Content Include="Scripts\bootstrap-tagsinput.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\Style\bootstrap-grid.css.map" />
+    <Content Include="Content\Style\bootstrap-grid.min.css.map" />
+    <Content Include="Content\Style\bootstrap-reboot.css.map" />
+    <Content Include="Content\Style\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\Style\bootstrap.css.map" />
+    <Content Include="Content\Style\bootstrap.min.css.map" />
+    <Content Include="Scripts\Bootstrap4\bootstrap.bundle.js" />
+    <Content Include="Scripts\Bootstrap4\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\Bootstrap4\bootstrap.js" />
+    <Content Include="Scripts\Bootstrap4\bootstrap.min.js.map" />
+    <Content Include="Scripts\Bootstrap4\bootstrap.js.map" />
+    <Content Include="Scripts\Bootstrap4\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\Bootstrap4\bootstrap.bundle.min.js.map" />
+    <Content Include="Content\Fontawesome\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\Fontawesome\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\Fontawesome\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\Fontawesome\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\Fontawesome\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\Fontawesome\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\Fontawesome\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\Fontawesome\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\Fontawesome\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\Fontawesome\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\Fontawesome\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\Fontawesome\webfonts\fa-solid-900.woff2" />
+    <EntityDeploy Include="Models\Askrindo2019Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Askrindo2019Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Askrindo2019Model.edmx.diagram">
+      <DependentUpon>Askrindo2019Model.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\RCSA\Views\web.config" />
+    <Content Include="Areas\RCSA\Views\New\Index.cshtml" />
+    <Content Include="Areas\RCSA\Views\Default\Detail.cshtml" />
+    <Content Include="Areas\RCSA\Views\New\Search.cshtml" />
+    <Content Include="Areas\RCSA\Views\Default\Index.cshtml" />
+    <Content Include="Areas\RCSA\Views\Shared\Navigation.cshtml" />
+    <Content Include="Areas\RCSA\Views\Mitigation\Index.cshtml" />
+    <Content Include="Areas\RCSA\Views\Shared\RiskInfoHeader.cshtml" />
+    <Content Include="Areas\RCSA\Views\Default\ApproveRisk.cshtml" />
+    <Content Include="Scripts\cleave.min.js" />
+    <Content Include="Areas\RCSA\Views\Mitigation\New.cshtml" />
+    <Content Include="Areas\RCSA\Views\Mitigation\Edit.cshtml" />
+    <Content Include="Areas\RCSA\Views\Shared\MitigationList.cshtml" />
+    <Content Include="Areas\RCSA\Views\Shared\RCSALayout.cshtml" />
+    <Content Include="Areas\RCSA\Views\Mitigation\List.cshtml" />
+    <Content Include="Areas\RCSA\Views\Mitigation\Detail.cshtml" />
+    <Content Include="Areas\RCSA\Views\Mitigation\Approve.cshtml" />
+    <Content Include="Areas\RCSA\Views\Mitigation\MitigationAction.cshtml" />
+    <Content Include="Areas\RCSA\Views\Mitigation\MitigationActionList.cshtml" />
+    <Content Include="Areas\RCSA\Views\Mitigation\MitigationActionNew.cshtml" />
+    <Content Include="Areas\RCSA\Views\Mitigation\MitigationActionEdit.cshtml" />
+    <Content Include="Areas\RCSA\Views\Mitigation\ProgressIndex.cshtml" />
+    <Content Include="Areas\RCSA\Views\Mitigation\ProgressNew.cshtml" />
+    <Content Include="Areas\LossEvent\Views\LossEvent\Approve.cshtml" />
+    <Content Include="Areas\LossEvent\Views\LossEvent\Delete.cshtml" />
+    <Content Include="Areas\LossEvent\Views\LossEvent\Detail.cshtml" />
+    <Content Include="Areas\LossEvent\Views\LossEvent\Edit.cshtml" />
+    <Content Include="Areas\LossEvent\Views\LossEvent\Error.cshtml" />
+    <Content Include="Areas\LossEvent\Views\LossEvent\Index.cshtml" />
+    <Content Include="Areas\LossEvent\Views\LossEvent\LossEventApprove.cshtml" />
+    <Content Include="Areas\LossEvent\Views\LossEvent\LossEventList.cshtml" />
+    <Content Include="Areas\LossEvent\Views\LossEvent\LossEventNew.cshtml" />
+    <Content Include="Areas\LossEvent\Views\LossEvent\ShowApproved.cshtml" />
+    <Content Include="Areas\LossEvent\Views\Shared\_LossEvent.cshtml" />
+    <Content Include="Areas\LossEvent\Views\Shared\_LossEventApprove.cshtml" />
+    <Content Include="Areas\LossEvent\Views\Shared\_LossEventDetail.cshtml" />
+    <Content Include="Areas\LossEvent\Views\Shared\_LossEventEdit.cshtml" />
+    <Content Include="Areas\LossEvent\Views\Shared\_LossEventList.cshtml" />
+    <Content Include="Areas\LossEvent\Views\Shared\_LossEventNew.cshtml" />
+    <Content Include="Areas\LossEvent\Views\Shared\_ShowApproved.cshtml" />
+    <Content Include="Areas\LossEvent\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\KRI\Views\web.config" />
+    <Content Include="Areas\KRI\Views\Shared\KRILayout.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\Index.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\InvestStrategicResponseNew.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\InvestStrategicResponseDetail.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\ManageInvest.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\Invest.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\ManageNonInvest.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\NonInvestStrategicResponseNew.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\NISRProgressDetail.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\InvestStrategicResponseList.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\NonInvestStrategicResponseList.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\ChangeUserPassword.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\UserDelete.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\UserEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\UserList.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\UserNew.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_Link_UserList.cshtml" />
+    <Content Include="Areas\Admin\Views\DocMgr\DocEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\DocMgr\DocList.cshtml" />
+    <Content Include="Areas\Admin\Views\DocMgr\DocNew.cshtml" />
+    <Content Include="Areas\Admin\Views\DocMgr\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DocMgr\MenuDelete.cshtml" />
+    <Content Include="Areas\Admin\Views\DocMgr\MenuEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\DocMgr\MenuNew.cshtml" />
+    <Content Include="Areas\Admin\Views\DocMgr\_Partial_HelpMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Admin.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_DocMgr.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_UserMaintenance.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_UserMgr.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_UserMgt.cshtml" />
+    <Content Include="Areas\Admin\Views\UserMaintenance\Error.cshtml" />
+    <Content Include="Areas\Admin\Views\UserMaintenance\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\UserMaintenance\Info.cshtml" />
+    <Content Include="Areas\Admin\Views\UserMaintenance\UnlockUser.cshtml" />
+    <Content Include="Areas\Admin\Views\UserMgr\ChangeUserPassword.cshtml" />
+    <Content Include="Areas\Admin\Views\UserMgr\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\UserMgr\UserDelete.cshtml" />
+    <Content Include="Areas\Admin\Views\UserMgr\UserEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\UserMgr\UserEditNew.cshtml" />
+    <Content Include="Areas\Admin\Views\UserMgr\UserNew.cshtml" />
+    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Doc\Views\Doc\Index.cshtml" />
+    <Content Include="Areas\Doc\Views\Doc\List.cshtml" />
+    <Content Include="Areas\Doc\Views\Shared\_Doc.cshtml" />
+    <Content Include="Areas\Doc\Views\Shared\_Partial_DocMenu.cshtml" />
+    <Content Include="Areas\Doc\Views\Web.config" />
+    <Content Include="Areas\RefData\Views\ImpactLevel\Edit.cshtml" />
+    <Content Include="Areas\RefData\Views\ImpactLevel\ImpactPercentage.cshtml" />
+    <Content Include="Areas\RefData\Views\ImpactLevel\ImpactPercentageEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\ImpactLevel\Index.cshtml" />
+    <Content Include="Areas\RefData\Views\ImpactLevel\ShowImpactValue.cshtml" />
+    <Content Include="Areas\RefData\Views\LossCat\delete.cshtml" />
+    <Content Include="Areas\RefData\Views\LossCat\edit.cshtml" />
+    <Content Include="Areas\RefData\Views\LossCat\index.cshtml" />
+    <Content Include="Areas\RefData\Views\LossCat\insert.cshtml" />
+    <Content Include="Areas\RefData\Views\Mitigation\MitigationCatDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\Mitigation\MitigationCatEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\Mitigation\MitigationCatList.cshtml" />
+    <Content Include="Areas\RefData\Views\Mitigation\MitigationCatNew.cshtml" />
+    <Content Include="Areas\RefData\Views\Mitigation\MitigationTypeDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\Mitigation\MitigationTypeEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\Mitigation\MitigationTypeList.cshtml" />
+    <Content Include="Areas\RefData\Views\Mitigation\MitigationTypeNew.cshtml" />
+    <Content Include="Areas\RefData\Views\Mitigation\TableView.cshtml" />
+    <Content Include="Areas\RefData\Views\Mitigation\TreeView.cshtml" />
+    <Content Include="Areas\RefData\Views\Mitigation\_Info_MitigationCat.cshtml" />
+    <Content Include="Areas\RefData\Views\Mitigation\_Link_MitigationCatList.cshtml" />
+    <Content Include="Areas\RefData\Views\Mitigation\_Link_MitigationTypeList.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\ImpactCatDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\ImpactCatEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\ImpactCatList.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\ImpactCatNew.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\ImpactDetailEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\ImpactDetailList.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\ImpactTypeDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\ImpactTypeEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\ImpactTypeList.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\ImpactTypeNew.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\TreeView.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\_Info_ImpactCat.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\_Info_ImpactType.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\_Link_ImpactDetailList.cshtml" />
+    <Content Include="Areas\RefData\Views\NonMoneyImpact\_Link_ImpactTypeList.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\Bagian.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BagianCabang.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BagianCabangDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BagianCabangEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BagianCabangNew.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BagianDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BagianEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BagianNew.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BizUnitDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BizUnitEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BizUnitList.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BizUnitNew.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BranchDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BranchEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BranchList.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\BranchNew.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DeptDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DeptEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DeptList.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DeptNew.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DibawahDirektorat.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DibawahDirektoratDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DibawahDirektoratEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DibawahDirektoratNew.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\Direktorat.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DirektoratDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DirektoratEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DirektoratNew.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DivDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DivEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\Divisi.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DivisiDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DivisiEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DivisiNew.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DivList.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\DivNew.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\Index.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\KantorCabang.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\KantorCabangDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\KantorCabangEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\KantorCabangNew.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\KantorUnit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\KantorUnitDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\KantorUnitEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\KantorUnitNew.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\StrukturOrganisasi.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\SubBranchDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\SubBranchEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\SubBranchList.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\SubBranchNew.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\SubDeptDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\SubDeptEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\SubDeptList.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\SubDeptNew.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\SubDivDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\SubDivEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\SubDivList.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\SubDivNew.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\TreeView.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\_Info_Branch.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\_Info_Dept.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\_Info_Division.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\_Link_DeptList.cshtml" />
+    <Content Include="Areas\RefData\Views\OrgStruct\_Link_SubDeptList.cshtml" />
+    <Content Include="Areas\RefData\Views\ProbLevel\Edit.cshtml" />
+    <Content Include="Areas\RefData\Views\ProbLevel\Index.cshtml" />
+    <Content Include="Areas\RefData\Views\RefData\Index.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskBiz\AktivitasDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskBiz\AktivitasEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskBiz\AktivitasIndex.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskBiz\AktivitasInsert.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskBiz\Delete.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskBiz\Edit.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskBiz\index.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskBiz\Insert.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskCause\CauseDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskCause\CauseEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskCause\CauseGroupDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskCause\CauseGroupEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskCause\CauseGroupList.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskCause\CauseGroupNew.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskCause\CauseList.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskCause\CauseNew.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskCause\CauseTypeDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskCause\CauseTypeEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskCause\CauseTypeList.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskCause\CauseTypeNew.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskCause\TableView.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskCause\TreeView.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\RiskCatDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\RiskCatEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\RiskCatList.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\RiskCatNew.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\RiskGroupDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\RiskGroupEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\RiskGroupList.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\RiskGroupNew.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\RiskNew.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\RiskNewBiz.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\RiskTypeDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\RiskTypeEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\RiskTypeList.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\RiskTypeNew.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\TableView.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\TreeView.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\_Info_RiskCat.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\_Info_RiskGroup.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\_Link_RiskCatList.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\_Link_RiskGroupList.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskClass\_Link_RiskTypeList.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEffect\EffectDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEffect\EffectEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEffect\EffectGroupDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEffect\EffectGroupEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEffect\EffectGroupList.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEffect\EffectGroupNew.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEffect\EffectList.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEffect\EffectNew.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEffect\EffectTypeDelete.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEffect\EffectTypeEdit.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEffect\EffectTypeList.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEffect\EffectTypeNew.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEffect\TableView.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEffect\TreeView.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEvent\Delete.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEvent\Edit.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEvent\index.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskEvent\Insert.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskLevel\Create.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskLevel\Delete.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskLevel\Edit.cshtml" />
+    <Content Include="Areas\RefData\Views\RiskLevel\Index.cshtml" />
+    <Content Include="Areas\RefData\Views\Shared\_Aktivitas.cshtml" />
+    <Content Include="Areas\RefData\Views\Shared\_ImpactLevel.cshtml" />
+    <Content Include="Areas\RefData\Views\Shared\_LossCat.cshtml" />
+    <Content Include="Areas\RefData\Views\Shared\_Mitigation.cshtml" />
+    <Content Include="Areas\RefData\Views\Shared\_NonMoneyImpact.cshtml" />
+    <Content Include="Areas\RefData\Views\Shared\_OrgStruct.cshtml" />
+    <Content Include="Areas\RefData\Views\Shared\_ProbLevel.cshtml" />
+    <Content Include="Areas\RefData\Views\Shared\_RefData.cshtml" />
+    <Content Include="Areas\RefData\Views\Shared\_RiskBiz.cshtml" />
+    <Content Include="Areas\RefData\Views\Shared\_RiskCause.cshtml" />
+    <Content Include="Areas\RefData\Views\Shared\_RiskClass.cshtml" />
+    <Content Include="Areas\RefData\Views\Shared\_RiskEffect.cshtml" />
+    <Content Include="Areas\RefData\Views\Shared\_RiskLevel.cshtml" />
+    <Content Include="Areas\RefData\Views\Shared\_RiskReference.cshtml" />
+    <Content Include="Areas\RefData\Views\Web.config" />
+    <Content Include="Areas\Report\Views\LossEvent\Index.cshtml" />
+    <Content Include="Areas\Report\Views\LossEvent\IndexKantor.cshtml" />
+    <Content Include="Areas\Report\Views\LossEvent\IndexPemilik.cshtml" />
+    <Content Include="Areas\Report\Views\LossEvent\IndexTahun.cshtml" />
+    <Content Include="Areas\Report\Views\Report\Index.cshtml" />
+    <Content Include="Areas\Report\Views\RisikoBerulang\Index.cshtml" />
+    <Content Include="Areas\Report\Views\RisikoBerulang\ShowRisks.cshtml" />
+    <Content Include="Areas\Report\Views\RiskChart\Index.cshtml" />
+    <Content Include="Areas\Report\Views\RiskMap\Index.cshtml" />
+    <Content Include="Areas\Report\Views\RiskMap\ShowRisks.cshtml" />
+    <Content Include="Areas\Report\Views\RiskRegister\Index.cshtml" />
+    <Content Include="Areas\Report\Views\RiskTable\Index.cshtml" />
+    <Content Include="Areas\Report\Views\Shared\_LossEvent.cshtml" />
+    <Content Include="Areas\Report\Views\Shared\_Report.cshtml" />
+    <Content Include="Areas\Report\Views\Shared\_RisikoBerulang.cshtml" />
+    <Content Include="Areas\Report\Views\Shared\_RiskChart.cshtml" />
+    <Content Include="Areas\Report\Views\Shared\_RiskMap.cshtml" />
+    <Content Include="Areas\Report\Views\Shared\_RiskRegister.cshtml" />
+    <Content Include="Areas\Report\Views\Shared\_RiskTable.cshtml" />
+    <Content Include="Areas\Report\Views\Shared\_TopTenRisk.cshtml" />
+    <Content Include="Areas\Report\Views\TopTenRisk\Index.cshtml" />
+    <Content Include="Areas\Report\Views\Web.config" />
+    <Content Include="Areas\KRI\Views\KRI\NonInvestStrategicResponseEdit.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\NISRProgressList.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\NISRProgressActionNew.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\NISRProgressActionList.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\NISRProgressNew.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\NISRProgressView.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\Bootstrap4\bootstrap.min.js" />
+    <Content Include="Scripts\Bootstrap4\popper.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\Numbox\jquery.numbox-1.3.0.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="SQL\combined_sql.sql" />
+    <Content Include="SQL\migrate_dle.sql" />
+    <Content Include="SQL\migrate_etc_tables.sql" />
+    <Content Include="SQL\migrate_risks.sql" />
+    <Content Include="SQL\migrate_risk_mitigation.sql" />
+    <Content Include="SQL\migrate_sp.sql" />
+    <Content Include="SQL\migrate_user.sql" />
+    <Content Include="SQL\migrate_userinfo.sql" />
+    <Content Include="SQL\migrate_views.sql" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\TestTemplate\Index.cshtml" />
+    <Content Include="Views\TestTemplate\Test.cshtml" />
+    <Content Include="Views\Shared\_AskrindoLayout.cshtml" />
+    <Content Include="Views\Account\AskrindoLogin.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+</Target>
+<Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+</Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56103</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:56103/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

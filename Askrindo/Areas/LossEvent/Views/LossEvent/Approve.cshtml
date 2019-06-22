@@ -1,0 +1,84 @@
+﻿@model Askrindo.Areas.LossEvent.Models.LossEventModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/LossEvent/Views/Shared/_LossEventEdit.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <table class="edit">
+    @Html.HiddenFor(m => m.lossEvent.LossEventId)
+        <tr>
+            <td>Kode Loss Event</td>
+            <td>
+                @Html.TextBoxFor(m => m.lossEvent.LossEventCode, new { disabled = "disabled" })
+                @Html.ValidationMessageFor(m => m.lossEvent.LossEventCode)
+            </td>
+        </tr>
+        <tr>
+            <td>Tanggal Input</td>
+            <td>@Html.TextBoxFor(m => m.lossEvent.InputDate, new { disabled = "disabled" })</td>
+        </tr>
+        <tr>
+            <td>Klasifikasi Kerugian</td>
+            <td>@Html.DropDownListFor(m => m.lossEvent.KlasifikasiId, Model.klasifikasi,  new { disabled = "disabled" })</td>
+        </tr>
+        <tr>
+            <td>Perisitiwa Kerugian</td>
+            <td>@Html.TextAreaFor(m => m.lossEvent.LossEventName, new { disabled = "disabled" })</td>
+        </tr>
+        <tr>
+            <td>Tanggal Kerugian</td>
+            <td>@Html.TextBoxFor(m => m.lossEvent.LossDate, new { disabled = "disabled" })</td>
+        </tr>
+        <tr>
+            <td>Sebab Kerugian</td>
+            <td>@Html.TextAreaFor(m => m.lossEvent.LossCause, new { disabled = "disabled" })</td>
+        </tr>
+        <tr>
+            <td>Nilai Pembelian Aset</td>
+            <td>@Html.TextBoxFor(m => m.lossEvent.Assets, new { disabled = "disabled" })</td>
+        </tr>
+        <tr>
+            <td>Lokasi</td>
+            <td>@Html.TextBoxFor(m => m.lossEvent.Location, new { disabled = "disabled" })</td>
+        </tr>
+        <tr>
+            <td>Pihak yang Terlibat Dalam Kerugian</td>
+            <td>@Html.TextBoxFor(m => m.lossEvent.PihakTerlibat, new { disabled = "disabled" })</td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td><b>Dampak Kerugian</b></td>
+        </tr>
+        <tr>
+            <td>Keuangan</td>
+            <td>@Html.TextBoxFor(m => m.lossEvent.ImpactFinancial, new { disabled = "disabled" })</td>
+        </tr>
+        <tr>
+            <td>Non Keuangan</td>
+            <td>@Html.TextAreaFor(m => m.lossEvent.ImpactNonFinancial, new { disabled = "disabled" })</td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Tindakan Korektif yang Sudah Dilakukan</td>
+            <td>@Html.TextAreaFor(m => m.lossEvent.Action, new { disabled = "disabled" })</td>
+        </tr>
+        <tr>
+            <td>Keterangan</td>
+            <td>@Html.TextAreaFor(m => m.lossEvent.Keterangan, new { disabled = "disabled" })</td>
+        </tr>
+    </table>
+    <div style="padding-top: 12px">
+        <input type="Submit" value="Approve"/> | @Html.ActionLink("Batal", "LossEventList")
+    </div>
+}
+
+
+
+

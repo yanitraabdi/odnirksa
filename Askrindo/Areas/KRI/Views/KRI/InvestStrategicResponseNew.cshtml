@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = "~/Areas/KRI/Views/Shared/KRILayout.cshtml";
+}
+
+<div class="askrindo-content-box">
+    @using (Html.BeginForm("SubmitRisk", "New", FormMethod.Post, new { onsubmit = "return validateForm();" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-2">Kantor Cabang</div>
+            <div class="col-10">: Semarang</div>
+        </div>
+        <div class="row">
+            <div class="col-2">Tanggal Submit</div>
+            <div class="col-10">: 1 March 2019</div>
+        </div>
+        <div class="row">
+            <div class="col-2">Indikator KRI</div>
+            <div class="col-10">: Premi Bruto</div>
+        </div>
+        <div class="row">
+            <div class="col-2">Analisa Sebab</div>
+            <div class="col-10">
+                <div>
+                    <select class="form-control askrindo-form-control">
+                        <option>Data / informasi kurang relevan</option>
+                    </select>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" />
+                        Tidak ada di daftar analisa sebab
+                    </label>
+                </div>
+                <div>
+                    <textarea class="form-control askrindo-form-control" placeholder="Analisa sebab..."></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">Target Penyelesaian</div>
+            <div class="col-10">
+                <div>
+                    <input type="text" class="form-control askrindo-form-control" />
+                </div>
+                <div>
+                    <input type="text" class="form-control askrindo-form-control" />
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" />
+                        Masukkan ke RKAP tahun depan
+                    </label>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="text-right">
+            <input type="reset" class="btn askrindo-btn btn-outline-danger" value="Batal" />
+            <input type="submit" class="btn askrindo-btn askrindo-btn-color" value="Masukan" />
+        </div>
+    }
+</div>

@@ -1,0 +1,37 @@
+﻿@model Askrindo.Areas.RefData.Models.RiskEventModel
+
+
+@{
+    ViewBag.Title = "RiskReference";
+    Layout = "~/Areas/RefData/Views/Shared/_RiskReference.cshtml";
+
+    var canModify = (bool)Model.canmodify;
+}
+
+<table class="list">
+    <tr>
+        <th>ID</th>
+        <th>Peristiwa Risiko</th>
+        @if (canModify)
+        {
+        <th colspan=2>Proses</th>
+        }
+    </tr>
+    @foreach (var item in Model.riskEventList)
+    {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.RiskEventID)</td>
+        <td>@Html.DisplayFor(modelItem => item.RiskEvent1)</td>
+         @if (canModify)
+         { 
+         <td>@Html.ActionLink("Edit", "Edit", new { id = item.RiskEventID })</td>
+         <td>@Html.ActionLink("Delete", "Delete", new { id = item.RiskEventID })</td>
+         }
+    </tr>
+    }
+</table>
+
+<div style="padding-top: 12px">
+    <input type="Button" value="Tambah" onclick="location.href='@Url.Action("insert", "RiskEvent", new { id = Model.typeId })';return false;"/> | @Html.ActionLink("Kembali", "RiskTypeList", new { groupId = Model.groupId, controller = "RiskClass" })
+
+</div>

@@ -1,0 +1,116 @@
+﻿@using Askrindo.Areas.KRI.Models
+@using Askrindo.Models
+@model NonInvestViewModel
+@{
+    Layout = "~/Areas/KRI/Views/Shared/KRILayout.cshtml";
+}
+
+<div class="askrindo-content-box">
+    <h5>
+        Indikator KRI Non Investasi : @Model.KRINonInvest.Name
+    </h5>
+    @using (Html.BeginForm("ManageNonInvest", "KRI", new { Id = Model.KRINonInvest.Id }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-2">Tanggal Input</div>
+            <div class="col-md-10"><input type="text" class="form-control askrindo-form-control" title="@DateTime.Now.ToString("dddd, dd MMMM yyyy")" value="@DateTime.Now.ToString("dddd, dd MMMM yyyy")" disabled /></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Penginput</div>
+            <div class="col-md-10"><input type="text" class="form-control askrindo-form-control" title="Penginput" value="@Model.User.FullName" disabled /></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Tanggal Transaksi</div>
+            <div class="col-md-10"><input name="@Html.NameFor(m => m.KRINonInvestData.TransactionDate)" type="text" class="form-control askrindo-form-control datepicker-here" data-date-format='DD, dd MM yyyy' data-language='en' title="@DateTime.Now.ToString("dddd, dd MMMM yyyy")" value="@DateTime.Now.ToString("dddd, dd MMMM yyyy")" /></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Nilai @Model.KRINonInvest.Name</div>
+            <div class="col-md-10">@Html.TextBoxFor(m => m.KRINonInvestData.Value, new { @class = "form-control askrindo-form-control number-input" })</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10"><input type="submit" value="Submit" onclick="getRawNumbox();" class="btn askrindo-btn-color askrindo-btn" /></div>
+        </div>
+    }
+    <hr />
+    <h5 style="margin-top: 60px;">
+        Tabel Data Indikator @Model.KRINonInvest.Name
+    </h5>
+    <table class="table table-bordered askrindo-table">
+        <thead>
+            <tr class="text-center">
+                <th>Kode</th>
+                <th>Status</th>
+                <th>Nilai</th>
+                <th>Acuan</th>
+                <th>Tanggal Transaksi</th>
+                <th>Penginput</th>
+                <th>Tindakan</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.KRINonInvest.KRINonInvestDatas.Count == 0)
+            {
+                <tr>
+                    <td colspan="6" class="text-center">
+                        Data tidak tersedia.
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model.KRINonInvest.KRINonInvestDatas.OrderByDescending(d => d.Id))
+                {
+                    <tr>
+                        <td>
+                            @item.Code
+                        </td>
+                        <td>
+                            @if (item.Grade == "risk")
+                            {
+                                <div class="askrindo-box-merah text-center">Sangat Tinggi</div>
+                            }
+                            else if (item.Grade == "danger")
+                            {
+                                <div class="askrindo-box-orange text-center">Tinggi</div>
+                            }
+                            else if (item.Grade == "warning")
+                            {
+                                <div class="askrindo-box-kuning text-center">Sedang</div>
+                            }
+                            else
+                            {
+                                <div class="askrindo-box-hijau text-center">Rendah</div>
+                            }
+                        </td>
+                        <td class="text-right">@String.Format(@*new System.Globalization.CultureInfo("id-ID"),*@ "{0:n}", item.Value)</td>
+                        <td class="text-right">@String.Format(@*new System.Globalization.CultureInfo("id-ID"),*@ "{0:n}", item.Target)</td>
+                        <td>@item.TransactionDate.ToString("dddd, dd MMMM yyyy")</td>
+                        <td>@item.UserInfo.FullName</td>
+                        <td>
+                            <a href="@Url.Action("NonInvestStrategicResponseList", "KRI", new { Id = item.Id })" class="btn askrindo-btn btn-warning">Strategic Respon</a>
+
+                            <a href="#" class="btn askrindo-btn btn-danger">Manajemen Risiko</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+    <script>
+    $(function () {
+        $('.number-input').NumBox({ type: 'decimal', max: 999999999999.99 });
+    });
+
+    function getRawNumbox() {
+        $('.number-input').each(function () {
+            this.value = $(this).NumBox('getRaw');
+        });
+    }
+
+    </script>
+}

@@ -1,0 +1,51 @@
+﻿@model Askrindo.Areas.KRI.Models.StrategicResponseViewModel
+@{
+    ViewBag.Title = "NonInvestSRProgressList";
+    Layout = "~/Areas/KRI/Views/Shared/KRILayout.cshtml";
+}
+
+<div class="askrindo-content-box">
+    <div class="row">
+
+        <div class="col-12">
+            <center><h3>% Progress </h3></center>
+
+            @Html.ActionLink("Tambah Persentase", "NISRProgressActionNew", new { Model.SRNonInvestProgress.Id }, new { @class = "btn askrindo-btn askrindo-btn-color text-center", style = "font-size:12px;" })
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Uraian</th>
+                        <th>Persentase</th>
+                        <th>Tanggal</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.SRNIProgressActions.Count; i++)
+                    {
+                        var item = Model.SRNIProgressActions[i];
+                        <tr>
+                            <td>
+                                @(i + 1)
+                            </td>
+                            <td> @item.Detail </td>
+                            <td>
+                                @item.Progress%
+                            </td>
+                            <td>
+                                @item.Tanggal.ToString("dddd, dd MMMM yyyy")
+                            </td>
+
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="text-right">
+        <a class="btn btn-outline-danger askrindo-btn" href="@Url.Action("NISRProgressView", new { Model.SRNonInvestProgress.Id })">Kembali</a>
+    </div>
+</div>

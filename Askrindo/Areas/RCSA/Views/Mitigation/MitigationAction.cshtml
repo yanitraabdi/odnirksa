@@ -1,0 +1,50 @@
+﻿@model Askrindo.Areas.RCSA.Models.MitigationActionModel
+@{
+    ViewBag.Title = "MitigationAction";
+    Layout = "~/Areas/RCSA/Views/Shared/RCSALayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <table class="edit table">
+        <tr>
+            <td>Kode Risiko</td>
+            <td colspan='4'>@Html.TextBoxFor(m => m.action.ActionID)</td>
+        </tr>
+        <tr>
+            <td>Kode Mitigasi</td>
+            <td colspan='4'>@Html.TextBoxFor(m => m.mitigationcode)</td>
+        </tr>
+        <tr>
+            <td>Tanggal Input</td>
+            <td>@Html.EditorFor(m => m.tglAwal)</td>
+            <td>S/D</td>
+            <td>@Html.EditorFor(m => m.tglAkhir)</td>
+            <td><input type="submit" value="Proses" /></td>
+        </tr>
+        <tr>
+            <td>@Html.ValidationMessageFor(m => m.tglAwal)</td>
+            <td>@Html.ValidationMessageFor(m => m.tglAwal)</td>
+        </tr>
+    </table>
+}
+
+<div style="padding:9px">
+    <table class="list table">
+        <tr>
+            <th>Kode Mitigasi</th>
+            <th>Uraian</th>
+            <th>Kode Risiko</th>
+            <th></th>
+        </tr>
+        @foreach (var m in Model.RiskMitigations)
+        {
+            <tr>
+                <td>@Html.ActionLink(m.MitigationCode, "Detail", new { id = m.MitigationId }, new { target = "_blank" })</td>
+                <td>@Html.DisplayFor(modelItem => m.MitigationName)</td>
+                <td>@Html.ActionLink(m.Risk.RiskCode, "Details", new { id = m.Risk.RiskId, controller = "RiskInfo", area = "" }, new { target = "_blank" })</td>
+                <td>@Html.ActionLink("Progress Pelaksanaan", "MitigationActionList", new { id = m.MitigationId })</td>
+            </tr>
+        }
+    </table>
+</div>

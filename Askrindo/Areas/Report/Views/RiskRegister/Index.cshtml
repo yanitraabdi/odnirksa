@@ -1,0 +1,608 @@
+﻿@model Askrindo.Areas.Report.Models.RiskRegister.RiskRegisterViewModel
+
+@using Askrindo.Helpers
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Report/Views/Shared/_RiskRegister.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#params").accordion({
+            collapsible: true,
+            active: -1
+        });
+        $(".tanggal").datepicker({ dateFormat: "dd/mm/yy" });
+    });
+</script>
+
+<script type="text/javascript">
+		$('#check-all').click(function() {
+			$('.check-box').prop('checked', this.checked);
+		});
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ddlLokasi').change(function () {
+            var selectedValue = $(this).val();
+            $.getJSON('@VirtualPathUtility.ToAbsolute("~/RiskRegister/LoadUnitKerja")', { Id: selectedValue }, function (callbackData) {
+            var select = $("#ddlUnitKerja");
+                select.empty();
+                select.append($("<option/>", {
+                    value: "",
+                    text: ""
+                }));
+                $.each(callbackData, function (index, itemData) {
+                    select.append($("<option/>", {
+                        value: itemData.Value,
+                        text: itemData.Text
+                    }));
+                });
+            });
+        });
+        $('#ddlKlasifikasi').change(function () {
+            var selectedValue = $(this).val();
+            $.getJSON('@VirtualPathUtility.ToAbsolute("~/RiskRegister/LoadProsesBisnis")', { Id: selectedValue }, function (callbackData) {
+                var select = $("#ddlProsesBisnis");
+                select.empty();
+                select.append($("<option/>", {
+                    value: "",
+                    text: ""
+                }));
+                $.each(callbackData, function (index, itemData) {
+                    select.append($("<option/>", {
+                        value: itemData.Value,
+                        text: itemData.Text
+                    }));
+                });
+            });
+        });
+		
+    });
+</script>
+
+<div id="params" style="padding-bottom: 12px">
+    <h3>
+        <a href="#">Parameter</a>
+    </h3>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <table class="edit">
+                <tr style="background-color: #ddd">
+                    <td colspan="2"><b>FILTER</b></td>
+                </tr>
+                <tr>
+                    <td>Lokasi</td>
+                    <td>@Html.DropDownListFor(m => m.Param.PosId, Model.Param.PosList, "",
+                        new { id = "ddlLokasi", style = "width: 200px;" })</td>
+                </tr>
+                <tr>
+                    <td>Unit Kerja</td>
+                    <td>@Html.DropDownListFor(m => m.Param.BranchId, Model.Param.Unit, "",
+                        new { id = "ddlUnitKerja", style = "width: 200px;" })</td>
+                </tr>
+                <tr>
+                    <td>Tanggal</td>
+                    <td>@Html.EditorFor(m => m.Param.ReportDate) s/d @Html.EditorFor(m => m.Param.ReportDate2)</td>
+                </tr>
+                <tr>
+                    <td>Tingkat Risiko Inherent</td>
+                    @*<td>@Html.DropDownListFor(m => m.Param.RiskLevelId, Model.Param.RiskLevels, "")</td>*@
+                    <td>@Html.EditorFor(m => m.Param.RiskLevelId, new { style = "width: 10px" }) < x <= @Html.EditorFor(m => m.Param.RiskLevelId2)</td>
+                </tr>
+                <tr>
+                    <td>Klasifikasi</td>
+                    <td>@Html.DropDownListFor(m => m.Param.KlasId, Model.Param.KlasList, "",
+                        new { id = "ddlKlasifikasi", style = "width: 200px;" })</td>
+                </tr>
+                <tr>
+                    <td>Jenis Bisnis</td>
+                    <td>@Html.DropDownListFor(m => m.Param.BisnisId, Model.Param.BisnisList, "",
+                        new { id = "ddlProsesBisnis", style = "width: 200px;" })</td>
+                </tr>
+                @*<tr>
+                    <td>Tingkat Risiko Residual</td>
+                    <td>@Html.DropDownListFor(m => m.Param.RiskLevelId, Model.Param.RiskLevels, "")</td>
+                    <td>@Html.EditorFor(m => m.Param.RiskLevelId) < x <= @Html.EditorFor(m => m.Param.RiskLevelId2)</td>
+                </tr>*@
+				<tr>
+                    <td>Select All</td>
+                    <td>
+                        @Html.CheckBoxFor(m => m.Param.IsApproved, new { @id = "check-all"})
+                        @Html.ValidationMessageFor(m => m.Param.IsApproved)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Approved?</td>
+                    <td>
+                        @Html.CheckBoxFor(m => m.Param.IsApproved, new { @id = "check-box"})
+                        @Html.ValidationMessageFor(m => m.Param.IsApproved)
+                    </td>
+                </tr>
+                <tr style="background-color: #ddd">
+                    <td colspan="2"><b>TAMPILAN</b></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowRiskCode) Kode Risiko
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowRiskDate) Tanggal Kerugian
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowOrg) Unit Kerja
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowRiskCat) Klasifikasi Risiko
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowRiskType) Jenis Risiko
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowRiskCause) Sebab Risiko
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowRiskEffect) Akibat Risiko
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowRiskOwner) Risk Contact Person (RCP)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowProbLevel) Tingkat Probabilitas
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowImpactLevel) Tingkat Dampak
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowApprovedMitigations) Mitigasi yang telah Di-approved
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowPlannedMitigations) Rencana Mitigasi
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowUraianProgress) Uraian Progress Mitigasi
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowPIC) PIC
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowUnitKerja) Unit Kerja Terkait Pelaksanaan Mitigasi
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowResource) Resource Requirement
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowEstimasi) Estimasi Biaya Mitigasi(Rp)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowRKAP) RKAP/RTL Tahun Depan?
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td colspan="2">
+                        @Html.CheckBoxFor(m => m.Param.ShowProgress) Progress Mitigasi
+                    </td>
+                </tr>
+            </table>
+        
+            <div style="padding-top: 12px">
+                <input type="submit" value="Refresh" />
+            </div>
+        }
+    </div>
+</div>
+
+<div style="vertical-align: top">
+
+<table class="list">
+    <tr>
+        @if (Model.Param.ShowRiskCode)
+        { 
+        <th>Kode Risiko</th>
+        }
+        <th>Peristiwa Risiko</th>
+        @if (Model.Param.ShowRiskDate)
+        { 
+        <th>Tanggal</th>
+        }
+        @if (Model.Param.ShowOrg)
+        { 
+            <th>Unit Kerja</th>
+        }
+        @if (Model.Param.ShowRiskCat)
+        { 
+            <th>Klasifikasi Risiko</th>
+            <th>Kelompok Risiko</th>
+        }
+        @if (Model.Param.ShowRiskType)
+        { 
+            <th>Jenis Risiko</th>
+        }
+        @if (Model.Param.ShowRiskCause)
+        { 
+            <th>Sebab Risiko</th>
+        }
+        @if (Model.Param.ShowRiskEffect)
+        { 
+            <th>Akibat Risiko</th>
+        }
+        @if (Model.Param.ShowRiskOwner)
+        { 
+            <th>RCP</th>
+        }
+        @if (Model.Param.ShowProbLevel)
+        { 
+            <th>Tk. Prob</th>
+        }
+        @if (Model.Param.ShowImpactLevel)
+        { 
+            <th>Tk. Dampak</th>
+        }
+        <th>Tk. Risiko</th>
+        @if (Model.Param.ShowApprovedMitigations)
+        { 
+            <th>Mitigasi yg telah Di-approve</th>
+        }
+        @if (Model.Param.ShowPlannedMitigations)
+        { 
+            <th>Rencana Mitigasi</th>
+        }
+    </tr>
+@foreach (var item in Model.RiskList)
+{ 
+    <tr valign="top">
+        @if (Model.Param.ShowRiskCode)
+        { 
+            <td>@item.Risk.RiskCode</td>
+            @*<td>@Html.ActionLink(item.Risk.RiskCode, "Details", new { id = item.Risk.RiskId, controller = "RiskInfo", area = "" }, new { target = "_blank" })</td>*@
+        }
+        @*<td>@Html.DisplayFor(modelItem => @item.Risk.RiskName)</td>*@
+        <td>@Html.ActionLink(item.Risk.RiskName, "Details", new { id = item.Risk.RiskId, controller = "RiskInfo", area = "" }, new { target = "_blank" })</td>
+        @if (Model.Param.ShowRiskDate)
+        { 
+        <td>@Html.DisplayFor(modelItem => item.Risk.RiskDate)</td>
+        }
+        @if (Model.Param.ShowOrg)
+        { 
+            <td>@Utils.GetRiskOrgName(item.Risk)</td>
+        }
+        @if (Model.Param.ShowRiskCat)
+        {
+            <td>
+                @if (item.Risk.RiskCat != null)
+                { 
+                    @item.Risk.RiskCat.RiskCatName
+                }
+            </td>
+            <td>
+                @if (item.Risk.RiskGroup != null)
+                {
+                    @item.Risk.RiskGroup.RiskGroupName
+                }
+            </td>
+        }
+        @if (Model.Param.ShowRiskType)
+        {
+            <td>
+            @if (item.Risk.RiskType != null)
+            { 
+                @item.Risk.RiskType.RiskTypeName
+            }
+            </td>
+        }
+        @if (Model.Param.ShowRiskCause)
+        {
+            <td>
+            @if (item.Risk.Caus != null)
+            { 
+                @item.Risk.Caus.CauseName
+            }
+            </td>
+        }
+        @if (Model.Param.ShowRiskEffect)
+        {
+            <td>
+            @if (item.Risk.Effect != null)
+            { 
+                @item.Risk.Effect.EffectName
+            }
+            </td>
+        }
+        @if (Model.Param.ShowRiskOwner)
+        { 
+            <td>@item.Risk.UserInfo.FullName</td>
+        }
+        @if (Model.Param.ShowProbLevel)
+        { 
+            <td align="center">@item.Risk.ProbLevelId</td>
+        }
+        @if (Model.Param.ShowImpactLevel)
+        { 
+            <td align="center">@item.Risk.ImpactLevelId</td>
+        }
+        <td align="center">@item.Risk.RiskLevel</td>
+
+        @if (Model.Param.ShowApprovedMitigations)
+        { 
+        <td style="padding: 0">
+        @if (item.ApprovedMitigations.Count() > 0)
+        { 
+            <table rules="all" frame="void">
+                <tr>
+                    @if (Model.Param.ShowRiskCode)
+                    { 
+                    <th>Kode Mitigasi</th>
+                    }
+                    <th>Uraian</th>
+                    @if (Model.Param.ShowRiskDate)
+                    { 
+                    <th>Tanggal</th>
+                    }
+                    @if (Model.Param.ShowProbLevel)
+                    { 
+                    <th>Tk. Prob</th>
+                    }
+                    @if (Model.Param.ShowImpactLevel)
+                    { 
+                    <th>Tk. Dampak</th>
+                    }
+                    <th>Tk. Risiko</th>
+                    <th>Progress Pelaksanaan Mitigasi</th>
+                </tr>
+            @foreach (var m in item.ApprovedMitigations)
+            { 
+                <tr>
+                    @if (Model.Param.ShowRiskCode)
+                    { 
+                    <td>@Html.DisplayFor(modelItem => m.MitigationCode)</td>
+                    }
+                    <td>@Html.DisplayFor(modelItem => m.MitigationName)</td>
+                    @if (Model.Param.ShowRiskDate)
+                    { 
+                    <td>@Html.DisplayFor(modelItem => m.MitigationDate)</td>
+                    }
+                    @if (Model.Param.ShowProbLevel)
+                    { 
+                    <td align="center">@Html.DisplayFor(modelItem => m.ProbLevelId)</td>
+                    }
+                    @if (Model.Param.ShowImpactLevel)
+                    { 
+                    <td align="center">@Html.DisplayFor(modelItem => m.ImpactLevelId)</td>
+                    }
+                    <td align="center">@Html.DisplayFor(modelItem => m.RiskLevel)</td>
+                    
+                    <td style="padding: 0">
+                    @if (item.MitigationActionApprove.Count() > 0)
+                    {
+                        <table rules="all" frame="void">
+                        <tr>
+                        @if (Model.Param.ShowUraianProgress)             
+                        {
+                        <th rowspan= "2">Uraian Progress</th>     
+                        }
+                        @if (Model.Param.ShowPIC)
+                        {
+                        <th rowspan= "2">PIC</th>     
+                        }
+                        @if (Model.Param.ShowUnitKerja)
+                        {
+                        <th rowspan= "2">Unit Kerja Terkait</th>     
+                        }
+                        @if (Model.Param.ShowResource)
+                        {
+                        <th rowspan= "2">Resource Requirement</th>     
+                        }
+                        @if (Model.Param.ShowEstimasi)
+                        {
+                        <th rowspan= "2">Estimasi Biaya</th>     
+                        }
+                        @if (Model.Param.ShowRKAP)
+                        {
+                        <th rowspan= "2">RKAP/RTL?</th>     
+                        }
+                        @if (Model.Param.ShowProgress)
+                        {
+                        <th colspan = "3">Progress Mitigasi</th>
+                        }
+                        </tr>
+                        <tr>
+                            <th>Belum Berjalan</th>
+                            <th>Sedang Berjalan</th>
+                            <th>Sudah Selesai</th>
+                        </tr>
+                        @foreach (var c in item.MitigationActionApprove)
+                        {
+                            <tr>
+                            @if (Model.Param.ShowUraianProgress)
+                            {
+                            <td>@Html.DisplayFor(modelItem => c.RiskMitigation.MitigationName)</td>     
+                            }
+                            @if (Model.Param.ShowPIC)
+                            {
+                            <td>@Html.DisplayFor(modelItem => c.PIC2)</td>     
+                            }
+                            @*oreach (var u in item.MitigationUnit)*@
+                            @if (Model.Param.ShowUnitKerja)
+                            {
+                            <td>@Utils.GetRiskOrgName(item.Risk)</td>     
+                            }
+                            @if (Model.Param.ShowResource)
+                            {
+                            <td>@Html.DisplayFor(modelItem => c.Require)</td>     
+                            }
+                            @if (Model.Param.ShowEstimasi)
+                            {
+                            <td>@Html.DisplayFor(modelItem => c.Biaya)</td>     
+                            }
+                            @if (Model.Param.ShowRKAP)
+                            {
+                            <td>@Html.DisplayFor(modelItem => c.RKAPF)</td>
+                            }
+                            @if (Model.Param.ShowProgress)
+                            {
+                                if (c.TotalProgress <= 0)
+                                {
+                                    <td align="center">&#9745</td>
+                                    <td></td>
+                                    <td></td>
+                                }
+                                if (c.TotalProgress > 0 && c.TotalProgress < 100)
+                                {
+                                    <td></td>
+                                    <td align="center">&#9745</td>
+                                    <td></td>
+                                }
+                                if (c.TotalProgress >= 100)
+                                {
+                                    <td></td>
+                                    <td></td>
+                                    <td align="center">&#9745</td>
+                                }
+                            }
+                            </tr>
+                        }
+                        </table>
+                    }
+                    </td>
+                </tr>
+            }
+            </table>
+        }
+        </td>
+        }
+
+        @if (Model.Param.ShowPlannedMitigations)
+        { 
+        <td style="padding: 0">
+        @if (item.PlannedMitigations.Count() > 0)
+        { 
+            <table rules="all" frame="void">
+                <tr>
+                    @if (Model.Param.ShowRiskCode)
+                    { 
+                    <th>Kode Mitigasi</th>
+                    }
+                    <th>Uraian</th>
+                    @if (Model.Param.ShowRiskDate)
+                    { 
+                    <th>Tanggal</th>
+                    }
+                    @if (Model.Param.ShowProbLevel)
+                    { 
+                    <th>Tk. Prob</th>
+                    }
+                    @if (Model.Param.ShowImpactLevel)
+                    { 
+                    <th>Tk. Dampak</th>
+                    }
+                    <th>Tk. Risiko</th>
+                    <th>Progress Mitigasi</th>
+                </tr>
+            @foreach (var m in item.PlannedMitigations)
+            { 
+                <tr>
+                    @if (Model.Param.ShowRiskCode)
+                    { 
+                    <td>@Html.DisplayFor(modelItem => m.MitigationCode)</td>
+                    }
+                    <td>@Html.DisplayFor(modelItem => m.MitigationName)</td>
+                    @if (Model.Param.ShowRiskDate)
+                    { 
+                    <td>@Html.DisplayFor(modelItem => m.MitigationDate)</td>
+                    }
+                    @if (Model.Param.ShowProbLevel)
+                    { 
+                    <td align="center">@Html.DisplayFor(modelItem => m.ProbLevelId)</td>
+                    }
+                    @if (Model.Param.ShowImpactLevel)
+                    { 
+                    <td align="center">@Html.DisplayFor(modelItem => m.ImpactLevelId)</td>
+                    }
+                    <td align="center">@Html.DisplayFor(modelItem => m.RiskLevel)</td>  
+                </tr>
+            }
+            </table>
+        }
+        </td>
+        }
+    </tr>
+}
+</table>
+</div>
+
+<div style="padding-top: 12px">
+    @Html.ActionLink("Ekspor ke Excel", "ExportToExcel",
+        new
+        {
+            posId = Model.Param.PosId,
+            branchId = Model.Param.BranchId,
+            klasId = Model.Param.KlasId,
+            riskLevelId = Model.Param.RiskLevelId,
+            riskLevelId2 = Model.Param.RiskLevelId2,
+            reportDate = Model.Param.ReportDate,
+            reportDate2 = Model.Param.ReportDate2,
+            isApproved = Model.Param.IsApproved,
+            showOrg = Model.Param.ShowOrg,
+            showRiskCode = Model.Param.ShowRiskCode,
+            showRiskDate = Model.Param.ShowRiskDate,
+            showRiskCat = Model.Param.ShowRiskCat,
+            showRiskType = Model.Param.ShowRiskType,
+            showRiskCause = Model.Param.ShowRiskCause,
+            showRiskEffect = Model.Param.ShowRiskEffect,
+            showRiskOwner = Model.Param.ShowRiskOwner,
+            showProbLevel = Model.Param.ShowProbLevel,
+            showImpactLevel = Model.Param.ShowImpactLevel,
+            showApprovedMitigations = Model.Param.ShowApprovedMitigations,
+            showPlannedMitigations = Model.Param.ShowPlannedMitigations,
+            showUraianProgress = Model.Param.ShowUraianProgress,
+            showPIC = Model.Param.ShowPIC,
+            showUnitKerja = Model.Param.ShowUnitKerja,
+            showResource = Model.Param.ShowResource,
+            showEstimasi = Model.Param.ShowEstimasi,
+            showRKAP = Model.Param.ShowRKAP,
+            showProgress = Model.Param.ShowProgress
+            
+        }, null)
+</div>

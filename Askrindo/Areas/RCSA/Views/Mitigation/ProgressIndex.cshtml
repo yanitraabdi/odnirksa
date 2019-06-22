@@ -1,0 +1,30 @@
+﻿@model Askrindo.Areas.RCSA.Models.MitigationActionModel
+
+@{
+    ViewBag.Title = "ProgressIndex";
+    Layout = "~/Areas/RCSA/Views/Shared/RCSALayout.cshtml";
+}
+<table class="table">
+    <tr>
+        <th>
+            Progress(%)
+        </th>
+        <th>
+            Tanggal
+        </th>
+    </tr>
+    @foreach (var m in Model.progressList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(item => m.ActionProgress1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => m.RecordDate)
+    </td>
+</tr>
+}
+</table>
+<div style="padding-top: 12px">
+    <input type="button" value="Tambah" onclick="location.href='@Url.Action("ProgressNew", "Mitigation", new { id = Model.actionId })';return false" /> | @Html.ActionLink("Kembali", "MitigationActionEdit", new { id = Model.actionId })
+</div>

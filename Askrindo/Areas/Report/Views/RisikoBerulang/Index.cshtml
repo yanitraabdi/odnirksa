@@ -1,0 +1,390 @@
+﻿@model Askrindo.Areas.Report.Models.RisikoBerulang.RisikoBerulangViewModel
+           
+@using Askrindo.Helpers
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Report/Views/Shared/_RisikoBerulang.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#params").accordion({
+            collapsible: true,
+            active: -1
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ddlLokasi').change(function () {
+            var selectedValue = $(this).val();
+            $.getJSON('@VirtualPathUtility.ToAbsolute("~/RiskChart/LoadUnitKerja")', { Id: selectedValue }, function (callbackData) {
+                var select = $("#ddlUnitKerja");
+                select.empty();
+                select.append($("<option/>", {
+                    value: "",
+                    text: ""
+                }));
+                $.each(callbackData, function (index, itemData) {
+                    select.append($("<option/>", {
+                        value: itemData.Value,
+                        text: itemData.Text
+                    }));
+                });
+            });
+        });
+        $('#ddlReport').change(function () {
+            $("#ddlUnitKerja").setAttribute('disabled', 'disabled');
+            alert($('option:selected', $(this)).index());
+        });
+    });
+</script>
+
+<div id="params" style="padding-bottom: 12px">
+    <h3>
+        <a href="#">Parameter</a>
+    </h3>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <table class="edit">
+                <tr style="background-color: #ddd">
+                    <td colspan="2"><b>FILTER</b></td>
+                </tr>
+                <tr>
+                    <td>Jenis Laporan</td>
+                    <td>@Html.DropDownListFor(m => m.Param.ReportId, Model.Param.ReportType, "",
+                        new { id = "ddlReport", style = "width: 350px;" })</td>
+                </tr>
+                <tr>
+                    <td>Tanggal Sebelum</td>
+                    <td>@Html.EditorFor(m => m.Param.ReportDate1) s/d @Html.EditorFor(m => m.Param.ReportDate2)</td>
+                </tr>
+                <tr>
+                    <td>Tanggal Berjalan</td>
+                    <td>@Html.EditorFor(m => m.Param.ReportDate3) s/d @Html.EditorFor(m => m.Param.ReportDate4)</td>
+                </tr>
+            </table>
+        
+            <div style="padding-top: 12px">
+                <input type="submit" value="Refresh" />
+            </div>
+        }
+    </div>
+</div>
+
+
+<table class="list">
+    <tr >
+        @if (Model.Param.ReportId == 1)
+        { 
+        <th>7 Kelompok Risiko Utama</th>
+        }
+        @if (Model.Param.ReportId == 2)
+        { 
+        <th>Kantor Cabang</th>
+        }
+        @if (Model.Param.ReportId == 3)
+        { 
+        <th>Unit Kerja</th>
+        <th>Divisi</th>
+        }
+        @if (Model.Param.ReportId == 4)
+        { 
+        <th>Tingkat Risiko</th>
+        }
+        @if (Model.Param.ReportId == 5)
+        { 
+        <th>Sebab Utama</th>
+        }
+        <th>Risiko Baru</th>
+        <th>Risiko Berulang</th>
+        <th>Risiko Tidak Berulang</th>
+    </tr>
+@foreach (var item in Model.risikoBerulangList)
+{
+    <tr style="background-color:White">
+        @if (Model.Param.ReportId == 1)
+        { 
+        <td>@Html.DisplayFor(m => item.risikoBerulangRisikoUtamaList.RiskCatName)</td>
+       if (String.IsNullOrEmpty(item.risikoBerulangRisikoUtamaList.baru.ToString()))
+       {
+                <td>@Html.DisplayFor(m => item.risikoBerulangRisikoUtamaList.baru)</td>
+       }
+       else
+       {
+                <td>@Html.ActionLink(item.risikoBerulangRisikoUtamaList.baru.ToString(), "ShowRisks", 
+                new { riskcat = item.risikoBerulangRisikoUtamaList.RiskCatId, type = "baru", 
+                    date1 = Model.Param.ReportDate1, 
+                    date2 = Model.Param.ReportDate2, 
+                    date3 = Model.Param.ReportDate3, 
+                    date4 = Model.Param.ReportDate4, posId = 1 }, new { target = "_blank" })</td>
+       }
+       if (String.IsNullOrEmpty(item.risikoBerulangRisikoUtamaList.berulang.ToString()))
+       {
+                <td>@Html.DisplayFor(m => item.risikoBerulangRisikoUtamaList.berulang)</td>
+       }
+       else
+       {
+                <td>@Html.ActionLink(item.risikoBerulangRisikoUtamaList.berulang.ToString(), "ShowRisks",
+                new
+                {
+                    riskcat = item.risikoBerulangRisikoUtamaList.RiskCatId,
+                    type = "berulang",
+                    date1 = Model.Param.ReportDate1,
+                    date2 = Model.Param.ReportDate2,
+                    date3 = Model.Param.ReportDate3,
+                    date4 = Model.Param.ReportDate4,
+                    posId = 1
+                }, new { target = "_blank" })</td>
+       }
+       if (String.IsNullOrEmpty(item.risikoBerulangRisikoUtamaList.t_berulang.ToString()))
+       {
+                <td>@Html.DisplayFor(m => item.risikoBerulangRisikoUtamaList.t_berulang)</td>
+       }
+       else
+       {
+                <td>@Html.ActionLink(item.risikoBerulangRisikoUtamaList.t_berulang.ToString(), "ShowRisks", 
+                new { riskcat = item.risikoBerulangRisikoUtamaList.RiskCatId, type = "t_berulang",
+                      date1 = Model.Param.ReportDate1,
+                      date2 = Model.Param.ReportDate2,
+                      date3 = Model.Param.ReportDate3,
+                      date4 = Model.Param.ReportDate4, posId = 1  }, new { target = "_blank" })</td>
+       }
+        }
+        
+        @if (Model.Param.ReportId == 2)
+        { 
+        <td>@Html.DisplayFor(m => item.risikoBerulangKantorCabangList.BranchName)</td>
+       if (String.IsNullOrEmpty(item.risikoBerulangKantorCabangList.baru.ToString()))
+       {
+				<td>@Html.DisplayFor(m => item.risikoBerulangKantorCabangList.baru)</td>
+       }
+       else
+       {
+				<td>@Html.ActionLink(item.risikoBerulangKantorCabangList.baru.ToString(), "ShowRisks", 
+                new { riskcat = item.risikoBerulangKantorCabangList.BranchId, type = "baru",
+                      date1 = Model.Param.ReportDate1,
+                      date2 = Model.Param.ReportDate2,
+                      date3 = Model.Param.ReportDate3,
+                      date4 = Model.Param.ReportDate4, posId = 2  }, new { target = "_blank" })</td>
+       }
+       if (String.IsNullOrEmpty(item.risikoBerulangKantorCabangList.berulang.ToString()))
+       {
+				<td>@Html.DisplayFor(m => item.risikoBerulangKantorCabangList.berulang)</td>
+       }
+       else
+       {
+				<td>@Html.ActionLink(item.risikoBerulangKantorCabangList.berulang.ToString(), "ShowRisks", 
+                new { riskcat = item.risikoBerulangKantorCabangList.BranchId, type = "berulang",
+                      date1 = Model.Param.ReportDate1,
+                      date2 = Model.Param.ReportDate2,
+                      date3 = Model.Param.ReportDate3,
+                      date4 = Model.Param.ReportDate4, posId = 2 }, new { target = "_blank" })</td>
+       }
+       if (String.IsNullOrEmpty(item.risikoBerulangKantorCabangList.t_berulang.ToString()))
+       {
+				<td>@Html.DisplayFor(m => item.risikoBerulangKantorCabangList.t_berulang)</td>
+       }
+       else
+       {
+				<td>@Html.ActionLink(item.risikoBerulangKantorCabangList.t_berulang.ToString(), "ShowRisks",
+                new { riskcat = item.risikoBerulangKantorCabangList.BranchId, type = "t_berulang",
+                      date1 = Model.Param.ReportDate1,
+                      date2 = Model.Param.ReportDate2,
+                      date3 = Model.Param.ReportDate3,
+                      date4 = Model.Param.ReportDate4, posId = 2 }, new { target = "_blank" })</td>
+       }
+        }
+        
+        @if (Model.Param.ReportId == 3)
+        { 
+        <td>@Html.DisplayFor(m => item.risikoBerulangKantorPusatList.SubDivName)</td>
+        <td>@Html.DisplayFor(m => item.risikoBerulangKantorPusatList.DivisionName)</td>    
+       if (String.IsNullOrEmpty(item.risikoBerulangKantorPusatList.baru.ToString()))
+       {
+				<td>@Html.DisplayFor(m => item.risikoBerulangKantorPusatList.baru)</td>
+       }
+       else
+       {
+				<td>@Html.ActionLink(item.risikoBerulangKantorPusatList.baru.ToString(), "ShowRisks", 
+                new { riskcat = item.risikoBerulangKantorPusatList.SubDivId, type = "baru",
+                      date1 = Model.Param.ReportDate1,
+                      date2 = Model.Param.ReportDate2,
+                      date3 = Model.Param.ReportDate3,
+                      date4 = Model.Param.ReportDate4, posId = 3 }, new { target = "_blank" })</td>
+       }
+       if (String.IsNullOrEmpty(item.risikoBerulangKantorPusatList.berulang.ToString()))
+       {
+				<td>@Html.DisplayFor(m => item.risikoBerulangKantorPusatList.berulang)</td>
+       }
+       else
+       {
+				<td>@Html.ActionLink(item.risikoBerulangKantorPusatList.berulang.ToString(), 
+                "ShowRisks", new { riskcat = item.risikoBerulangKantorPusatList.SubDivId, type = "berulang" ,
+                      date1 = Model.Param.ReportDate1,
+                      date2 = Model.Param.ReportDate2,
+                      date3 = Model.Param.ReportDate3,
+                      date4 = Model.Param.ReportDate4, posId = 3}, new { target = "_blank" })</td>
+       }
+       if (String.IsNullOrEmpty(item.risikoBerulangKantorPusatList.t_berulang.ToString()))
+       {
+				<td>@Html.DisplayFor(m => item.risikoBerulangKantorPusatList.t_berulang)</td>
+       }
+       else
+       {
+				<td>@Html.ActionLink(item.risikoBerulangKantorPusatList.t_berulang.ToString(), "ShowRisks", 
+                new { riskcat = item.risikoBerulangKantorPusatList.SubDivId, type = "t_berulang" ,
+                      date1 = Model.Param.ReportDate1,
+                      date2 = Model.Param.ReportDate2,
+                      date3 = Model.Param.ReportDate3,
+                      date4 = Model.Param.ReportDate4, posId = 3}, new { target = "_blank" })</td>
+       }
+        }
+        
+        @if (Model.Param.ReportId == 4)
+        { 
+        <td>@if (item.risikoBerulangTingkatRisikoList.LevelId == 1)
+            {
+                @: x <= 2
+            }
+            else if (item.risikoBerulangTingkatRisikoList.LevelId == 2)
+            {
+                @: 2 < x <= 4
+            }
+            else if (item.risikoBerulangTingkatRisikoList.LevelId == 3)
+            {
+                @: 4 < x <= 9
+            }
+            else if (item.risikoBerulangTingkatRisikoList.LevelId == 4)
+            {
+                @: 9 < x <= 15
+            }
+            else if (item.risikoBerulangTingkatRisikoList.LevelId == 5)
+            {
+                @: 15 < x <= 25
+            }
+        </td>
+            if (String.IsNullOrEmpty(item.risikoBerulangTingkatRisikoList.baru.ToString()))
+            {
+				<td>@Html.DisplayFor(m => item.risikoBerulangTingkatRisikoList.baru)</td>
+            }
+            else
+            {
+				<td>@Html.ActionLink(item.risikoBerulangTingkatRisikoList.baru.ToString(), "ShowRisks", 
+                new { riskcat = item.risikoBerulangTingkatRisikoList.LevelId, type = "baru" ,
+                      date1 = Model.Param.ReportDate1,
+                      date2 = Model.Param.ReportDate2,
+                      date3 = Model.Param.ReportDate3,
+                      date4 = Model.Param.ReportDate4, posId = 4}, new { target = "_blank" })</td>
+            }
+            if (String.IsNullOrEmpty(item.risikoBerulangTingkatRisikoList.berulang.ToString()))
+            {
+				<td>@Html.DisplayFor(m => item.risikoBerulangTingkatRisikoList.berulang)</td>
+            }
+            else
+            {
+				<td>@Html.ActionLink(item.risikoBerulangTingkatRisikoList.berulang.ToString(), "ShowRisks", 
+                new { riskcat = item.risikoBerulangTingkatRisikoList.LevelId, type = "berulang" ,
+                      date1 = Model.Param.ReportDate1,
+                      date2 = Model.Param.ReportDate2,
+                      date3 = Model.Param.ReportDate3,
+                      date4 = Model.Param.ReportDate4, posId = 4}, new { target = "_blank" })</td>
+            }
+            if (String.IsNullOrEmpty(item.risikoBerulangTingkatRisikoList.t_berulang.ToString()))
+            {
+				<td>@Html.DisplayFor(m => item.risikoBerulangTingkatRisikoList.t_berulang)</td>
+            }
+            else
+            {
+				<td>@Html.ActionLink(item.risikoBerulangTingkatRisikoList.t_berulang.ToString(), "ShowRisks", 
+                new { riskcat = item.risikoBerulangTingkatRisikoList.LevelId, type = "t_berulang" ,
+                      date1 = Model.Param.ReportDate1,
+                      date2 = Model.Param.ReportDate2,
+                      date3 = Model.Param.ReportDate3,
+                      date4 = Model.Param.ReportDate4, posId = 4}, new { target = "_blank" })</td>
+            }
+        }
+        
+        @if (Model.Param.ReportId == 5)
+        { 
+        <td>@Html.DisplayFor(m => item.risikoBerulangSebabUtamaList.CauseGroupName)</td>
+            if (String.IsNullOrEmpty(item.risikoBerulangSebabUtamaList.baru.ToString()))
+       {
+				<td>@Html.DisplayFor(m => item.risikoBerulangSebabUtamaList.baru)</td>
+       }
+       else
+       {
+				<td>@Html.ActionLink(item.risikoBerulangSebabUtamaList.baru.ToString(), "ShowRisks", 
+                new { riskcat = item.risikoBerulangSebabUtamaList.CauseGroupId, type = "baru" ,
+                      date1 = Model.Param.ReportDate1,
+                      date2 = Model.Param.ReportDate2,
+                      date3 = Model.Param.ReportDate3,
+                      date4 = Model.Param.ReportDate4, posId = 5}, new { target = "_blank" })</td>
+       }
+            if (String.IsNullOrEmpty(item.risikoBerulangSebabUtamaList.berulang.ToString()))
+       {
+				<td>@Html.DisplayFor(m => item.risikoBerulangSebabUtamaList.berulang)</td>
+       }
+       else
+       {
+				<td>@Html.ActionLink(item.risikoBerulangSebabUtamaList.berulang.ToString(), "ShowRisks", 
+                new { riskcat = item.risikoBerulangSebabUtamaList.CauseGroupId, type = "berulang" ,
+                      date1 = Model.Param.ReportDate1,
+                      date2 = Model.Param.ReportDate2,
+                      date3 = Model.Param.ReportDate3,
+                      date4 = Model.Param.ReportDate4, posId = 5}, new { target = "_blank" })</td>
+       }
+            if (String.IsNullOrEmpty(item.risikoBerulangSebabUtamaList.t_berulang.ToString()))
+       {
+				<td>@Html.DisplayFor(m => item.risikoBerulangSebabUtamaList.t_berulang)</td>
+       }
+       else
+       {
+				<td>@Html.ActionLink(item.risikoBerulangSebabUtamaList.t_berulang.ToString(), "ShowRisks", 
+                new { riskcat = item.risikoBerulangSebabUtamaList.CauseGroupId, type = "t_berulang" ,
+                      date1 = Model.Param.ReportDate1,
+                      date2 = Model.Param.ReportDate2,
+                      date3 = Model.Param.ReportDate3,
+                      date4 = Model.Param.ReportDate4, posId = 5}, new { target = "_blank" })</td>
+       }
+        }
+    </tr>
+}
+</table>
+
+<!--
+<div style="padding-top: 12px">
+    @Html.ActionLink("Ekspor ke Excel", "ExportToExcel",
+        new
+        {
+            posId = Model.Param.PosId,
+            branchId = Model.Param.BranchId,
+            riskLevelId = Model.Param.KlasId,
+            reportDate1 = Model.Param.ReportDate1,
+            reportDate2 = Model.Param.ReportDate2,
+            reportDate3 = Model.Param.ReportDate3,
+            reportDate4 = Model.Param.ReportDate4,
+            isApproved = Model.Param.IsApproved,
+            showAssets = Model.Param.ShowAssets,
+            showKeterangan = Model.Param.ShowKeterangan,
+            showOrg = Model.Param.ShowOrg,
+            showLocation = Model.Param.ShowLocation,
+            showLossAction = Model.Param.ShowLossAction,
+            showLossCat = Model.Param.ShowLossCat,
+            showLossCause = Model.Param.ShowLossCause,
+            showLossCode = Model.Param.ShowLossCode,
+            showLossDate = Model.Param.ShowLossDate,
+            showLossEffectFinancial = Model.Param.ShowLossEffectFinancial,
+            showLossEffectNonFinancial = Model.Param.ShowLossEffectNonFinancial,
+            showLossEvent = Model.Param.ShowLossEvent,
+            showPihakTerlibat = Model.Param.ShowPihakTerlibat
+        }, null)
+</div>
+-->
+

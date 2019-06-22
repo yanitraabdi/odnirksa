@@ -1,0 +1,85 @@
+﻿@model Askrindo.Models.Risk
+
+<div class="askrindo-content-box">
+    <div class="row text-center">
+        <div class="col-md-4">
+            Tk. Prob Inherent
+            <h5>@Model.ProbLevelId</h5>
+        </div>
+        <div class="col-md-4">
+            Tk. Dampak Inherent
+            <h5>@Model.ImpactLevelId</h5>
+        </div>
+        <div class="col-md-4">
+            Tk. Risiko Inherent
+            <h5>@(Model.ProbLevelId * Model.ImpactLevelId)</h5>
+        </div>
+    </div>
+
+    <div class="text-right">
+        <a href="@Url.Action("New", "Mitigation", new { id = Model.RiskId })">
+            @if (Model.RiskMitigations.Count == 0)
+            {
+                <i class="fa fa-plus-circle text" style="color: #FF512E"></i>
+                <span class="text-dark">Mitigasi Risiko</span>
+            }
+            else
+            {
+                <i class="fa fa-plus-circle text" style="color: #FF512E"></i>
+                <span class="text-dark">Tambah Mitigasi</span>
+            }
+        </a>
+    </div>
+
+    <div class="askrindo-bg-color clearfix" style="margin-top: 20px;">
+        <span style="margin-right: 80px;margin-left: 20px;">Kode Risiko</span>
+        <span>@Model.RiskCode</span>
+
+        <span class="float-right" style="margin-right: 20px;">@Model.RiskDate.ToString("dddd, dd MMMM yyyy")</span>
+        <span class="float-right" style="margin-right: 80px;">Tanggal input</span>
+    </div>
+    <table class="table table-bordered">
+        <thead class="text-center">
+            <tr>
+                <th style="vertical-align: middle;">Uraian</th>
+                <th style="vertical-align: middle;">Kelompok Mitigasi</th>
+                <th style="vertical-align: middle;">Jenis Mitigasi</th>
+                <th style="vertical-align: middle;">Tk. Prob</th>
+                <th style="vertical-align: middle;">Tk. Dampak</th>
+                <th style="vertical-align: middle;">Tk. Risiko</th>
+                <th style="vertical-align: middle;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model.RiskMitigations.Count == 0){
+                <tr>
+                    <td colspan="7">
+                        <div class="text-center">Mitigasi belum tersedia.</div>
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model.RiskMitigations)
+            {
+                <tr>
+                    <td>@item.MitigationName</td>
+                    <td>@item.MitigationCat.MitigationCatName</td>
+                    <td>@item.MitigationType.MitigationTypeName</td>
+                    <td>@item.ProbLevelId - @item.ProbLevel.ProbLevelName</td>
+                    <td>@item.ImpactLevelId - @item.ImpactLevel.ImpactLevelName</td>
+                    <td>@(item.ProbLevelId * item.ImpactLevelId)</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn askrindo-btn-color askrindo-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Tindakan
+                            </button>
+                            <div class="dropdown-menu askrindo-btn-color" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item askrindo-btn-color askrindo-btn" href="@Url.Action("Edit", new { id = item.MitigationId })">Update</a>
+                                <a class="dropdown-item askrindo-btn-color askrindo-btn" href="#">Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

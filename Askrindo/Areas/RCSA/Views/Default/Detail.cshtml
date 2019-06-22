@@ -1,0 +1,838 @@
+﻿@model Askrindo.Areas.RCSA.Models.RiskViewModel
+
+@using Askrindo.Helpers
+@{
+    ViewBag.breadCrumb = "Data Risiko / Daftar Risiko / Detail Risiko";
+    Layout = "~/Areas/RCSA/Views/Shared/RCSALayout.cshtml";
+}
+<link href="~/Content/jquery.numbox-1.3.0.css" rel="stylesheet" />
+
+    <div class="askrindo-content-header">
+        <ul class="nav askrindo-nav-tab-btn nav-fill">
+            <li class="nav-item">
+                <a class="nav-link active" id="risk-data-tab" data-toggle="tab" href="#risk-data" role="tab" aria-controls="risk-data" aria-selected="true">Data Risiko</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="probability-tab" data-toggle="tab" href="#probability" role="tab" aria-controls="probability" aria-selected="false">
+                    Probabilitas
+                    @if (!Model.RiskData.IsProbSet.HasValue)
+                    {
+                        <i class="fa fa-exclamation-circle text-danger"></i>
+                    }
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="impact-tab" data-toggle="tab" href="#impact" role="tab" aria-controls="impact" aria-selected="false">
+                    Dampak
+                    @if (!Model.RiskData.IsImpactSet.HasValue)
+                    {
+                        <i class="fa fa-exclamation-circle text-danger"></i>
+                    }
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="approval-tab" data-toggle="tab" href="#approval" role="tab" aria-controls="approval" aria-selected="false">Approval</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="mitigation-tab" data-toggle="tab" href="#mitigation" role="tab" aria-controls="mitigation" aria-selected="false">Mitigasi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">Sejarah &amp; Status Risiko</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="attachment-tab" data-toggle="tab" href="#attachment" role="tab" aria-controls="attachment" aria-selected="false">Attachment</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content" id="riskTabContent">
+        <div class="tab-pane fade show active" id="risk-data" role="tabpanel" aria-labelledby="risk-data-tab">
+
+            <div class="askrindo-content-box">
+                <div class="row" style="margin-bottom: 0;">
+                    <label class="col-2" style="margin-bottom: 0;">Kode Risiko</label>
+                    <label class="col-10" style="margin-bottom: 0;">: @Model.RiskData.RiskCode</label>
+                </div>
+                <div class="row">
+                    <label class="col-2" style="margin-bottom: 0;">Peristiwa Risiko</label>
+                    <label class="col-10" style="margin-bottom: 0;">: @Model.RiskData.RiskName</label>
+                </div>
+                <hr />
+                <div class="row">
+                    <label class="col-2" style="margin-bottom: 0;">Tanggal Input</label>
+                    <label class="col-10" style="margin-bottom: 0;">: @Model.RiskData.RiskDate.ToString("dddd, dd MMMM yyyy")</label>
+                </div>
+                <div class="row">
+                    <label class="col-2" style="margin-bottom: 0;">Awal Muncul Risiko</label>
+                    <label class="col-10" style="margin-bottom: 0;">: @(Model.RiskData.FRiskDate.HasValue ? Model.RiskData.FRiskDate.Value : Model.RiskData.RiskDate).ToString("dddd, dd MMMM yyyy")</label>
+                </div>
+
+                <hr />
+
+                @if (@Model.RiskData.Dept != null)
+                {
+
+                    <div class="row">
+                        <label class="col-2" style="margin-bottom: 0;">Direktorat</label>
+                        <label class="col-10" style="margin-bottom: 0;">
+                            :
+                            @Model.RiskData.Dept.DeptName
+                        </label>
+                    </div>
+                }
+
+                @if (@Model.RiskData.Division != null)
+                {
+                    <div class="row">
+                        <label class="col-2">Divisi</label>
+                        <label class="col-10">
+                            :
+                            @Model.RiskData.Division.DivisionName
+                        </label>
+                    </div>
+                }
+                @if (@Model.RiskData.SubDiv != null)
+                {
+                    <div class="row">
+                        <label class="col-2">Bagian</label>
+                        <label class="col-10">
+                            :
+                            @Model.RiskData.SubDiv.SubDivName
+                        </label>
+                    </div>
+                }
+
+
+                <div class="row">
+                    <label class="col-2" style="margin-bottom: 0;">Risk Owner</label>
+                    <label class="col-10" style="margin-bottom: 0;">: @Model.RiskData.UserInfo.FullName</label>
+                </div>
+                <div class="row">
+                    <label class="col-2">Jabatan</label>
+                    <label class="col-10">: @Model.RiskData.JobTitle</label>
+                </div>
+                <hr />
+                <div class="askrindo-risk-box" style="background-color: #D66602;">Sebab Risiko</div>
+                @{int i = 1;}
+                @if (Model.RiskData.IsMultiCE.HasValue)
+                {
+                    foreach (var item in Model.RiskData.RiskCauseLines)
+                    {
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-3 text-center">@(i++)</div>
+                                    <div class="col-9">@item.CauseGroup.CauseGroupName</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <i class="fa fa-caret-right"></i>
+                                @item.CauseType.CauseTypeName
+                            </div>
+                            <div class="col">
+                                <i class="fa fa-caret-right"></i>
+                                @item.Cause.CauseName
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-3 text-center">1</div>
+                                <div class="col-9">@Model.RiskData.CauseGroup.CauseGroupName</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <i class="fa fa-caret-right"></i>
+                            @Model.RiskData.CauseGroup.CauseTypes.First(ct => ct.CauseTypeId == Model.RiskData.CauseTypeId).CauseTypeName
+                        </div>
+                        <div class="col">
+                            <i class="fa fa-caret-right"></i>
+                            @Model.RiskData.CauseGroup.CauseTypes.First(ct => ct.CauseTypeId == Model.RiskData.CauseTypeId).Causes.First(c => c.CauseId == Model.RiskData.CauseId).CauseName
+                        </div>
+                    </div>
+                }
+                <hr />
+                <div class="askrindo-risk-box" style="background-color: #B81601;">Akibat Risiko</div>
+                @{i = 1;}
+                @if (Model.RiskData.IsMultiCE.HasValue)
+                {
+                    foreach (var item in Model.RiskData.RiskEffectLines)
+                    {
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-3 text-center"> @(i++)</div>
+                                    <div class="col-9">@item.EffectGroup.EffectGroupName</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <i class="fa fa-caret-right"></i>
+                                @item.EffectType.EffectTypeName
+                            </div>
+                            <div class="col">
+                                <i class="fa fa-caret-right"></i>
+                                @item.Effect.EffectName
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-3 text-center"> 1</div>
+                                <div class="col-9">@Model.RiskData.EffectGroup.EffectGroupName</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <i class="fa fa-caret-right"></i>
+                            @Model.RiskData.EffectGroup.EffectTypes.First(ct => ct.EffectTypeId == Model.RiskData.EffectTypeId).EffectTypeName
+                        </div>
+                        <div class="col">
+                            <i class="fa fa-caret-right"></i>
+                            @Model.RiskData.EffectGroup.EffectTypes.First(ct => ct.EffectTypeId == Model.RiskData.EffectTypeId).Effects.First(c => c.EffectId == Model.RiskData.EffectId).EffectName
+                        </div>
+                    </div>
+                }
+                <hr />
+                <div class="askrindo-risk-box" style="background-color: #00A80B;">Klasifikasi Risiko</div>
+                <div class="row">
+                    <div class="col">
+
+                        <div class="row">
+                            <div class="col-3">&nbsp;</div>
+                            <div class="col-9">@Model.RiskData.RiskEvent.RiskType.RiskGroup.RiskCat.RiskCatName</div>
+                        </div>
+
+                    </div>
+                    <div class="col">
+                        <i class="fa fa-caret-right"></i>
+                        @Model.RiskData.RiskEvent.RiskType.RiskGroup.RiskGroupName
+                    </div>
+                    <div class="col">
+                        <i class="fa fa-caret-right"></i>
+                        @Model.RiskData.RiskEvent.RiskType.RiskTypeName
+                    </div>
+                </div>
+                <hr />
+                <div class="text-right">
+                    <input type="button" class="btn btn-secondary askrindo-btn askrindo-btn-color" value="Edit" />
+                </div>
+            </div>
+            <div class="askrindo-content-box">
+
+                @if (Model.RiskData.IsProbSet.HasValue)
+                {
+                    <div class="row">
+                        <label class="col-2">Nilai Probabilitas </label>
+                        <label class="col-10">: @Model.RiskData.ProbValue</label>
+                    </div>
+                    <div class="row">
+                        <label class="col-2 col-form-label">Tingkat Probabilitas</label>
+                        <label class="col-10 col-form-label">: @Model.RiskData.ProbLevelId - @Model.RiskData.ProbLevel.ProbLevelName</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <label class="col-2">Nilai Probabilitas </label>
+                        <label class="col-10">: Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i></label>
+                    </div>
+                    <div class="row">
+                        <label class="col-2 col-form-label">Tingkat Probabilitas</label>
+                        <label class="col-10 col-form-label">: Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i></label>
+                    </div>
+                }
+                <hr />
+                @if (Model.RiskData.ImpactMoney != null)
+                {
+                    <div class="row">
+                        <label class="col-2 col-form-label">Dampak Keuangan</label>
+                        <label class="col-10 col-form-label">: @string.Format("{0:N2}", Model.RiskData.ImpactMoney)</label>
+                    </div>
+                    <div class="row">
+                        <label class="col-2 col-form-label">Tingkat Dampak Inherent</label>
+                        <label class="col-10 col-form-label">: @Model.RiskData.ImpactLevelId - @Model.RiskData.ImpactLevel.ImpactLevelName</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <label class="col-2 col-form-label">Dampak Keuangan</label>
+                        <label class="col-10 col-form-label">: Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i></label>
+                    </div>
+                    <div class="row">
+                        <label class="col-2 col-form-label">Tingkat Dampak Inherent</label>
+                        <label class="col-10 col-form-label">: Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i></label>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="tab-pane fade" id="probability" role="tabpanel" aria-labelledby="probability-tab">
+            @Html.Partial("RiskInfoHeader")
+
+            <div class="askrindo-content-box">
+                @if (Model.RiskData.IsProbSet.HasValue)
+                {
+                    <div class="row">
+                        <label class="col-2">Perhitungan Probabilitas</label>
+                        <label class="col-10">: @Utils.GetProbOptionName(Model.RiskProb.ProbOption)</label>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <label class="col-2">Frekuensi</label>
+                        <label class="col-10">: @Model.RiskProb.Freq.FreqName</label>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-2">Nilai Probabilitas (%)</label>
+                        <label class="col-10">: @Model.RiskData.ProbValue</label>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-2">Tingkat Probabilitas</label>
+                        <label class="col-10">: @Model.RiskData.ProbLevelId - @Model.RiskProb.ProbLevel.ProbLevelName</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <label class="col-2">Perhitungan Probabilitas</label>
+                        <label class="col-10">: Frekuensi (data tidak tersedia)</label>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <label class="col-2">Frekuensi</label>
+                        <label class="col-10">: Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i></label>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-2">Nilai Probabilitas (%)</label>
+                        <label class="col-10">: Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i></label>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-2">Tingkat Probabilitas</label>
+                        <label class="col-10">: Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i></label>
+                    </div>
+                }
+                <div class="text-right">
+                    <input type="button" value="Update" onclick="showProbabilityForm(true);" class="btn askrindo-btn askrindo-btn-color" />
+                </div>
+            </div>
+            <div id="askrindo-probability-form" class="askrindo-content-box d-none">
+                @using (Html.BeginForm("SubmitProbability", "Default", FormMethod.Post))
+                {
+                    <div class="row">
+                        <div class="col">
+                            <label class="col-form-label"><input name="prob-type" value="avail" type="radio" onclick="showProbability('av');" checked /> Probabilita Statistik <br/> (Data Tersedia)</label>
+                        </div>
+                        <div class="col">
+                            <label class="col-form-label"><input name="prob-type" value="appr" type="radio" onclick="showProbability('ap');" /> Aproksimasi<br /> (Data Tidak Tersedia)</label>
+                        </div>
+                        <div class="col">
+                            <label class="col-form-label"><input name="prob-type" value="diff" type="radio" onclick="showProbability('df');" /> Perbandingan<br /> (Data Tidak Tersedia)</label>
+                        </div>
+                        <div class="col">
+                            <label class="col-form-label"><input name="prob-type" value="freq" type="radio" onclick="showProbability('f');" /> Frekuensi<br /> (Data Tidak Tersedia)</label>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="riskId" value="@Model.RiskData.RiskId" />
+
+                    <div id="askrindo-prob-avail" class="askrindo-probability-type">
+                        <div class="col-sm-2">Probabilitas</div>
+                        <div class="col-sm-10"><input name="tb-avail" type="number" value="0" class="form-control percent-input" /></div>
+                    </div>
+                    <div id="askrindo-prob-approx" class="askrindo-probability-type d-none">
+                        <div class="row form-row">
+                            <div class="col-sm-2">Aproksimasi pesimis (%)</div>
+                            <div class="col-sm-10"><input name="tb-ap1" type="number" value="0" class="form-control percent-input" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">Aproksimasi moderat (%)</div>
+                            <div class="col-sm-10">
+                                <input name="tb-ap2" type="number" value="0" class="form-control percent-input" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">Aproksimasi optimis (%)</div>
+                            <div class="col-sm-10">
+                                <input name="tb-ap3" type="number" value="0" class="form-control percent-input" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="askrindo-prob-diff" class="askrindo-probability-type d-none">
+                        <div class="row">
+                            <div class="col-sm-2">Perbandingan</div>
+                            <div class="col-sm-10"><input type="number" value="0" name="tb-diff" class="form-control percent-input" /></div>
+                        </div>
+                    </div>
+                    <div id="askrindo-prob-freq" class="askrindo-probability-type d-none">
+                        <div class="row">
+                            <div class="col-sm-2">Frekuensi</div>
+                            <div class="col-sm-10">
+                                <select name="sb-freq" class="form-control">
+                                    @foreach (var item in Model.Freqs)
+                                    {
+                                        <option value="@item.FreqId">@item.FreqName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right" style="margin-top: 20px;">
+                        <input type="submit" value="Submit" onclick="getRawNumbox();" class="btn askrindo-btn askrindo-btn-color" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="tab-pane fade" id="impact" role="tabpanel" aria-labelledby="impact-tab">
+            @Html.Partial("RiskInfoHeader")
+            <div class="askrindo-content-box">
+
+                @if (Model.RiskImpact.MoneyDirect != null && Model.RiskImpact.MoneyDirect != null)
+                {
+                    <table class="display">
+                        <tr>
+                            <td colspan="3">Jenis Dampak: <strong>Dampak Keuangan</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="height: .3em"><hr /></td>
+                        </tr>
+                        <tr>
+                            <td>Kerugian langsung (Rp)</td>
+                            <td>:</td>
+                            <td>
+                                @string.Format("{0:N2}", Model.RiskImpact.MoneyDirect)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Kerugian tidak langsung (Rp)</td>
+                            <td>:</td>
+                            <td>
+                                @string.Format("{0:N2}", Model.RiskImpact.MoneyIndirect)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height: .3em"></td>
+                        </tr>
+                        <tr>
+                            <td>Tingkat Dampak</td>
+                            <td>:</td>
+                            <td>
+                                @Model.RiskImpact.ImpactLevelId - @Model.RiskImpact.ImpactLevel.ImpactLevelName
+                            </td>
+                        </tr>
+                    </table>
+                }
+                else
+                {
+                    <table class="display">
+                        <tr>
+                            <td colspan="3">Jenis Dampak: <strong>Dampak Keuangan</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="height: .3em"><hr /></td>
+                        </tr>
+                        <tr>
+                            <td>Kerugian langsung (Rp)</td>
+                            <td>:</td>
+                            <td>
+                                Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Kerugian tidak langsung (Rp)</td>
+                            <td>:</td>
+                            <td>
+                                Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height: .3em"></td>
+                        </tr>
+                        <tr>
+                            <td>Tingkat Dampak</td>
+                            <td>:</td>
+                            <td>
+                                Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+            <div class="askrindo-content-box">
+
+                @if (Model.RiskNonMoneyImpact != null)
+                {
+                    <table class="display">
+                        <tr>
+                            <td colspan="3">Jenis Dampak: <strong>Dampak Non Keuangan</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="height: .3em"><hr /></td>
+                        </tr>
+                        <tr>
+                            <td>Dampak</td>
+                            <td>:</td>
+                            <td>
+                                @Model.RiskNonMoneyImpact.ImpactType.ImpactTypeName
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tingkat Dampak</td>
+                            <td>:</td>
+                            <td>
+                                @Model.RiskNonMoneyImpact.ImpactLevelId - @Model.RiskNonMoneyImpact.ImpactLevel.ImpactLevelName
+                            </td>
+                        </tr>
+                    </table>
+                }
+                else
+                {
+                    <table class="display">
+                        <tr>
+                            <td colspan="3">Jenis Dampak: <strong>Dampak Non Keuangan</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="height: .3em"><hr /></td>
+                        </tr>
+                        <tr>
+                            <td>Dampak</td>
+                            <td>:</td>
+                            <td>
+                                Data Belum Diupdate
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tingkat Dampak</td>
+                            <td>:</td>
+                            <td>
+                                Data Belum Diupdate
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+            <div class="text-right">
+                <input type="button" value="Update" onclick="showImpactForm(true);" class="btn askrindo-btn askrindo-btn-color" />
+            </div>
+            <div id="askrindo-impact-form" class="d-none">
+                <div class="askrindo-content-box">
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Pilih Jenis Dampak</label>
+                        <div class="col-sm-10">
+                            <label class="col-form-label"><input name="impact-type" type="radio" onclick="showMoneyImpact(true);" checked />Dampak Keuangan</label>
+                            <label class="col-form-label"><input name="impact-type" type="radio" onclick="showMoneyImpact(false);" value="1" />Dampak Non Keuangan</label>
+                        </div>
+                    </div>
+                </div>
+                <div id="askrindo-money-impact" class="askrindo-content-box">
+                    @using (Html.BeginForm("SubmitRiskImpact", "Default", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="@Html.NameFor(d => d.RiskImpact.RiskId).ToString()" value="@Model.RiskData.RiskId" />
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Kerugian Langsung</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.RiskImpact.MoneyDirect, new { @class = "form-control money-input", @value = "0" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Kerugian Tidak Langsung</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.RiskImpact.MoneyIndirect, new { @class = "form-control money-input", @value = "0" })
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <button type="button" onclick="showImpactForm(false);" class="btn btn-outline-danger askrindo-btn">Batal</button>
+                            <button type="submit" onclick="getRawNumbox();" class="btn btn-secondary askrindo-btn askrindo-btn-color">Submit</button>
+                        </div>
+                    }
+                </div>
+                <div id="askrindo-non-money-impact" class="askrindo-content-box d-none">
+                    @using (Html.BeginForm("SubmitRiskImpactNonMoney", "Default", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        if (Model.RiskNonMoneyImpact != null)
+                        {
+                            @Html.HiddenFor(m => m.RiskNonMoneyImpact.Id)
+                        }
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Dampak</label>
+                            <div class="col-sm-10">
+                                <select id="askrindo-impact-select" name="@Html.NameFor(d => d.RiskNonMoneyImpact.ImpactTypeId).ToString()" class="form-control">
+                                    <option value="0">=====silahkan pilih=====</option>
+                                    @foreach (var cat in Model.ImpactCats)
+                                    {
+                                        <optgroup label="@cat.ImpactCatName">
+                                            @foreach (var type in cat.ImpactTypes.ToList())
+                                            {
+                                                <option value="@type.ImpactTypeId">@type.ImpactTypeName</option>
+                                            }
+                                        </optgroup>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Level</th>
+                                        <th>Keterangan</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="askrindo-impact-table"></tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <input type="hidden" name="@Html.NameFor(d => d.RiskNonMoneyImpact.RiskId).ToString()" value="@Model.RiskData.RiskId" />
+                            <div class="col">
+                                <label>
+                                    <input name="@Html.NameFor(d => d.RiskNonMoneyImpact.ImpactLevelId).ToString()" value="1" type="radio" checked /> 1 - Rendah
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label>
+                                    <input name="@Html.NameFor(d => d.RiskNonMoneyImpact.ImpactLevelId).ToString()" value="2" type="radio" /> 2 - Sedang Rendah
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label>
+                                    <input name="@Html.NameFor(d => d.RiskNonMoneyImpact.ImpactLevelId).ToString()" value="3" type="radio" /> 3 - Sedang Tinggi
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label>
+                                    <input name="@Html.NameFor(d => d.RiskNonMoneyImpact.ImpactLevelId).ToString()" value="4" type="radio" /> 4 - Tinggi
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label>
+                                    <input name="@Html.NameFor(d => d.RiskNonMoneyImpact.ImpactLevelId).ToString()" value="5" type="radio" /> 5 - Sangat Tinggi
+                                </label>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <button type="button" onclick="showImpactForm(false);" class="btn btn-outline-danger askrindo-btn">Batal</button>
+                            <button type="submit" class="btn btn-secondary askrindo-btn askrindo-btn-color">Submit</button>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="approval" role="tabpanel" aria-labelledby="approval-tab">
+            @Html.Partial("RiskInfoHeader")
+
+            <div class="askrindo-content-box">
+                @{
+                    var approvals = Model.RiskData.RiskApprovals.Where(ra => ra.ApprovalDate.HasValue).OrderBy(ra => ra.ApprovalId).ToList();
+                    int aprInc = 1;
+                }
+                @foreach (var item in approvals)
+                {
+                    <hr />
+                    <div class="text-center">
+                        Approval Tahap @aprInc
+                    </div>
+                    <hr />
+
+                    <div class="row">
+                        <label class="col-2">Tanggal</label>
+                        <label class="col-10">
+                            @item.ApprovalDate.Value.ToString("dddd, dd MMMM yyyy")
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="col-2">Approve Oleh</label>
+                        <label class="col-10">@item.UserInfo.FullName</label>
+                    </div>
+                    <div class="row">
+                        <label class="col-2">Jabatan</label>
+                        <label class="col-10">@item.JobTitle</label>
+                    </div>
+                    aprInc++;
+                }
+
+                @if (approvals.Count == 0)
+                {
+                    <div class="text-center">
+                        Data risiko belum diapprove.
+                    </div>
+                }
+            </div>
+        </div><div class="tab-pane fade" id="mitigation" role="tabpanel" aria-labelledby="mitigation-tab">
+            @Html.Partial("RiskInfoHeader")
+
+            @Html.Partial("MitigationList", Model.RiskData)
+        </div>
+        <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+            @Html.Partial("RiskInfoHeader")
+
+            <div class="askrindo-content-box">
+                <h5>Sejarah Status Risiko</h5>
+                (Tidak ada)
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="attachment" role="tabpanel" aria-labelledby="attachment-tab">
+            @Html.Partial("RiskInfoHeader")
+
+            <div class="askrindo-content-box">
+
+                <h5>
+                    List Attachment
+                </h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td>Nama</td>
+                            <td>Keterangan</td>
+                            <td>Ukuran</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.AttachmentList)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="#"></a>
+                                </td>
+                                <td>asdfasdf</td>
+                                <td>269.75 KB</td>
+                                <td>
+                                    <a href="#">Edit</a> |
+                                    <a href="#">Hapus</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="text-right">
+                    <input type="button" value="Update" class="btn askrindo-btn askrindo-btn-color" />
+                </div>
+                <div id="askrindo-attachment-form" class="d-none">
+                    <form>
+                        <h5>Form Attachment</h5>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Nama</label>
+                            <div class="col-sm-10">
+                                <input name="name" type="text" value="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Keterangan</label>
+                            <div class="col-sm-10">
+                                <textarea name="description" cols="40" rows="5" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">File</label>
+                            <div class="col-sm-10">
+                                <input type="file" name="file">
+                                <div>
+                                    Catatan : Ukuran file maksimal 10MB
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <input type="submit" value="Upload" class="btn askrindo-btn askrindo-btn-color" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section scripts{
+    <script src="~/Scripts/Numbox/jquery.numbox-1.3.0.min.js"></script>
+    <script>
+    $(function () {
+        $('.percent-input').NumBox({ symbol: '%', max: 200, places: 2, location: 'r' });
+
+        $('.money-input').NumBox({ symbol: 'Rp. ', max: 9999999999999, places: 2, location: 'l' });
+
+        $('#askrindo-impact-select').change(function (e) {
+            var self = this;
+            $.get('@Url.Action("GetImpactDetail", "Default")', { id: self.value }, function (res) {
+                var htmlTemp = '';
+                for (var i = 0; i < res.length; i++) {
+                    var item = res[i];
+                    htmlTemp += '<tr>' +
+                        '<td>' + item.TypeName + '</td>' +
+                        '<td>' +
+                            '<div>' + item.LevelId + ' - ' + item.LevelName + '</div>' +
+                            '<small>' + item.Detail + '</small>' +
+                        '</td>' +
+                        + '</tr>';
+                }
+
+                $('#askrindo-impact-table').html(htmlTemp);
+            });
+        });
+    });
+
+    function getRawNumbox() {
+        $('.percent-input').each(function () {
+            this.value = $(this).NumBox('getRaw');
+        });
+
+        $('.money-input').each(function () {
+            this.value = $(this).NumBox('getRaw');
+        });
+    }
+
+    function showMoneyImpact(showMoney) {
+        if (showMoney) {
+            $('#askrindo-money-impact').removeClass('d-none');
+            $('#askrindo-non-money-impact').addClass('d-none');
+        }
+        else {
+            $('#askrindo-money-impact').addClass('d-none');
+            $('#askrindo-non-money-impact').removeClass('d-none');
+        }
+    }
+
+    function showProbability(ttype) {
+        $('.askrindo-probability-type').addClass('d-none');
+
+        if (ttype == 'av') {
+            $('#askrindo-prob-avail').removeClass('d-none');
+        }
+        else if (ttype == 'ap') {
+            $('#askrindo-prob-approx').removeClass('d-none');
+        }
+        else if (ttype == 'df') {
+            $('#askrindo-prob-diff').removeClass('d-none');
+        }
+        else if (ttype == 'f') {
+            $('#askrindo-prob-freq').removeClass('d-none');
+        }
+    }
+
+    function showProbabilityForm(s) {
+        if (s)
+            $('#askrindo-probability-form').removeClass('d-none');
+        else
+            $('#askrindo-probability-form').addClass('d-none');
+    }
+
+    function showImpactForm(s) {
+        if(s)
+            $('#askrindo-impact-form').removeClass('d-none');
+        else
+            $('#askrindo-impact-form').addClass('d-none');
+    }
+    </script>
+
+}

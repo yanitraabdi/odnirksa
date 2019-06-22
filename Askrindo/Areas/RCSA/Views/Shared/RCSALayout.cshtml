@@ -1,0 +1,17 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_AskrindoLayout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <div class="col-md-3">
+            @Html.Partial("Navigation")
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+@section scripts{
+    @RenderSection("scripts", false)
+}

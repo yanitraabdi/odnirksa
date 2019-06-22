@@ -1,0 +1,42 @@
+﻿@model Askrindo.Areas.RCSA.Models.MitigationActionModel
+@using Askrindo.Helpers
+@{
+    ViewBag.Title = "MitigationActionList";
+    Layout = "~/Areas/RCSA/Views/Shared/RCSALayout.cshtml";
+}
+
+<table class="list">
+    <tr>
+        <th>
+            Kode Tindakan Mitigasi
+        </th>
+        <th>
+            Uraian
+        </th>
+        <th>
+            Progress(%)
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (var m in Model.actionList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(item => m.ActionCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => m.RiskMitigation.MitigationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => m.TotalProgress)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "MitigationActionEdit", new { id = m.ActionID })
+            </td>
+        </tr>
+    }
+</table>
+<div style="padding-top: 12px">
+    <input type="button" value="Tambah" onclick="location.href='@Url.Action("MitigationActionNew", "Mitigation", new { id = Model.mitigationid })';return false" />
+</div>

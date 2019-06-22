@@ -1,0 +1,106 @@
+﻿@model Askrindo.Areas.Report.Models.LossEvent.LossEventViewModel
+           
+@using Askrindo.Helpers
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Report/Views/Shared/_LossEvent.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#params").accordion({
+            collapsible: true,
+            active: -1
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ddlLokasi').change(function () {
+            var selectedValue = $(this).val();
+            $.getJSON('@VirtualPathUtility.ToAbsolute("~/RiskChart/LoadUnitKerja")', { Id: selectedValue }, function (callbackData) {
+                var select = $("#ddlUnitKerja");
+                select.empty();
+                select.append($("<option/>", {
+                    value: "",
+                    text: ""
+                }));
+                $.each(callbackData, function (index, itemData) {
+                    select.append($("<option/>", {
+                        value: itemData.Value,
+                        text: itemData.Text
+                    }));
+                });
+            });
+        });
+    });
+</script>
+
+<div id="params" style="padding-bottom: 12px">
+    <h3>
+        <a href="#">Parameter</a>
+    </h3>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <table class="edit">
+                <tr style="background-color: #ddd">
+                    <td colspan="2"><b>FILTER</b></td>
+                </tr>
+                <tr>
+                    <td>Lokasi</td>
+                    <td>@Html.DropDownListFor(m => m.Param.PosId, Model.Param.PosList, "",
+                        new { id = "ddlLokasi", style = "width: 200px;" })</td>
+                </tr>
+                <tr>
+                    <td>Unit Kerja</td>
+                    <td>@Html.DropDownListFor(m => m.Param.BranchId, Model.Param.Unit, "",
+                        new { id = "ddlUnitKerja", style = "width: 200px;" })</td>
+                </tr>
+                <tr>
+                    <td>Tanggal</td>
+                    <td>@Html.EditorFor(m => m.Param.ReportDate) s/d @Html.EditorFor(m => m.Param.ReportDate2)</td>
+                </tr>
+            </table>
+        
+            <div style="padding-top: 12px">
+                <input type="submit" value="Refresh" />
+            </div>
+        }
+    </div>
+</div>
+
+
+<table class="list">
+    <tr >
+        <th>Unit Kerja(Pemilik Kerugian)</th> 
+        <th>Peristiwa Kerugian</th>
+        <th>Jumlah Kasus</th>
+    </tr>
+    @foreach (var item in Model.LossList)
+    {
+    <tr>
+        <td>@Html.DisplayFor(m => item.lossEventKantor.pemilik)</td>
+        <td>@Html.DisplayFor(m => item.lossEventKantor.LossEvent)</td>
+        <td>@Html.DisplayFor(m => item.lossEventKantor.jml_kasus)</td>
+    </tr>
+    }        
+
+</table>
+
+<div style="padding-top: 12px">
+    @Html.ActionLink("Ekspor ke Excel", "ExportToExcelKantor",
+        new
+        {
+            posId = Model.Param.PosId,
+            branchId = Model.Param.BranchId,
+            reportDate = Model.Param.ReportDate,
+            reportDate2 = Model.Param.ReportDate2,
+        }, null)
+</div>
+

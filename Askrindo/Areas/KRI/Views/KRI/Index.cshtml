@@ -1,0 +1,89 @@
+﻿@using Askrindo.Areas.KRI.Models
+@using Askrindo.Models
+@model NonInvestViewModel
+@{
+    Layout = "~/Areas/KRI/Views/Shared/KRILayout.cshtml";
+}
+
+<div class="askrindo-content-box">
+    <h5>Daftar Indikator KRI Non Investasi</h5>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th rowspan="2">No</th>
+                <th rowspan="2" class="text-center">Indikator KRI</th>
+                <th rowspan="2" class="text-center">Divisi</th>
+                <th colspan="3" class="text-center">Update Terakhir</th>
+                <th rowspan="2"></th>
+            </tr>
+            <tr>
+                <th class="text-center">Data Indikator</th>
+                <th class="text-center">Strategic Response</th>
+                <th class="text-center">Data Risiko</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.KRINonInvests)
+            {
+                bool hasData = false, hasSR = false, hasRisk = false;
+                KRINonInvestData data = null;
+                hasData = item.KRINonInvestDatas.Count > 0;
+
+                if (hasData)
+                {
+                    data = item.KRINonInvestDatas.Last();
+
+                }
+
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Division</td>
+                    <td>
+                        @if (hasData) {
+                            <span>
+                                @data.CreatedAt.ToString("dddd, dd MMMM yyyy")
+                            </span>
+                            <br/>
+                            <small>
+                                @data.UserInfo.FullName
+                            </small>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+        
+                    <td>
+                        @if (hasSR) {
+
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                        
+                    <td>
+                        @if (hasRisk)
+                        {
+
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+        
+                    <td>
+        
+                                <div class="col"><a href="@Url.Action("ManageNonInvest", "KRI", new { Id = item.Id })" class="btn askrindo-btn askrindo-btn-color">Manajemen Data</a></div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

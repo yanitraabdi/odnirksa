@@ -1,0 +1,32 @@
+﻿@{
+    //ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_AskrindoLayout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <div class="col-md-3">
+            <ul id="askrindo-left-nav" class="nav flex-column">
+                <li class="nav-item">
+                    <p>Data Loss Event</p>
+                </li>
+                <li class="nav-item position-relative">
+                    <a class="nav-link" href="@Url.Action("LossEventNew", "LossEvent", new { area = "LossEvent" })">Loss Event Baru</a>
+                </li>
+                <li class="nav-item position-relative">
+                    <a class="nav-link" href="@Url.Action("LossEventList", "LossEvent", new { area = "LossEvent" })">Daftar Loss Event</a>
+                </li>
+                <li class="nav-item position-relative">
+                    <a class="nav-link" href="@Url.Action("LossEventApprove", "LossEvent", new { area = "LossEvent" })">Approval Loss Event</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="askrindo-content-box">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @RenderSection("scripts", false)
+}

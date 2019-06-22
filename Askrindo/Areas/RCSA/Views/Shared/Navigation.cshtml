@@ -1,0 +1,75 @@
+﻿@{    
+    Layout = null;
+}
+
+<div class="askrindo-content-box">
+    <ul id="askrindo-rcsa-menu" class="nav flex-column">
+        <li class="nav-item">
+            <p>Menu Data Risiko</p>
+        </li>
+        @if (ViewBag.title == "Daftar Risiko")
+        {
+            <li class="nav-item position-relative active">
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("Index", "Default")">Daftar Risiko</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item position-relative">
+                <a class="nav-link" href="@Url.Action("Index", "Default")">Daftar Risiko</a>
+            </li>
+        }
+        @if (ViewBag.title == "Risiko Baru")
+        {
+            <li class="nav-item position-relative active">
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("Index", "New")">Input Risiko Baru</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item position-relative">
+                <a class="nav-link" data-eskrindo-input="true" href="@Url.Action("Index", "New")">Input Risiko Baru</a>
+            </li>
+        }
+        <li><hr /></li>
+        <li class="nav-item position-relative">
+            <p>Menu Data Mitigasi</p>
+        </li>
+        @if (ViewBag.title == "Daftar Mitigasi")
+        {
+            <li class="nav-item position-relative active" >
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="#">Daftar Mitigasi</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "Mitigation")">Daftar Mitigasi</a>
+            </li>
+        }
+        @if (ViewBag.title == "Progress Pelaksanaan Mitigasi")
+        {
+            <li class="nav-item position-relative active">
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("MitigationAction", "Mitigation")">Progress Pelaksanaan Mitigasi</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item position-relative">
+                <a class="nav-link" href="@Url.Action("MitigationAction", "Mitigation")">Progress Pelaksanaan Mitigasi</a>
+            </li>
+        }
+        @*@if (ViewBag.title == "Approval Progress Mitigasi")
+        {
+            <li class="nav-item position-relative active">
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="#">Approval Progress Mitigasi</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item position-relative">
+                <a class="nav-link" href="#">Approval Progress Mitigasi</a>
+            </li>
+        }*@
+    </ul>
+</div>

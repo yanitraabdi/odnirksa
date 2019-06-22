@@ -1,0 +1,43 @@
+﻿
+@model Askrindo.Areas.RefData.Models.OrgStruct.StrukturOrganisasiModel
+           
+           
+@{
+    Layout = "~/Areas/RefData/Views/Shared/_orgstruct.cshtml";
+
+    var canModify = (bool)ViewBag.CanModify;
+}
+
+<div>
+    @using (Html.BeginForm())
+    {
+        <table class="edit">
+            <tr>
+                <td>Pilih Organisasi</td>
+                <td>
+                @Html.DropDownListFor(x => x.SelectedCategory, new SelectList(Model.Organisasi, "Value", "Text"), "Please Select a category")
+                    <select id="Select1">
+                        <option value="1">Direktorat</option>
+                        <option value="2">Bagian di bawah Direktorat</option>
+                        <option value="3">Divisi</option>
+                        <option value="4">Bagian</option>
+                        <option value="5">Kantor Cabang</option>
+                        <option value="6">Bagian Cabang</option>
+                        <option value="7">Kantor Unit</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" value="Proses" />
+                </td>
+            </tr>
+            <tr>
+
+            </tr>
+            <tr>
+                <td>
+                    @Html.ActionLink("Tambah", "DeptNew")
+                </td>
+            </tr>
+        </table>
+    }
+</div>
