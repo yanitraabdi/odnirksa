@@ -76,10 +76,10 @@
                             <img class="rounded-circle d-none" src="/Content/Image/default-avatar.png" alt="User Avatar" style="max-width: 32px;margin-left: 4px;margin-right: 4px;visibility: hidden;">
                             <strong class="eskrindo-dropdown-user-logout">Logout</strong>
                         </div>
-                        
+
                     </div>
                 </div>
-               
+
             </div>
         </nav>
     </div>
@@ -115,6 +115,7 @@
     }
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap4")
+    <script src="~/Scripts/download.js"></script>
     <script>
         function doLogout() {
             window.location.href = "/Account/LogOff";
