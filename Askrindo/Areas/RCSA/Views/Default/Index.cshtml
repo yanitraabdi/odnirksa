@@ -131,7 +131,6 @@
                             </button>
                             <div class="dropdown-menu askrindo-btn-color" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item askrindo-btn-color askrindo-btn" href="@Url.Action("Detail", new { id = item.RiskId })">Detail</a>
-                                <a class="dropdown-item askrindo-btn-color askrindo-btn" data-eskrindo-input="true" href="#">Edit</a>
                                 <a class="dropdown-item askrindo-btn-color askrindo-btn" data-eskrindo-input="true" href="@Url.Action("List", "Mitigation", new { id = item.RiskId })">Mitigasi</a>
                                 @if (string.IsNullOrEmpty(Request.Params["statusFilter"]) || Request.Params["statusFilter"] == "process")
                                 {

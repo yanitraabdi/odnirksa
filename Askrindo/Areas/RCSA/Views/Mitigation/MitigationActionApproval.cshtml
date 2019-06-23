@@ -8,8 +8,8 @@
 {
     <table class="edit table">
         <tr>
-            <td>Kode Risiko</td>
-            <td colspan='4'>@Html.TextBoxFor(m => m.riskCode)</td>
+            <td>Kode Tindakan</td>
+            <td colspan='4'>@Html.TextBoxFor(m => m.action.ActionCode)</td>
         </tr>
         <tr>
             <td>Kode Mitigasi</td>
@@ -33,17 +33,17 @@
     <table class="list table">
         <tr>
             <th>Kode Mitigasi</th>
-            <th>Uraian Mitigasi</th>
-            <th>Kode Risiko</th>
+            <th>Uraian</th>
+            <th>Kode Tindakan</th>
             <th></th>
         </tr>
-        @foreach (var m in Model.RiskMitigations)
+        @foreach (var m in Model.actionList)
         {
             <tr>
-                <td>@Html.ActionLink(m.MitigationCode, "Detail", new { id = m.MitigationId }, new { target = "_blank" })</td>
-                <td>@Html.DisplayFor(modelItem => m.MitigationName)</td>
-                <td>@Html.ActionLink(m.Risk.RiskCode, "Details", new { id = m.Risk.RiskId, controller = "RiskInfo", area = "" }, new { target = "_blank" })</td>
-                <td>@Html.ActionLink("Progress Pelaksanaan", "MitigationActionList", new { id = m.MitigationId })</td>
+                <td>@Html.DisplayFor(modelItem => m.RiskMitigation.MitigationCode)</td>
+                <td>@Html.DisplayFor(modelItem => m.RiskMitigation.MitigationName)</td>
+                <td>@Html.DisplayFor(modelItem => m.ActionCode)</td>
+                <td>@Html.ActionLink("Approve", "MitigationActionAppView", new { id = m.ActionID })</td>
             </tr>
         }
     </table>

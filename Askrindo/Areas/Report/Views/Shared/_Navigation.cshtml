@@ -1,0 +1,135 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="askrindo-content-box">
+    <ul id="askrindo-left-nav" class="nav flex-column">
+        <li class="nav-item">
+            <p>Resiko</p>
+        </li>
+        @if (string.Equals(ViewBag.Title, "peta resiko", StringComparison.InvariantCultureIgnoreCase))
+        {
+            <li class="nav-item position-relative active">
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("Index", "RiskMap")">Peta Resiko</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item position-relative">
+                <a class="nav-link" href="@Url.Action("Index", "RiskMap")">Peta Resiko</a>
+            </li>
+        }
+        @if (string.Equals(ViewBag.Title, "top ten risks", StringComparison.InvariantCultureIgnoreCase))
+        {
+            <li class="nav-item position-relative active">
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("Index", "TopTenRisk")">Top Ten Risks</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item position-relative">
+                <a class="nav-link" href="@Url.Action("Index", "TopTenRisk")">Top Ten Risks</a>
+            </li>
+        }
+        @if (string.Equals(ViewBag.Title, "risk register", StringComparison.InvariantCultureIgnoreCase))
+        {
+            <li class="nav-item position-relative active">
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("Index", "RiskRegister")">Risk Register</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item position-relative">
+                <a class="nav-link" href="@Url.Action("Index", "RiskRegister")">Risk Register</a>
+            </li>
+        }
+        @if (string.Equals(ViewBag.Title, "grafik resiko", StringComparison.InvariantCultureIgnoreCase))
+        {
+            <li class="nav-item position-relative active">
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("Index", "RiskChart")">Grafik Resiko</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item position-relative">
+                <a class="nav-link" href="@Url.Action("Index", "RiskChart")">Grafik Resiko</a>
+            </li>
+        }
+        @if (string.Equals(ViewBag.Title, "tabel resiko", StringComparison.InvariantCultureIgnoreCase))
+        {
+            <li class="nav-item position-relative active">
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("Index", "RiskTable")">Tabel Resiko</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item position-relative">
+                <a class="nav-link" href="@Url.Action("Index", "RiskTable")">Tabel Resiko</a>
+            </li>
+        }
+        @if (string.Equals(ViewBag.Title, "resiko berulang", StringComparison.InvariantCultureIgnoreCase))
+        {
+            <li class="nav-item position-relative active">
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("Index", "RisikoBerulang")">Resiko Berulang</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item position-relative">
+                <a class="nav-link" href="@Url.Action("Index", "RisikoBerulang")">Resiko Berulang</a>
+            </li>
+        }
+        <li><hr /></li>
+        <li class="nav-item position-relative">
+            <p>Loss Event</p>
+        </li>
+        @if (ViewBag.title == "Daftar Loss Event")
+        {
+            <li class="nav-item position-relative active">
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("Index", "LossEvent")">Daftar Loss Event</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "LossEvent")">Daftar Loss Event</a>
+            </li>
+        }
+        @if (ViewBag.title == "Loss Event Menurut Pemilik")
+        {
+            <li class="nav-item position-relative active">
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("IndexPemilik", "LossEvent")">Loss Event Menurut Pemilik</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item position-relative">
+                <a class="nav-link" href="@Url.Action("IndexPemilik", "LossEvent")">Loss Event Menurut Pemilik</a>
+            </li>
+        }
+        @if (ViewBag.title == "Loss Event Menurut Tahun Klasifikasi")
+        {
+            <li class="nav-item position-relative active">
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("IndexTahun", "LossEvent")">Loss Event Menurut Tahun Klasifikasi</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("IndexTahun", "LossEvent")">Loss Event Menurut Tahun Klasifikasi</a>
+            </li>
+        }
+        @if (ViewBag.title == "Loss Event Menurut Kantor")
+        {
+            <li class="nav-item position-relative active">
+                <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("IndexKantor", "LossEvent")">Loss Event Menurut Kantor</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item position-relative">
+                <a class="nav-link" href="@Url.Action("IndexKantor", "LossEvent")">Loss Event Menurut Kantor</a>
+            </li>
+        }
+    </ul>
+</div>

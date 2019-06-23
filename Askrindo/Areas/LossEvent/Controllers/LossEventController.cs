@@ -24,12 +24,14 @@ namespace Askrindo.Areas.LossEvent.Controllers
 
         public ActionResult LossEventNew()
         {
-
+            string riskOwner=db.SubDivs.Where(x => x.SubDivId == data.SubDivId).FirstOrDefault().SubDivName;
+            
             LossEventModel le = new LossEventModel();
             le.inputDate = DateTime.Now;
             le.lossDate = DateTime.Now;
             le.code = "L"+Utils.GetFormattedSerialNumberLossEvent(data);
-
+            le.lossEvent = new Askrindo.Models.LossEvent();
+            le.lossEvent.LossOwner = riskOwner;
             Dictionary<string, string> catList = new Dictionary<string, string>();
             foreach (var Klasifikasi in db.KlasifikasiKerugians.OrderBy(m => m.KlasifikasiId))
                 catList.Add(Klasifikasi.KlasifikasiId, Klasifikasi.Klasifikasi);

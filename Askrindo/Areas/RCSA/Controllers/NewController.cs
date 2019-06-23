@@ -114,9 +114,9 @@ namespace Askrindo.Areas.RCSA.Controllers
                     risk.RiskCatId = riskEvent.RiskType.RiskGroup.RiskCat.RiskCatId;
                     risk.RiskGroupId = riskEvent.RiskType.RiskGroup.RiskGroupId;
                     risk.RiskTypeId = riskEvent.RiskType.RiskTypeId;
-
+                    
                     risk.ProbLevelId = Utils.PROBLEVEL1;
-                    risk.ImpactLevelId = Utils.IMPACTLEVEL1;
+                    risk.ImpactLevelId = rCSARiskInputModel.impactLevelId;
                     risk.RiskLevel = risk.ProbLevelId * risk.ImpactLevelId;
                     risk.IsReadOnly = false;
                     risk.RiskEventId = risk_event_id;
@@ -134,16 +134,16 @@ namespace Askrindo.Areas.RCSA.Controllers
                     }
                     RiskProb prob = new RiskProb();
                     prob.RiskId = risk.RiskId;
-                    prob.ProbOption = Utils.PROBOPTION_FREQUENCY;
-                    prob.FreqId = Utils.FREQUENCY1;
-                    prob.ProbLevelId = Utils.PROBLEVEL1;
+                    prob.ProbOption = rCSARiskInputModel.prob_level;
+                    prob.FreqId =rCSARiskInputModel.sb_freq;
+                    prob.ProbLevelId = rCSARiskInputModel.sb_freq;
                     db.RiskProbs.Add(prob);
                     db.SaveChanges();
 
                     RiskImpact impact = new RiskImpact();
                     impact.RiskId = risk.RiskId;
-                    impact.IsMoneyImpact = true;
-                    impact.ImpactLevelId = Utils.IMPACTLEVEL1;
+                    impact.IsMoneyImpact = rCSARiskInputModel.impact_type=="money";
+                    impact.ImpactLevelId = rCSARiskInputModel.impactLevelId;
                     db.RiskImpacts.Add(impact);
                     db.SaveChanges();
 

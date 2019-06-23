@@ -54,9 +54,9 @@
         <thead>
             <tr>
                 <th>Kode Mitigasi</th>
-                <th>Peristiwa Risiko</th>
+                <th>Mitigasi</th>
                 <th>Tanggal</th>
-                <th>Kode Risiko</th>
+                <th>Peristiwa Risiko</th>
                 <th></th>
             </tr>
         </thead>
@@ -65,11 +65,11 @@
             {
                 <tr>
                     <td>@item.MitigationCode</td>
-                    <td>@item.Risk.RiskName</td>
+                    <td>@item.MitigationName</td>
                     <td>
                         @item.MitigationDate.ToString("dddd, dd MMMM yyyy")
                     </td>
-                    <td>@item.Risk.RiskCode</td>
+                    <td>@item.Risk.RiskName</td>
                     <td>
                         <div class="dropdown">
                             <button class="btn askrindo-btn-color askrindo-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

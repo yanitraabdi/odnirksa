@@ -922,7 +922,7 @@ namespace Askrindo.Helpers
                 {
                     value = ((value - target.Value) / target.Value) * 100;
                 }
-                else if (type == "segment")
+                else
                 {
 
                 }
@@ -930,23 +930,31 @@ namespace Askrindo.Helpers
 
             var gs = GradeString();
 
-            if (
-                (limitPoint.Min1.HasValue && limitPoint.Min1.Value <= value) ||
-                (limitPoint.Max1.HasValue && limitPoint.Max1.Value >= value)
-                ) {
-                return order == ">" ? gs[0] : gs[3];
-            }
-            else if (limitPoint.Min2 <= value && limitPoint.Max2 >= value)
+            if (type == "segment")
             {
-                return order == ">" ? gs[1] : gs[2];
-            }
-            else if (limitPoint.Min3 <= value && limitPoint.Max3 >= value)
-            {
-                return order == ">" ? gs[2] : gs[1];
+                return value > target.Value ? gs[0] : gs[3];
             }
             else
             {
-                return order == ">" ? gs[3] : gs[0];
+                if (
+                    (limitPoint.Min1.HasValue && limitPoint.Min1.Value <= value) ||
+                    (limitPoint.Max1.HasValue && limitPoint.Max1.Value >= value)
+                    )
+                {
+                    return order == ">" ? gs[0] : gs[3];
+                }
+                else if (limitPoint.Min2 <= value && limitPoint.Max2 >= value)
+                {
+                    return order == ">" ? gs[1] : gs[2];
+                }
+                else if (limitPoint.Min3 <= value && limitPoint.Max3 >= value)
+                {
+                    return order == ">" ? gs[2] : gs[1];
+                }
+                else
+                {
+                    return order == ">" ? gs[3] : gs[0];
+                }
             }
         }
 
@@ -1001,41 +1009,65 @@ namespace Askrindo.Helpers
             AskrindoEntities db = new AskrindoEntities();
 
             var NIIndicators = new List<KRINonInvest> {
-                new KRINonInvest{ Name = "Hasil Underwriting (Premi bruto - klaim - biaya reass + recovery + klaim reass)", Division = "Asuransi Umum", DivisionCode = "AUM" },
-                new KRINonInvest{ Name = "Claim Ratio (premi/claim)", Division = "Asuransi Umum", DivisionCode = "AUM" },
-                new KRINonInvest{ Name = "SLA Penutupan Pertanggungan", Division = "Asuransi Umum", DivisionCode = "AUM" },
-                new KRINonInvest{ Name = "Hasil Underwriting (Premi bruto - klaim - biaya reass + recovery + klaim reass)", Division = "Underwriting Non Kredit", DivisionCode = "UNK" },
-                new KRINonInvest{ Name = "Claim Ratio (premi/claim)", Division = "Underwriting Non Kredit", DivisionCode = "UNK" },
+                //new KRINonInvest{ Name = "Hasil Underwriting (Premi bruto - klaim - biaya reass + recovery + klaim reass)", Division = "Asuransi Umum", DivisionCode = "AUM" },
+                //new KRINonInvest{ Name = "Claim Ratio (premi/claim)", Division = "Asuransi Umum", DivisionCode = "AUM" },
+                //new KRINonInvest{ Name = "SLA Penutupan Pertanggungan", Division = "Asuransi Umum", DivisionCode = "AUM" },
+                //new KRINonInvest{ Name = "Hasil Underwriting (Premi bruto - klaim - biaya reass + recovery + klaim reass)", Division = "Underwriting Non Kredit", DivisionCode = "UNK" },
+                //new KRINonInvest{ Name = "Claim Ratio (premi/claim)", Division = "Underwriting Non Kredit", DivisionCode = "UNK" },
 
-                new KRINonInvest{ Name = "SLA Penutupan Pertanggungan", Division = "Underwriting Non Kredit", DivisionCode = "UNK" },
-                new KRINonInvest{ Name = "Hasil Underwriting (Premi bruto - klaim - biaya reass + recovery + klaim reass)", Division = "Underwriting Kredit", DivisionCode = "UKR" },
-                new KRINonInvest{ Name = "Claim Ratio (premi/claim)", Division = "Underwriting Kredit", DivisionCode = "UKR" },
-                new KRINonInvest{ Name = "SLA Penutupan Pertanggungan", Division = "Underwriting Kredit", DivisionCode = "UKR" },
-                new KRINonInvest{ Name = "Claim Ratio (premi/claim)", Division = "Klaim", DivisionCode = "KLM" },
+                //new KRINonInvest{ Name = "SLA Penutupan Pertanggungan", Division = "Underwriting Non Kredit", DivisionCode = "UNK" },
+                //new KRINonInvest{ Name = "Hasil Underwriting (Premi bruto - klaim - biaya reass + recovery + klaim reass)", Division = "Underwriting Kredit", DivisionCode = "UKR" },
+                //new KRINonInvest{ Name = "Claim Ratio (premi/claim)", Division = "Underwriting Kredit", DivisionCode = "UKR" },
+                //new KRINonInvest{ Name = "SLA Penutupan Pertanggungan", Division = "Underwriting Kredit", DivisionCode = "UKR" },
+                //new KRINonInvest{ Name = "Claim Ratio (premi/claim)", Division = "Klaim", DivisionCode = "KLM" },
 
-                new KRINonInvest{ Name = "SLA Penutupan Pertanggungan", Division = "Klaim", DivisionCode = "KLM" },
-                new KRINonInvest{ Name = "Indeks kepuasan pelanggan", Division = "Klaim", DivisionCode = "KLM" },
-                new KRINonInvest{ Name = "Ketepatan isi laporan keuangan", Division = "Akuntansi dan Anggaran", DivisionCode = "AKA" },
-                new KRINonInvest{ Name = "Penyajian laporan keuangan tepat waktu", Division = "Akuntansi dan Anggaran", DivisionCode = "AKA" },
-                new KRINonInvest{ Name = "Claim Ratio (premi/claim)", Division = "Hukum dan Subrogasi", DivisionCode = "HKS" },
+                //new KRINonInvest{ Name = "SLA Penutupan Pertanggungan", Division = "Klaim", DivisionCode = "KLM" },
+                //new KRINonInvest{ Name = "Indeks kepuasan pelanggan", Division = "Klaim", DivisionCode = "KLM" },
+                //new KRINonInvest{ Name = "Ketepatan isi laporan keuangan", Division = "Akuntansi dan Anggaran", DivisionCode = "AKA" },
+                //new KRINonInvest{ Name = "Penyajian laporan keuangan tepat waktu", Division = "Akuntansi dan Anggaran", DivisionCode = "AKA" },
+                //new KRINonInvest{ Name = "Claim Ratio (premi/claim)", Division = "Hukum dan Subrogasi", DivisionCode = "HKS" },
 
-                new KRINonInvest{ Name = "Produktifitas pegawai", Division = "Hukum dan Subrogasi", DivisionCode = "HKS"},
-                new KRINonInvest{ Name = "Premi Bruto", Division = "Retail dan Program", DivisionCode = "RTP" },
-                new KRINonInvest{ Name = "Pangsa Pasar", Division = "Retail dan Program", DivisionCode = "RTP" },
-                new KRINonInvest{ Name = "Indeks Kepuasan Pelanggan", Division = "Retail dan Program", DivisionCode = "RTP" },
-                new KRINonInvest{ Name = "Produktifitas pegawai", Division = "Manajemen Bisnis", DivisionCode = "MNB" },
+                //new KRINonInvest{ Name = "Produktifitas pegawai", Division = "Hukum dan Subrogasi", DivisionCode = "HKS"},
+                //new KRINonInvest{ Name = "Premi Bruto", Division = "Retail dan Program", DivisionCode = "RTP" },
+                //new KRINonInvest{ Name = "Pangsa Pasar", Division = "Retail dan Program", DivisionCode = "RTP" },
+                //new KRINonInvest{ Name = "Indeks Kepuasan Pelanggan", Division = "Retail dan Program", DivisionCode = "RTP" },
+                //new KRINonInvest{ Name = "Produktifitas pegawai", Division = "Manajemen Bisnis", DivisionCode = "MNB" },
 
-                new KRINonInvest{ Name = "Produktifitas pegawai", Division = "Sumber Daya Manusia", DivisionCode = "SDM" },
-                new KRINonInvest{ Name = "Tenaga Ahli", Division = "Sumber Daya Manusia", DivisionCode = "SDM" },
-                new KRINonInvest{ Name = "Tingkat Kepuasan Pegawai", Division = "Sumber Daya Manusia", DivisionCode = "SDM" },
-                new KRINonInvest{ Name = "Claim Ratio (premi/claim)", Division = "Pemasaran BUMN", DivisionCode = "PBU" },
-                new KRINonInvest{ Name = "Premi Bruto", Division = "Komersial Bank", DivisionCode = "KMB" },
+                //new KRINonInvest{ Name = "Produktifitas pegawai", Division = "Sumber Daya Manusia", DivisionCode = "SDM" },
+                //new KRINonInvest{ Name = "Tenaga Ahli", Division = "Sumber Daya Manusia", DivisionCode = "SDM" },
+                //new KRINonInvest{ Name = "Tingkat Kepuasan Pegawai", Division = "Sumber Daya Manusia", DivisionCode = "SDM" },
+                //new KRINonInvest{ Name = "Claim Ratio (premi/claim)", Division = "Pemasaran BUMN", DivisionCode = "PBU" },
+                //new KRINonInvest{ Name = "Premi Bruto", Division = "Komersial Bank", DivisionCode = "KMB" },
 
-                new KRINonInvest{ Name = "Premi Bruto", Division = "KUR dan Program", DivisionCode = "KUP" },
-                new KRINonInvest{ Name = "Claim Ratio (premi/claim)", Division = "KUR dan Program", DivisionCode = "KUP" },
-                new KRINonInvest{ Name = "SLA Penutupan Pertanggungan", Division = "KUR dan Program", DivisionCode = "KUP" },
-                new KRINonInvest{ Name = "Penyerapan Plafond KUR", Division = "KUR dan Program", DivisionCode = "KUP" },
-                new KRINonInvest{ Name = "Downtime (core system)", Division = "Teknologi Informasi", DivisionCode = "TIN" },
+                //new KRINonInvest{ Name = "Premi Bruto", Division = "KUR dan Program", DivisionCode = "KUP" },
+                //new KRINonInvest{ Name = "Claim Ratio (premi/claim)", Division = "KUR dan Program", DivisionCode = "KUP" },
+                //new KRINonInvest{ Name = "SLA Penutupan Pertanggungan", Division = "KUR dan Program", DivisionCode = "KUP" },
+                //new KRINonInvest{ Name = "Penyerapan Plafond KUR", Division = "KUR dan Program", DivisionCode = "KUP" },
+                //new KRINonInvest{ Name = "Downtime (core system)", Division = "Teknologi Informasi", DivisionCode = "TIN" },
+
+                new KRINonInvest{ Name = "Premi Bruto", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "Hasil Underwriting", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "Kontribusi Anak Perusahaan", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "Return of Equity", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "Earning After Tax", Division = "", DivisionCode = "" },
+
+                new KRINonInvest{ Name = "Risk Based Capital", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "Rasio BOPO", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "SBN", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "Pangsa Pasar", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "Indeks Kepuasan Pelanggan", Division = "", DivisionCode = "" },
+
+                new KRINonInvest{ Name = "Claim Ratio", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "Downtime", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "GCG", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "KPKU", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "SLA Penutupan Pertanggungan", Division = "", DivisionCode = "" },
+
+                new KRINonInvest{ Name = "YOI", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "Penyerapan Plafond KUR", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "Produktifitas Pegawai", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "Tenaga Ahli", Division = "", DivisionCode = "" },
+                new KRINonInvest{ Name = "Tingkat Kepuasan Pegawai", Division = "", DivisionCode = "" },
             };
 
             db.KRINonInvests.AddRange(NIIndicators);
@@ -1043,60 +1075,185 @@ namespace Askrindo.Helpers
 
             var NIParameters = new List<KRINonInvestParameter> ();
 
-            for (int i = 1; i <= 30; i++)
+            //for (int i = 1; i <= 30; i++)
+            //{
+            //    if ((new List<int> { 2,5,8,15,24,27 }).Exists(d => d == i))
+            //    {
+            //        NIParameters.Add(new KRINonInvestParameter
+            //        {
+            //            Min1 = -20,
+            //            Min2 = -20,
+            //            Max2 = -5,
+            //            Min3 = -5,
+            //            Max3 = 5,
+            //            Max4 = 5,
+            //            Order = "<",
+            //            KRINonInvestId = i,
+            //            Type = "target",
+            //            Target = 1000_000_000,
+            //            CreatedAt = DateTime.Now
+            //        });
+            //    }
+            //    else if((new List<int> { 3,28 }).Exists(d => d == i))
+            //    {
+            //        NIParameters.Add(new KRINonInvestParameter
+            //        {
+            //            Min1 = 70,
+            //            Min2 = 70,
+            //            Max2 = 80,
+            //            Min3 = 80,
+            //            Max3 = 90,
+            //            Max4 = 90,
+            //            Order = "<",
+            //            KRINonInvestId = i,
+            //            Type = "target",
+            //            Target = 1000_000_000,
+            //            CreatedAt = DateTime.Now
+            //        });
+            //    }
+            //    else if ((new List<int> { 6,9,10 }).Exists(d => d == i))
+            //    {
+            //        NIParameters.Add(new KRINonInvestParameter
+            //        {
+            //            Min1 = 70,
+            //            Min2 = 70,
+            //            Max2 = 80,
+            //            Min3 = 80,
+            //            Max3 = 90,
+            //            Max4 = 100,
+            //            Order = "<",
+            //            KRINonInvestId = i,
+            //            Type = "target",
+            //            Target = 1000_000_000,
+            //            CreatedAt = DateTime.Now
+            //        });
+            //    }
+            //    else if((new List<int> { 12,19,22,29 }).Exists(d => d == i))
+            //    {
+            //        NIParameters.Add(new KRINonInvestParameter
+            //        {
+            //            Min1 = 97,
+            //            Max1 = 100,
+            //            Min2 = 94,
+            //            Max2 = 96,
+            //            Min3 = 90,
+            //            Max3 = 93,
+            //            Max4 = 90,
+            //            Order = ">",
+            //            KRINonInvestId = i,
+            //            Type = "target",
+            //            Target = 1000_000_000,
+            //            CreatedAt = DateTime.Now
+            //        });
+            //    }
+            //    else if ((new List<int> { 16,20,21,23 }).Exists(d => d == i))
+            //    {
+            //        NIParameters.Add(new KRINonInvestParameter
+            //        {
+            //            Min1 = 99,
+            //            Max1 = 100,
+            //            Min2 = 98,
+            //            Max2 = 99,
+            //            Min3 = 95,
+            //            Max3 = 98,
+            //            Max4 = 95,
+            //            Order = ">",
+            //            KRINonInvestId = i,
+            //            Type = "target",
+            //            Target = 1000_000_000,
+            //            CreatedAt = DateTime.Now
+            //        });
+            //    }
+            //    else
+            //    {
+            //        NIParameters.Add(new KRINonInvestParameter
+            //        {
+            //            Min1 = 100,
+            //            Min2 = 95,
+            //            Max2 = 100,
+            //            Min3 = 90,
+            //            Max3 = 95,
+            //            Max4 = 90,
+            //            Order = ">",
+            //            KRINonInvestId = i,
+            //            Type = "target",
+            //            Target = 1000_000_000,
+            //            CreatedAt = DateTime.Now
+            //        });
+            //    }
+            //}
+
+            for (int i = 1; i <= 20; i++)
             {
-                if ((new List<int> { 2,5,8,15,24,27 }).Exists(d => d == i))
+                if ((new List<int> { 3 }).Exists(d => d == i))
                 {
                     NIParameters.Add(new KRINonInvestParameter
                     {
-                        Min1 = -20,
-                        Min2 = -20,
-                        Max2 = -5,
-                        Min3 = -5,
-                        Max3 = 5,
-                        Max4 = 5,
-                        Order = "<",
-                        KRINonInvestId = 5,
+                        Min1 = 25,
+                        Min2 = 20,
+                        Max2 = 25,
+                        Min3 = 15,
+                        Max3 = 20,
+                        Max4 = 15,
+                        Order = ">",
+                        KRINonInvestId = i,
                         Type = "target",
                         Target = 1000_000_000,
                         CreatedAt = DateTime.Now
                     });
                 }
-                else if((new List<int> { 3,28 }).Exists(d => d == i))
+                else if ((new List<int> { 6 }).Exists(d => d == i))
                 {
                     NIParameters.Add(new KRINonInvestParameter
                     {
-                        Min1 = 70,
-                        Min2 = 70,
-                        Max2 = 80,
-                        Min3 = 80,
-                        Max3 = 90,
-                        Max4 = 90,
-                        Order = "<",
-                        KRINonInvestId = 5,
+                        Min1 = 200,
+                        Min2 = 150,
+                        Max2 = 200,
+                        Min3 = 120,
+                        Max3 = 150,
+                        Max4 = 120,
+                        Order = ">",
+                        KRINonInvestId = i,
                         Type = "target",
                         Target = 1000_000_000,
                         CreatedAt = DateTime.Now
                     });
                 }
-                else if ((new List<int> { 6,9,10 }).Exists(d => d == i))
+                else if ((new List<int> { 7 }).Exists(d => d == i))
                 {
                     NIParameters.Add(new KRINonInvestParameter
                     {
-                        Min1 = 70,
-                        Min2 = 70,
-                        Max2 = 80,
-                        Min3 = 80,
-                        Max3 = 90,
-                        Max4 = 100,
+                        Max1 = 5,
+                        Min2 = 5,
+                        Max2 = 10,
+                        Min3 = 10,
+                        Max3 = 15,
+                        Min4 = 15,
                         Order = "<",
-                        KRINonInvestId = 5,
+                        KRINonInvestId = i,
                         Type = "target",
                         Target = 1000_000_000,
                         CreatedAt = DateTime.Now
                     });
                 }
-                else if((new List<int> { 12,19,22,29 }).Exists(d => d == i))
+                else if ((new List<int> { 8 }).Exists(d => d == i))
+                {
+                    NIParameters.Add(new KRINonInvestParameter
+                    {
+                        Min1 = 40,
+                        Min2 = 30,
+                        Max2 = 40,
+                        Min3 = 20,
+                        Max3 = 30,
+                        Max4 = 20,
+                        Order = ">",
+                        KRINonInvestId = i,
+                        Type = "target",
+                        Target = 1000_000_000,
+                        CreatedAt = DateTime.Now
+                    });
+                }
+                else if ((new List<int> { 10, 17, 19 }).Exists(d => d == i))
                 {
                     NIParameters.Add(new KRINonInvestParameter
                     {
@@ -1108,13 +1265,47 @@ namespace Askrindo.Helpers
                         Max3 = 93,
                         Max4 = 90,
                         Order = ">",
-                        KRINonInvestId = 5,
+                        KRINonInvestId = i,
                         Type = "target",
                         Target = 1000_000_000,
                         CreatedAt = DateTime.Now
                     });
                 }
-                else if ((new List<int> { 16,20,21,23 }).Exists(d => d == i))
+                else if ((new List<int> { 11 }).Exists(d => d == i))
+                {
+                    NIParameters.Add(new KRINonInvestParameter
+                    {
+                        Min1 = -20,
+                        Min2 = -20,
+                        Max2 = -5,
+                        Min3 = -5,
+                        Max3 = 5,
+                        Max4 = 5,
+                        Order = "<",
+                        KRINonInvestId = i,
+                        Type = "target",
+                        Target = 1000_000_000,
+                        CreatedAt = DateTime.Now
+                    });
+                }
+                else if ((new List<int> { 12 }).Exists(d => d == i))
+                {
+                    NIParameters.Add(new KRINonInvestParameter
+                    {
+                        Min1 = 0,
+                        Min2 = 1,
+                        Max2 = 60,
+                        Min3 = 61,
+                        Max3 = 120,
+                        Max4 = 120,
+                        Order = "<",
+                        KRINonInvestId = i,
+                        Type = "none",
+                        Target = 1000_000_000,
+                        CreatedAt = DateTime.Now
+                    });
+                }
+                else if ((new List<int> { 13, 14, 18, 20 }).Exists(d => d == i))
                 {
                     NIParameters.Add(new KRINonInvestParameter
                     {
@@ -1126,9 +1317,20 @@ namespace Askrindo.Helpers
                         Max3 = 98,
                         Max4 = 95,
                         Order = ">",
-                        KRINonInvestId = 5,
+                        KRINonInvestId = i,
                         Type = "target",
                         Target = 1000_000_000,
+                        CreatedAt = DateTime.Now
+                    });
+                }
+                else if ((new List<int> { 16 }).Exists(d => d == i))
+                {
+                    NIParameters.Add(new KRINonInvestParameter
+                    {
+                        Order = ">",
+                        KRINonInvestId = i,
+                        Type = "segment",
+                        Target = 5.25M,
                         CreatedAt = DateTime.Now
                     });
                 }
@@ -1143,7 +1345,7 @@ namespace Askrindo.Helpers
                         Max3 = 95,
                         Max4 = 90,
                         Order = ">",
-                        KRINonInvestId = 5,
+                        KRINonInvestId = i,
                         Type = "target",
                         Target = 1000_000_000,
                         CreatedAt = DateTime.Now

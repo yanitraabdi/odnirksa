@@ -40,13 +40,11 @@
             <li class="nav-item">
                 <a data-index="2" class="nav-link" id="probability-tab" data-toggle="tab" data-curr-nav="probability" href="#probability" role="tab" aria-controls="probability" aria-selected="false">
                     2. Probabilitas
-                    <i class="fa fa-exclamation-circle text-danger"></i>
                 </a>
             </li>
             <li class="nav-item">
                 <a data-index="3" class="nav-link" id="impact-tab" data-toggle="tab" href="#impact" data-curr-nav="impact" role="tab" aria-controls="impact" aria-selected="false">
                     3. Dampak
-                    <i class="fa fa-exclamation-circle text-danger"></i>
                 </a>
             </li>
             <li class="nav-item">
@@ -199,21 +197,22 @@
         <div id="askrindo-probability-form" class="askrindo-content-box">
             <div class="row">
                 <div class="col">
-                    <label class="col-form-label"><input name="prob-type" value="avail" type="radio" data-probability-type="av" checked=""> Probabilita Statistik <br> (Data Tersedia)</label>
+                    <label class="col-form-label"><input name="prob-type" data-attr-prob-level="1" value="avail" type="radio" data-probability-type="av" checked=""> Probabilita Statistik <br> (Data Tersedia)</label>
                 </div>
                 <div class="col">
-                    <label class="col-form-label"><input name="prob-type" value="appr" type="radio" data-probability-type="ap" disabled> Aproksimasi<br> (Data Tidak Tersedia)</label>
+                    <label class="col-form-label"><input name="prob-type" data-attr-prob-level="2" value="appr" type="radio" data-probability-type="ap" disabled> Aproksimasi<br> (Data Tidak Tersedia)</label>
                 </div>
                 <div class="col">
-                    <label class="col-form-label"><input name="prob-type" value="diff" type="radio" data-probability-type="df" disabled> Perbandingan<br> (Data Tidak Tersedia)</label>
+                    <label class="col-form-label"><input name="prob-type" data-attr-prob-level="3" value="diff" type="radio" data-probability-type="df" disabled> Perbandingan<br> (Data Tidak Tersedia)</label>
                 </div>
                 <div class="col">
-                    <label class="col-form-label"><input name="prob-type" value="freq" type="radio" data-probability-type="f"> Frekuensi<br> (Data Tidak Tersedia)</label>
+                    <label class="col-form-label"><input name="prob-type" data-attr-prob-leve="4" value="freq" type="radio" data-probability-type="f"> Frekuensi<br> (Data Tidak Tersedia)</label>
                 </div>
             </div>
             <input type="hidden" name="riskId" value="6183">
+            <hr/>
             <div id="askrindo-prob-avail" class="askrindo-probability-type">
-                <div class="col-sm-2">Probabilitas</div>
+                <div class="col-sm-2">Probabilitas (%)</div>
                 <div class="col-sm-10" data-verify-fields="true"><input name="tb-avail" type="number" value="0" class="form-control percent-input"></div>
             </div>
             <div id="askrindo-prob-approx" class="askrindo-probability-type d-none">
@@ -277,9 +276,9 @@
         <div id="askrindo-impact-form" class="">
             <div class="askrindo-content-box">
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Pilih Jenis Dampak</label>
+                    <label class="col-sm-2 col-form-label">Pilih Jenis Dampak (pilih salah satu)</label>
                     <div class="col-sm-10">
-                        <label class="col-form-label"><input name="impact-type" type="radio" onclick="showMoneyImpact(true);" value="money" checked="">Dampak Keuangan</label>
+                        <label class="col-form-label pr-4"><input name="impact-type" type="radio" onclick="showMoneyImpact(true);" value="money" checked="">Dampak Keuangan</label>
                         <label class="col-form-label"><input name="impact-type" type="radio" onclick="showMoneyImpact(false);" value="not">Dampak Non Keuangan</label>
                     </div>
                 </div>
@@ -458,7 +457,7 @@
     @*<button type="submit" class="btn btn-outline-danger askrindo-btn">Batal</button>*@
     <button type="submit" class="btn btn-secondary askrindo-btn askrindo-btn-color askrindo-btn-back">Back</button>
     <button type="submit" class="btn btn-secondary askrindo-btn askrindo-btn-color askrindo-btn-next">Next</button>
-    <button type="submit" class="btn btn-secondary askrindo-btn askrindo-btn-color askrindo-btn-submit">Submit</button>
+    <button type="submit" class="btn btn-secondary askrindo-btn askrindo-btn-color askrindo-btn-submit">Input</button>
 </div>
 @*}*@
 
@@ -627,6 +626,7 @@
             formData.append('impactLevelId', $('[name="RiskNonMoneyImpact.ImpactLevelId"]:checked').val());
             formData.append('moneyIndirect', $('#RiskImpact_MoneyIndirect').val());
             formData.append('prob_type', $('#askrindo-probability-form').find('[name="prob-type"]:checked').attr('data-prob-type'));
+            formData.append('prob_level', $('#askrindo-probability-form').find('[name="prob-type"]:checked').attr('data-attr-prob-level'));
             formData.append('tb_avail', $('[name="tb-avail"]').val());
             formData.append('tb_ap1', $('[name="tb-ap1"]').val());
             formData.append('tb_ap2', $('[name="tb-ap3"]').val());

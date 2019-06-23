@@ -20,9 +20,7 @@ namespace Askrindo.Areas.RCSA.Controllers
             ViewBag.currentPage = "Daftar Mitigasi";
             ViewBag.title = "Daftar Mitigasi";
             ViewBag.CurrentPageSize = (pageSize ?? 10);
-
             var riskMitigationData = from s in db.RiskMitigations where db.Risks.Any(r => r.RiskId == s.RiskId) select s;
-
             if (!String.IsNullOrEmpty(searchString))
             {
                 searchString = searchString.Trim();
@@ -73,9 +71,11 @@ namespace Askrindo.Areas.RCSA.Controllers
             return View(risk);
         }
 
-        public ActionResult New(int id) {
+        public ActionResult New(int id)
+        {
 
-            var vm = new MitigationViewModel {
+            var vm = new MitigationViewModel
+            {
                 Risk = db.Risks.Where(r => r.RiskId == id).FirstOrDefault()
             };
 
@@ -240,17 +240,17 @@ namespace Askrindo.Areas.RCSA.Controllers
         {
             var userData = Utils.LoadUserDataFromSession();
             int riskId = 0;
-            if(ma.riskCode!=null)
+            if (ma.riskCode != null)
             {
                 riskId = db.Risks.Where(x => x.RiskCode == ma.riskCode).FirstOrDefault().RiskId;
             }
-            ma.tglAkhir=ma.tglAkhir.AddHours(23).AddMinutes(59);
-            ma.tglAwal=ma.tglAwal.AddHours(0).AddMinutes(0);
+            ma.tglAkhir = ma.tglAkhir.AddHours(23).AddMinutes(59);
+            ma.tglAwal = ma.tglAwal.AddHours(0).AddMinutes(0);
             ma.RiskMitigations = db.RiskMitigations.Where(m => (m.ApprovalDate != null) &&
             (m.InputDate == null || (m.InputDate >= ma.tglAwal && m.InputDate <= ma.tglAkhir))
-            && (ma.mitigationcode == null || m.MitigationCode == ma.mitigationcode ) &&(ma.riskCode==null || m.RiskId== riskId)
+            && (ma.mitigationcode == null || m.MitigationCode == ma.mitigationcode) && (ma.riskCode == null || m.RiskId == riskId)
             ).OrderByDescending(m => m.ApprovalDate);
-            
+
 
             if (userData.BranchId == null)
             {
@@ -287,7 +287,26 @@ namespace Askrindo.Areas.RCSA.Controllers
 
             return View(ma);
         }
-
+        public ActionResult MitigationActionApproval()
+        {
+            MitigationActionModel ma = new MitigationActionModel
+            {
+                actionList = new List<MitigationsAction>()
+            };
+            return View(ma);
+        }
+        [HttpPost]
+        public ActionResult MitigationActionApproval(MitigationActionModel ma)
+        {
+            MitigationActionModel model = new MitigationActionModel();
+            model.actionList = db.MitigationsActions.Where(x => (x.ActionDate >= ma.tglAwal || ma.tglAwal == null) &&
+              (x.ActionDate <= ma.tglAkhir || ma.tglAkhir == null) && (x.RiskMitigation.MitigationCode == ma.mitigationcode || ma.mitigationcode == null)
+              && (x.RiskMitigation.Risk.RiskCode == ma.riskCode || ma.riskCode == null)
+               ).ToList();
+            
+            //MitigationActionModel ma = new MitigationActionModel();
+            return View(model);
+        }
         [HttpPost]
         public ActionResult MitigationActionNew(MitigationActionModel ma)
         {
@@ -560,7 +579,7 @@ namespace Askrindo.Areas.RCSA.Controllers
             //db.ActionApprovals.Attach(ma.actionApp);
             db.SaveChanges();
 
-            return RedirectToAction("MitigationActionApp");
+            return RedirectToAction("MitigationActionApproval");
         }
 
         public ActionResult MitigationActionAppView(int id)

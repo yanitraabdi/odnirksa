@@ -1,23 +1,20 @@
 ﻿@{
-    ViewBag.Title = "Peta Risiko";
+    ViewBag.Title = "Peta Resiko";
     Layout = "~/Areas/Report/Views/Shared/_Report.cshtml";
 }
 
-<div class="container-fluid">
-    <div class="row no-gutters">
-
-        <div class="col-md-3">
-            <ul id="askrindo-left-nav" class="nav flex-column">
+<div class="pagetitle">
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <h2>Peta Risiko</h2>
+            </td>
+            <td align="right">
                 @*@Html.ActionLink("TreeView", "TreeView")*@
-            </ul>
-        </div>
-        <div class="col-md-9">
-            <div class="askrindo-content-box">
-                @RenderBody()
-            </div>
-        </div>
-    </div>
+            </td>
+        </tr>
+    </table>
 </div>
-@RenderSection("scripts", false)
+@RenderBody()
 
-
+@RenderSection("scripts", required: false)

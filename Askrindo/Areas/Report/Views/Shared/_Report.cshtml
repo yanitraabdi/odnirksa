@@ -1,34 +1,18 @@
 ﻿@{
-    ViewBag.Title = "Laporan";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AskrindoLayout.cshtml";
 }
 
-<div id="sidebar">
-    <div class="title">
-        Risiko
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <div class="col-md-3">
+            @Html.Partial("_Navigation")
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
     </div>
-    <ul id="sidemenu">
-        <li>@Html.ActionLink("Peta Risiko", "Index", "RiskMap", new { area = "Report" }, null)</li>
-        <li>@Html.ActionLink("Top Ten Risks", "Index", "TopTenRisk", new { area = "Report" }, null)</li>
-        <li>@Html.ActionLink("Risk Register", "Index", "RiskRegister", new { area = "Report" }, null)</li>
-        <li>@Html.ActionLink("Grafik Risiko", "Index", "RiskChart", new { area = "Report" }, null)</li>
-        <li>@Html.ActionLink("Tabel Risiko", "Index", "RiskTable", new { area = "Report" }, null)</li>
-        <li>@Html.ActionLink("Risiko Berulang", "Index", "RisikoBerulang", new { area = "Report" }, null)</li>
-    </ul>
-        <div class="title">
-        Loss Event
-    </div>
-    <ul id="sidemenu">
-        <li>@Html.ActionLink("Daftar Loss Event", "Index", "LossEvent", new { area = "Report" }, null)</li>
-        <li>@Html.ActionLink("Loss Event Menurut Pemilik", "IndexPemilik", "LossEvent", new { area = "Report" }, null)</li>
-        <li>@Html.ActionLink("Loss Event Menurut Tahun Klasifikasi", "IndexTahun", "LossEvent", new { area = "Report" }, null)</li>
-        <li>@Html.ActionLink("Loss Event Menurut Kantor, Klasifikasi", "IndexKantor", "LossEvent", new { area = "Report" }, null)</li>
-    </ul>
 </div>
 
-<div id="content_container">
-    <div id="content">
-        @RenderBody()
-    </div>
-</div>
-<div style="clear: both"></div>
+@section scripts{
+    @RenderSection("scripts", false)
+}
