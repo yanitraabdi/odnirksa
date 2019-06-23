@@ -1,10 +1,8 @@
 ﻿$(document).ready(function () {
-    $("##params").accordion({
-        collapsible: true,
-        active: -1
-    });
+    var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
+    $.fn.bootstrapDP = datepicker; 
 
-    $(".tanggal").datepicker({ dateFormat: "dd/mm/yy" });
+    $(".date").bootstrapDP({ format: 'dd/mm/yyyy', autoclose: true });
 
     $('#ddlLokasi').change(function () {
         var selectedValue = $(this).val();
@@ -23,4 +21,10 @@
             });
         });
     });
+
+    //$('#btnFilter').click(function (event) {
+    //    event.preventDefault();
+    //    event.stopImmediatePropagation();
+    //    $('#frmFilterParameter').submit();
+    //});
 });

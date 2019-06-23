@@ -83,7 +83,7 @@
         <li class="nav-item position-relative">
             <p>Loss Event</p>
         </li>
-        @if (ViewBag.title == "Daftar Loss Event")
+        @if (string.Equals(ViewBag.Title, "loss event", StringComparison.InvariantCultureIgnoreCase))
         {
             <li class="nav-item position-relative active">
                 <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("Index", "LossEvent")">Daftar Loss Event</a>
@@ -95,7 +95,7 @@
                 <a class="nav-link" href="@Url.Action("Index", "LossEvent")">Daftar Loss Event</a>
             </li>
         }
-        @if (ViewBag.title == "Loss Event Menurut Pemilik")
+        @if (string.Equals(ViewBag.Title, "loss event menurut pemilik", StringComparison.InvariantCultureIgnoreCase))
         {
             <li class="nav-item position-relative active">
                 <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("IndexPemilik", "LossEvent")">Loss Event Menurut Pemilik</a>
@@ -107,7 +107,7 @@
                 <a class="nav-link" href="@Url.Action("IndexPemilik", "LossEvent")">Loss Event Menurut Pemilik</a>
             </li>
         }
-        @if (ViewBag.title == "Loss Event Menurut Tahun Klasifikasi")
+        @if (string.Equals(ViewBag.Title, "loss event menurut tahun", StringComparison.InvariantCultureIgnoreCase))
         {
             <li class="nav-item position-relative active">
                 <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("IndexTahun", "LossEvent")">Loss Event Menurut Tahun Klasifikasi</a>
@@ -119,7 +119,7 @@
                 <a class="nav-link" href="@Url.Action("IndexTahun", "LossEvent")">Loss Event Menurut Tahun Klasifikasi</a>
             </li>
         }
-        @if (ViewBag.title == "Loss Event Menurut Kantor")
+        @if (string.Equals(ViewBag.Title, "loss event menurut kantor", StringComparison.InvariantCultureIgnoreCase))
         {
             <li class="nav-item position-relative active">
                 <i class="fa fa-caret-right askrindo-menu-pointer"></i><a class="nav-link d-inline-block active-nav" href="@Url.Action("IndexKantor", "LossEvent")">Loss Event Menurut Kantor</a>

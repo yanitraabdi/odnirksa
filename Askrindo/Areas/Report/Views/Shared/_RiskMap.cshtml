@@ -3,6 +3,10 @@
     Layout = "~/Areas/Report/Views/Shared/_Report.cshtml";
 }
 
+@section head {
+    @RenderSection("head", false)
+}
+
 <div class="pagetitle">
     <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
@@ -15,6 +19,10 @@
         </tr>
     </table>
 </div>
+
 @RenderBody()
 
-@RenderSection("scripts", required: false)
+
+@section scripts{
+    @RenderSection("scripts", required: false)
+}
