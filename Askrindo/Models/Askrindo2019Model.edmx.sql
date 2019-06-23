@@ -1135,6 +1135,7 @@ GO
 CREATE TABLE [dbo].[RiskMitigations] (
     [MitigationId] int IDENTITY(1,1) NOT NULL,
     [RiskId] int  NOT NULL,
+	[RiskCode] nvarchar(24)  NOT NULL,
     [MitigationCode] nvarchar(24)  NOT NULL,
     [MitigationName] nvarchar(2000)  NOT NULL,
     [InputDate] datetime  NOT NULL,

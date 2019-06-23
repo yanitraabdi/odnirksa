@@ -26,13 +26,13 @@
     {
         <div class="text-center">Silahkan tulis kata pencarian.</div>
     }
-    else if (Model.RiskEvents.Count > 0)
+    else if (Model.RiskEvents!=null && Model.RiskEvents.Count > 0)
     {
         <table class="table table-bordered askrindo-table" style="margin-top: 20px;">
             <thead>
                 <tr>
-                    <th>Peristiwa Risiko</th>
-                    <th colspan="3">Klasifikasi Risiko</th>
+                    <th class="text-center">Peristiwa Risiko</th>
+                    <th class="askrindo-bg-clarified text-center" colspan="3">Klasifikasi Risiko</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,7 +40,7 @@
                 {
                     <tr>
                         <td>@item.RiskEvent1</td>
-                        <td>@item.RiskType.RiskGroup.RiskCat.RiskCatName</td>
+                        <td><i class="fa fa-caret-right"></i> @item.RiskType.RiskGroup.RiskCat.RiskCatName</td>
                         <td><i class="fa fa-caret-right"></i> @item.RiskType.RiskGroup.RiskGroupName</td>
                         <td><i class="fa fa-caret-right"></i> @item.RiskType.RiskTypeName</td>
                     </tr>
@@ -51,7 +51,7 @@
     else
     {
         <div class="alert alert-warning" role="alert">
-            Data tidak ditemukan.
+            Masukkan minimal 4 karakter.
         </div>
     }
 </div>

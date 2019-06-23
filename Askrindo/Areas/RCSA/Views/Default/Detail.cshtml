@@ -1,5 +1,5 @@
 ﻿@model Askrindo.Areas.RCSA.Models.RiskViewModel
-
+@using System.Globalization
 @using Askrindo.Helpers
 @{
     ViewBag.breadCrumb = "Data Risiko / Daftar Risiko / Detail Risiko";
@@ -64,7 +64,7 @@
                 </div>
                 <div class="row">
                     <label class="col-2" style="margin-bottom: 0;">Awal Muncul Risiko</label>
-                    <label class="col-10" style="margin-bottom: 0;">: @(Model.RiskData.FRiskDate.HasValue ? Model.RiskData.FRiskDate.Value : Model.RiskData.RiskDate).ToString("dddd, dd MMMM yyyy")</label>
+                    <label class="col-10" style="margin-bottom: 0;">: @(Model.RiskData.FRiskDate.HasValue ? Model.RiskData.FRiskDate.Value.ToString("dddd, dd MMMM yyyy") : Model.RiskData.RiskDate.ToString("dddd, dd MMMM yyyy"))</label>
                 </div>
 
                 <hr />
@@ -228,48 +228,55 @@
 
                 @if (Model.RiskData.IsProbSet.HasValue)
                 {
-                    <div class="row">
-                        <label class="col-2">Nilai Probabilitas </label>
-                        <label class="col-10">: @Model.RiskData.ProbValue</label>
-                    </div>
-                    <div class="row">
-                        <label class="col-2 col-form-label">Tingkat Probabilitas</label>
-                        <label class="col-10 col-form-label">: @Model.RiskData.ProbLevelId - @Model.RiskData.ProbLevel.ProbLevelName</label>
-                    </div>
+                    @Html.HiddenFor(x => x.RiskData.ProbValue);
+                    @Html.HiddenFor(x => x.RiskData.ProbLevelId);
+                    @Html.HiddenFor(x => x.RiskData.ProbLevel.ProbLevelName);
+                    @*<div class="row">
+                <label class="col-2">Nilai Probabilitas </label>
+                <label class="col-10">: @Model.RiskData.ProbValue</label>
+            </div>*@
+                    @*<div class="row">
+                <label class="col-2 col-form-label">Tingkat Probabilitas</label>
+                <label class="col-10 col-form-label">: @Model.RiskData.ProbLevelId - @Model.RiskData.ProbLevel.ProbLevelName</label>
+            </div>*@
                 }
                 else
                 {
-                    <div class="row">
-                        <label class="col-2">Nilai Probabilitas </label>
-                        <label class="col-10">: Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i></label>
-                    </div>
-                    <div class="row">
-                        <label class="col-2 col-form-label">Tingkat Probabilitas</label>
-                        <label class="col-10 col-form-label">: Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i></label>
-                    </div>
+                    @*<div class="row">
+                <label class="col-2">Nilai Probabilitas </label>
+                <label class="col-10">: Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i></label>
+            </div>
+            <div class="row">
+                <label class="col-2 col-form-label">Tingkat Probabilitas</label>
+                <label class="col-10 col-form-label">: Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i></label>
+            </div>*@
                 }
-                <hr />
+               
                 @if (Model.RiskData.ImpactMoney != null)
                 {
-                    <div class="row">
+
+                    @Html.HiddenFor(x => x.RiskData.ImpactMoney);
+                    @Html.HiddenFor(x => x.RiskData.ImpactLevelId);
+                    @Html.HiddenFor(x => x.RiskData.ImpactLevel.ImpactLevelName);
+                    @*<div class="row">
                         <label class="col-2 col-form-label">Dampak Keuangan</label>
-                        <label class="col-10 col-form-label">: @string.Format("{0:N2}", Model.RiskData.ImpactMoney)</label>
+                        <label class="col-10 col-form-label">: @string.Format("{0:N2}", Model.RiskData.)</label>
                     </div>
                     <div class="row">
                         <label class="col-2 col-form-label">Tingkat Dampak Inherent</label>
                         <label class="col-10 col-form-label">: @Model.RiskData.ImpactLevelId - @Model.RiskData.ImpactLevel.ImpactLevelName</label>
-                    </div>
+                    </div>*@
                 }
                 else
                 {
-                    <div class="row">
+                    @*<div class="row">
                         <label class="col-2 col-form-label">Dampak Keuangan</label>
                         <label class="col-10 col-form-label">: Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i></label>
                     </div>
                     <div class="row">
                         <label class="col-2 col-form-label">Tingkat Dampak Inherent</label>
                         <label class="col-10 col-form-label">: Data Belum Diupdate <i class="fa fa-exclamation-circle text-danger"></i></label>
-                    </div>
+                    </div>*@
                 }
             </div>
         </div>
@@ -286,7 +293,7 @@
                     <hr />
                     <div class="row">
                         <label class="col-2">Frekuensi</label>
-                        <label class="col-10">: @Model.RiskProb.Freq.FreqName</label>
+                        @*<label class="col-10">: @Model.RiskProb.Freq.FreqName</label>*@
                     </div>
 
                     <div class="row">
@@ -409,14 +416,14 @@
                             <td>Kerugian langsung (Rp)</td>
                             <td>:</td>
                             <td>
-                                @string.Format("{0:N2}", Model.RiskImpact.MoneyDirect)
+                                @string.Format(CultureInfo.GetCultureInfo("id-ID"),"{0:C2}", Model.RiskImpact.MoneyDirect)
                             </td>
                         </tr>
                         <tr>
                             <td>Kerugian tidak langsung (Rp)</td>
                             <td>:</td>
                             <td>
-                                @string.Format("{0:N2}", Model.RiskImpact.MoneyIndirect)
+                                @string.Format(CultureInfo.GetCultureInfo("id-ID"),"{0:C2}", Model.RiskImpact.MoneyIndirect)
                             </td>
                         </tr>
                         <tr>
@@ -695,21 +702,27 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
+                            <td>Gambar</td>
                             <td>Nama</td>
                             <td>Keterangan</td>
                             <td>Ukuran</td>
                             <td></td>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach (var item in Model.AttachmentList)
+                    <tbody> 
+                        @for(int j=0;j<Model.AttachmentList.Count;j++)
                         {
+                            var item = Model.AttachmentList[j];
+                            var base64 = Convert.ToBase64String(item.Data);
+                            var imgSrc= String.Format("data:image/gif;base64,{0}", base64);
                             <tr>
                                 <td>
-                                    <a href="#"></a>
+                                    <input data-current-image="@j" data-mime-type="@item.ContentType" data-file-name="@item.Filename" type="hidden" value="@imgSrc" />
+                                    <button data-pointing-image="@j">Unduh</button>
                                 </td>
-                                <td>asdfasdf</td>
-                                <td>269.75 KB</td>
+                                <td>@item.Filename</td>
+                                <td>@item.Notes</td>
+                                <td>@item.ContentLength</td>
                                 <td>
                                     <a href="#">Edit</a> |
                                     <a href="#">Hapus</a>
@@ -791,7 +804,13 @@
             this.value = $(this).NumBox('getRaw');
         });
     }
-
+        $('[data-pointing-image]').on('click', function () {
+            var currentIndex = $(this).attr('data-pointing-image');
+            var base64Str = $('[data-current-image="' + currentIndex + '"]').val();
+            var mimeType = $('[data-current-image="' + currentIndex + '"]').attr('data-mime-type');
+            var fileName = $('[data-current-image="' + currentIndex + '"]').attr('data-file-name');
+            download(base64Str, fileName, mimeType)
+        });
     function showMoneyImpact(showMoney) {
         if (showMoney) {
             $('#askrindo-money-impact').removeClass('d-none');

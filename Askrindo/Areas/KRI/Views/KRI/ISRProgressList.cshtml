@@ -1,0 +1,70 @@
+﻿@model Askrindo.Areas.KRI.Models.InvestStrategicResponseViewModel
+@{
+    ViewBag.Title = "InvestSRProgressList";
+    Layout = "~/Areas/KRI/Views/Shared/KRILayout.cshtml";
+}
+
+<div class="askrindo-content-box" style="margin-top:20px;">
+    <div class="row">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <label class="col-3 col-form-label">Kode Strategic Response</label>
+                    <label class="col-9 col-form-label">: @Model.KRIInvestData.Code</label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3 col-form-label">Strategic Respon</label>
+                    <label class="col-9 col-form-label">: @Model.SRInvest.StrategicResponse</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <center>
+                <h2>List Progress</h2>
+            </center>
+            @Html.ActionLink("Tambah Progress", "ISRProgressNew", new { Id = Model.SRInvest.Id }, new { @class = "btn askrindo-btn askrindo-btn-color text-center", style = "font-size:12px;" })
+        </div>
+        <div class="col-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>PIC</th>
+                        <th>Terget Penyelesaian</th>
+                        <th>Sumberdaya yang digunakan</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int i = 1;}
+                    @foreach (var item in Model.SRInvestProgresses)
+                    {
+                        <tr>
+                            <td>
+                                @i
+                            </td>
+                            <td>@item.PIC</td>
+                            <td>
+                                @item.FTargetDate.ToString("dddd, dd MMMM yyyy")
+                            </td>
+                            <td>
+                                @item.Resources
+                            </td>
+                            <td>
+                                @Html.ActionLink("Update Progress", "ISRProgressView", new { Id = item.Id })
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="text-right">
+        <a class="btn btn-outline-danger askrindo-btn" href="@Url.Action("InvestStrategicResponseList", new { Model.SRInvest.KRIInvestData.Id })">Kembali</a>
+    </div>
+
+</div>

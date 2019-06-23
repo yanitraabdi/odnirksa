@@ -31,8 +31,6 @@ namespace Askrindo.Areas.Report.Controllers
             UpdateRiskMapParam(vm.Param);
             CalcRiskMap(vm);
 
-            ViewBag.Title = "Peta Resiko";
-
             return View(vm);
         }
 

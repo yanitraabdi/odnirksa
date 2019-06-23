@@ -380,6 +380,13 @@ ul.askrindo-pagination li.active a {
 .askrindo-table td {
     vertical-align: middle !important;
 }
+.askrindo-bg-clarified {
+    background-color: cornflowerblue !important;
+    color:white;
+}
+.border.border-lightgray{
+    border-color:lightgray !important;
+}
 /*.askrindo-btn-submit {
     display:none;
 }

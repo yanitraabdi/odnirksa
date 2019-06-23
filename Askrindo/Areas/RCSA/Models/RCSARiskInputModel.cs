@@ -10,7 +10,8 @@ namespace Askrindo.Areas.RCSA.Models
     {
         public string __RequestVerificationToken { get; set; }
         public string prob_type { get; set; }
-        public double tb_avail { get; set; }
+        public int prob_level { get; set; }
+        public int tb_avail { get; set; }
         public double tb_ap1 { get; set; }
         public double tb_ap2 { get; set; }
         public double tb_ap3 { get; set; }

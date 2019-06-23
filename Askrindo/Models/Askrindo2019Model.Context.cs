@@ -119,6 +119,10 @@ namespace Askrindo.Models
         public virtual DbSet<SRInvest> SRInvests { get; set; }
         public virtual DbSet<SRInvestProgress> SRInvestProgresses { get; set; }
         public virtual DbSet<SRIProgressAction> SRIProgressActions { get; set; }
+        public virtual DbSet<LossEventKantorView1> LossEventKantorViews1 { get; set; }
+        public virtual DbSet<LossEventPemilikView1> LossEventPemilikViews1 { get; set; }
+        public virtual DbSet<LossEventsBulanView> LossEventsBulanViews { get; set; }
+        public virtual DbSet<LossEventTahunView1> LossEventTahunViews1 { get; set; }
     
         public virtual ObjectResult<RisikoBerulangKantorCabang_Result> RisikoBerulangKantorCabang(Nullable<System.DateTime> tglSebelumAwal, Nullable<System.DateTime> tglSebelumAkhir, Nullable<System.DateTime> tglBerjalanAwal, Nullable<System.DateTime> tglBerjalanAkhir)
         {

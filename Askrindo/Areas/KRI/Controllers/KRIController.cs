@@ -312,5 +312,186 @@ namespace Askrindo.Areas.KRI.Controllers
 
             return View(vm);
         }
+
+        public ActionResult InvestStrategicResponseList(int Id)
+        {
+            ViewBag.Title = "Invest";
+
+            var kriIndicator = db.KRIInvestDatas.Include("KRIInvest").Include("SRInvests").Single(r => r.Id == Id);
+            var vm = new InvestStrategicResponseViewModel
+            {
+                KRIInvestData = kriIndicator,
+                SRInvests = db.SRInvests.Where(r => r.KRIInvestDataId == Id).ToList()
+            };
+
+
+            ViewBag.currentPage = "Strategic Response";
+            ViewBag.breadCrumb = "KRI / Investasi / " + kriIndicator.KRIInvest.Name + " / Strategic Response";
+            ViewBag.breadCrumbProperty = "style='background-color: orange;'";
+
+            return View(vm);
+        }
+
+        public ActionResult InvestStrategicResponseNew(int Id)
+        {
+            ViewBag.Title = "Invest";
+
+            var user = Utils.LoadUserDataFromSession();
+
+            var kriIndicator = db.KRIInvestDatas.Include("KRIInvest").Include("UserInfo").Single(r => r.Id == Id);
+            var vm = new InvestStrategicResponseViewModel
+            {
+                KRIInvestData = kriIndicator,
+                User = Utils.GetUserDataFromUserInfo(kriIndicator.UserInfo)
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult InvestStrategicResponseNew(InvestStrategicResponseViewModel svm)
+        {
+            ViewBag.Title = "Invest";
+
+            svm.SRInvest.SubmitDate = DateTime.Now;
+            svm.SRInvest.KRIInvestDataId = svm.KRIInvestData.Id;
+            db.SRInvests.Add(svm.SRInvest);
+            db.SaveChanges();
+
+            return RedirectToAction("InvestStrategicResponseList", new { Id = svm.KRIInvestData.Id });
+        }
+
+        public ActionResult InvestStrategicResponseEdit(int Id)
+        {
+            ViewBag.Title = "Invest";
+
+            var srInvest = db.SRInvests.Single(r => r.Id == Id);
+            var user = srInvest.KRIInvestData.UserInfo;
+
+            var vm = new InvestStrategicResponseViewModel
+            {
+                KRIInvestData = srInvest.KRIInvestData,
+                SRInvest = srInvest,
+                User = Utils.GetUserDataFromUserInfo(user)
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult InvestStrategicResponseEdit(InvestStrategicResponseViewModel svm)
+        {
+            ViewBag.Title = "Invest";
+
+            db.Entry(svm.SRInvest).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("InvestStrategicResponseList", new { svm.KRIInvestData.Id });
+        }
+
+        public ActionResult ISRProgressList(int Id)
+        {
+
+            var sri = db.SRInvests.Include("KRIInvestData").Single(r => r.Id == Id);
+            var vm = new InvestStrategicResponseViewModel
+            {
+                SRInvest = sri,
+                KRIInvestData = sri.KRIInvestData,
+                SRInvestProgresses = db.SRInvestProgresses.Where(r => r.SRInvestId == Id).ToList(),
+            };
+
+            return View(vm);
+        }
+
+        public ActionResult ISRProgressNew(int Id)
+        {
+            var sri = db.SRInvests.Include("KRIInvestData").Single(r => r.Id == Id);
+            var vm = new InvestStrategicResponseViewModel
+            {
+                SRInvest = sri,
+                KRIInvestData = sri.KRIInvestData
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ISRProgressNew(InvestStrategicResponseViewModel svm)
+        {
+            ViewBag.Title = "Invest";
+
+            db.SRInvestProgresses.Add(svm.SRInvestProgress);
+            db.SaveChanges();
+
+            return RedirectToAction("ISRProgressList", new { svm.SRInvest.Id });
+        }
+
+        public ActionResult ISRProgressView(int Id)
+        {
+            var progress = db.SRInvestProgresses.Include("SRInvest").Single(d => d.Id == Id);
+
+            var vm = new InvestStrategicResponseViewModel
+            {
+                SRInvestProgress = progress,
+                SRInvest = progress.SRInvest
+            };
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ISRProgressView(InvestStrategicResponseViewModel vm)
+        {
+            db.Entry(vm.SRInvestProgress).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("ISRProgressView", new { vm.SRInvestProgress.Id });
+        }
+
+        public ActionResult InvestStrategicResponseDetail()
+        {
+            ViewBag.Title = "Invest";
+            return View();
+        }
+
+        public ActionResult ISRProgressActionList(int Id)
+        {
+
+            var vm = new InvestStrategicResponseViewModel
+            {
+                SRInvestProgress = db.SRInvestProgresses.Single(d => d.Id == Id),
+                SRIProgressActions = db.SRIProgressActions.Where(d => d.SRInvestProgressId == Id).ToList()
+            };
+
+            return View(vm);
+        }
+
+        public ActionResult ISRProgressActionNew(int Id)
+        {
+
+            var vm = new InvestStrategicResponseViewModel
+            {
+                SRInvestProgress = db.SRInvestProgresses.Single(d => d.Id == Id)
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ISRProgressActionNew(InvestStrategicResponseViewModel vm)
+        {
+
+            vm.SRIProgressAction.SRInvestProgressId = vm.SRInvestProgress.Id;
+            vm.SRIProgressAction.Tanggal = DateTime.Now;
+
+            db.SRIProgressActions.Add(vm.SRIProgressAction);
+            db.SaveChanges();
+
+            return RedirectToAction("ISRProgressActionList", new { vm.SRInvestProgress.Id });
+        }
     }
 }

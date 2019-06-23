@@ -1,0 +1,88 @@
+﻿@model Askrindo.Areas.RCSA.Models.MitigationActionAppModel
+@{
+    ViewBag.Title = "MitigationAction";
+    Layout = "~/Areas/RCSA/Views/Shared/RCSALayout.cshtml";
+}
+
+<div class="askrindo-content-box">
+    @using (Html.BeginForm())
+    {
+        bool?isChecked= Model.action.RKAPF;
+        <table class="edit table">
+            <tr>
+                @Html.HiddenFor(m => m.actionId)
+                @Html.HiddenFor(m => m.mitigation.MitigationId)
+                <td>Kode Mitigasi</td>
+                <td>
+                    @Html.DisplayFor(m => m.mitigation.MitigationCode)
+                </td>
+            </tr>
+            <tr>
+                <td>Kode Tindakan Mitigasi</td>
+                <td>
+                    @Html.DisplayFor(m => m.action.ActionCode)
+                </td>
+            </tr>
+            <tr>
+                <td>Person In Charge(PIC)</td>
+                <td>
+                    @Html.DisplayFor(m => m.action.PIC, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td>Sumber Daya <br>yang Dibutuhkan</td>
+                <td>
+                    @Html.DisplayFor(m => m.action.Require, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td>Estimasi Biaya Mitigasi (Rp.)</td>
+                <td>
+                    @Html.DisplayFor(m => m.action.Biaya, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td>Usulan Dimasukkan dlm RKAP/RTL<br>Tahun Berikutnya?</td>
+                <td>
+
+                    @if (@isChecked != null && @isChecked == true)
+                    {
+                        <input type="radio" disabled checked value="Ya" name="detail-action-approval" /><span>Ya</span>
+                        <input type="radio" disabled value="Tidak" name="detail-action-approval" /><span>Tidak</span>
+                    }
+                    else
+                    {
+                        <input type="radio" disabled value="Ya" name="detail-action-approval" /><span>Ya</span>
+                        <input type="radio" disabled checked value="Tidak" name="detail-action-approval" /><span>Tidak</span>
+                    }
+
+                </td>
+            </tr>
+            <tr>
+                <td>Tanggal Target Penyelesaian</td>
+                <td>
+                    @Html.DisplayFor(m => m.action.LimitDate)
+                </td>
+            </tr>
+
+            <tr style="background-color: #ddd">
+                <td colspan="2"><b>Detail</b></td>
+            </tr>
+            <tr>
+                @if (Model.action.TotalProgress == 100)
+                {
+                    <td colspan="2" align="center" style="font-size:large"><b>PROGRESS 100%</b></td>
+                }
+                else
+                {
+                    <td colspan="2" align="center" style="font-size:large"><b>@Html.ActionLink("Progress", "ProgressIndex", new { id = Model.actionId })</b></td>
+                }
+            </tr>
+        </table>
+
+        <div style="padding-top: 12px">
+            <input type="Submit" data-eskrindo-approval="true" value="Approve" /> |
+            @Html.ActionLink("Batal", "MitigationActionApproval")
+        </div>
+    }
+</div>

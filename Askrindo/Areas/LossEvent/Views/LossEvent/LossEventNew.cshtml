@@ -7,138 +7,143 @@
 
 @using (Html.BeginForm())
 {
-    <div class="row">
-        <div class="col-3">Kode Loss Event</div>
-        <div class="col-9">
-            @Html.TextBoxFor(m => m.code, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.lossEvent.LossEventCode)
+    <div class="border my-4 px-4 py-4 border-lightgray">
+        <div class="form-group row">
+            <div class="col-3">Kode Loss Event</div>
+            <div class="col-9">
+                @Html.TextBoxFor(m => m.code, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.lossEvent.LossEventCode)
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">Tanggal Input</div>
+            <div class="col-9">@Model.inputDate.ToString("dddd, dd MMMM yyyy")</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">Pemilik Kerugian</div>
+            @Html.HiddenFor(x=>x.lossEvent.LossOwner)
+            <div class="col-9">@Model.lossEvent.LossOwner</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">Tanggal Kerugian</div>
+            <div class="col-9">
+                <input name="@Html.NameFor(m => m.lossDate)" type="datetime" value="@Model.lossDate.ToString("dddd, dd MMMM yyyy")" data-date-format='DD, dd MM yyyy' class="form-control datepicker-here" data-language='en'>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">Perisitiwa Kerugian</div>
+            <div class="col-9">@Html.TextAreaFor(m => m.lossEvent.LossEventName, new { @class = "form-control" })</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">Klasifikasi Kerugian</div>
+            <div class="col-9">@Html.DropDownListFor(m => m.lossEvent.KlasifikasiId, Model.klasifikasi, new { @class = "form-control" })</div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-3">Tanggal Input</div>
-        <div class="col-9">@Model.inputDate.ToString("dddd, dd MMMM yyyy")</div>
-    </div>
-    <div class="row">
-        <div class="col-3">Pemilik Kerugian</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.LossOwner, new { @class = "form-control" })</div>
-    </div>
-    <div class="row">
-        <div class="col-3">Tanggal Kerugian</div>
-        <div class="col-9">
-            <input name="@Html.NameFor(m => m.lossDate)" type="datetime" value="@Model.lossDate.ToString("dddd, dd MMMM yyyy")" data-date-format='DD, dd MM yyyy' class="form-control datepicker-here" data-language='en'>
+    <div class="border my-4 px-4 py-4 border-lightgray">
+        <div class="form-group row le le2 le3 le4 le7 le8">
+            <div class="col-3">Jenis Produk/COB</div>
+            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.ProductType, new { @class = "form-control" })</div>
+        </div>
+        <div class="form-group row le le2 le3 le4 le7 le8">
+            <div class="col-3">Tertanggung</div>
+            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Tertanggung, new { @class = "form-control" })</div>
+        </div>
+        <div class="form-group row le le2 le3 le4 le7 le8">
+            <div class="col-3">Debitur Tertanggung</div>
+            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.DebiturTertanggung, new { @class = "form-control" })</div>
+        </div>
+        <div class="form-group row le le2 le3 le4 le7 le8">
+            <div class="col-3">Obligee</div>
+            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Obligee, new { @class = "form-control" })</div>
+        </div>
+        <div class="form-group row le le2 le3 le7 le8">
+            <div class="col-3">Principal</div>
+            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Principal, new { @class = "form-control" })</div>
+        </div>
+        <div class="form-group row le le2 le3 le4 le7 le8">
+            <div class="col-3">Nilai Jaminan</div>
+            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.NilaiJaminan, new { @class = "form-control" })</div>
+        </div>
+        <div class="form-group row le le2 le4 le7 le8">
+            <div class="col-3">Agunan / Kolateral</div>
+            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Collateral, new { @class = "form-control" })</div>
+        </div>
+        <div class="form-group row le le7 le8">
+            <div class="col-3">Pekerjaan / Proyek</div>
+            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Project, new { @class = "form-control" })</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">Posisi Kasus</div>
+            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.CasePosition, new { @class = "form-control" })</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">Sebab Kerugian</div>
+            <div class="col-9">@Html.TextAreaFor(m => m.lossEvent.LossCause, new { @class = "form-control" })</div>
+        </div>
+        <fieldset>
+            <legend>Dampak Kerugian</legend>
+            <div class="form-group row">
+                <div class="col-3">Keuangan</div>
+                <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.ImpactFinancial, new { @class = "form-control" })</div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">Non Keuangan</div>
+                <div class="col-9">@Html.TextAreaFor(m => m.lossEvent.ImpactNonFinancial, new { @class = "form-control" })</div>
+            </div>
+        </fieldset>
+        <div class="form-group row le le2">
+            <div class="col-3">Pihak yang Terlibat Dalam Kerugian</div>
+            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.PihakTerlibat, new { @class = "form-control" })</div>
+        </div>
+        <div class="form-group row le le3 le4 le5 le6 le7 le8">
+            <div class="col-3">Afiliasi pihak yang terlibat</div>
+            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Affiliate, new { @class = "form-control" })</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">Jenis Kasus</div>
+            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.CaseType, new { @class = "form-control" })</div>
+        </div>
+        <div class="form-group row le le1 le2">
+            <div class="col-3">Tindakan Korektif yang Sudah Dilakukan</div>
+            <div class="col-9">@Html.TextAreaFor(m => m.lossEvent.Action, new { @class = "form-control" })</div>
+        </div>
+        <div class="form-group row le le5">
+            <div class="col-3">Nilai Pembelian Aset</div>
+            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Assets, new { @class = "form-control" })</div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-3">Perisitiwa Kerugian</div>
-        <div class="col-9">@Html.TextAreaFor(m => m.lossEvent.LossEventName, new { @class = "form-control" })</div>
-    </div>
-    <div class="row">
-        <div class="col-3">Klasifikasi Kerugian</div>
-        <div class="col-9">@Html.DropDownListFor(m => m.lossEvent.KlasifikasiId, Model.klasifikasi, new { @class = "form-control" })</div>
-    </div>
-    <hr />
-    <div class="row le le2 le3 le4 le7 le8">
-        <div class="col-3">Jenis Produk/COB</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.ProductType, new { @class = "form-control" })</div>
-    </div>
-    <div class="row le le2 le3 le4 le7 le8">
-        <div class="col-3">Tertanggung</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Tertanggung, new { @class = "form-control" })</div>
-    </div>
-    <div class="row le le2 le3 le4 le7 le8">
-        <div class="col-3">Debitur Tertanggung</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.DebiturTertanggung, new { @class = "form-control" })</div>
-    </div>
-    <div class="row le le2 le3 le4 le7 le8">
-        <div class="col-3">Obligee</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Obligee, new { @class = "form-control" })</div>
-    </div>
-    <div class="row le le2 le3 le7 le8">
-        <div class="col-3">Principal</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Principal, new { @class = "form-control" })</div>
-    </div>
-    <div class="row le le2 le3 le4 le7 le8">
-        <div class="col-3">Nilai Jaminan</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.NilaiJaminan, new { @class = "form-control" })</div>
-    </div>
-    <div class="row le le2 le4 le7 le8">
-        <div class="col-3">Agunan / Kolateral</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Collateral, new { @class = "form-control" })</div>
-    </div>
-    <div class="row le le7 le8">
-        <div class="col-3">Pekerjaan / Proyek</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Project, new { @class = "form-control" })</div>
-    </div>
-    <div class="row">
-        <div class="col-3">Posisi Kasus</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.CasePosition, new { @class = "form-control" })</div>
-    </div>
-    <div class="row">
-        <div class="col-3">Sebab Kerugian</div>
-        <div class="col-9">@Html.TextAreaFor(m => m.lossEvent.LossCause, new { @class = "form-control" })</div>
-    </div>
-    <fieldset>
-        <legend>Dampak Kerugian</legend>
-        <div class="row">
-            <div class="col-3">Keuangan</div>
-            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.ImpactFinancial, new { @class = "form-control" })</div>
+    <div class="border px-4 py-4 border-lightgray">
+        <div class="form-group row">
+            <div class="col-3">Lokasi Kerugian</div>
+            <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Location, new { @class = "form-control" })</div>
         </div>
-        <div class="row">
-            <div class="col-3">Non Keuangan</div>
-            <div class="col-9">@Html.TextAreaFor(m => m.lossEvent.ImpactNonFinancial, new { @class = "form-control" })</div>
+        <div class="form-group row">
+            <div class="col-3">Keterangan</div>
+            <div class="col-9">@Html.TextAreaFor(m => m.lossEvent.Keterangan, new { @class = "form-control" })</div>
         </div>
-    </fieldset>
-    <div class="row le le2">
-        <div class="col-3">Pihak yang Terlibat Dalam Kerugian</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.PihakTerlibat, new { @class = "form-control" })</div>
-    </div>
-    <div class="row le le3 le4 le5 le6 le7 le8">
-        <div class="col-3">Afiliasi pihak yang terlibat</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Affiliate, new { @class = "form-control" })</div>
-    </div>
-    <div class="row">
-        <div class="col-3">Jenis Kasus</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.CaseType, new { @class = "form-control" })</div>
-    </div>
-    <div class="row le le1 le2">
-        <div class="col-3">Tindakan Korektif yang Sudah Dilakukan</div>
-        <div class="col-9">@Html.TextAreaFor(m => m.lossEvent.Action, new { @class = "form-control" })</div>
-    </div>
-    <div class="row le le5">
-        <div class="col-3">Nilai Pembelian Aset</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Assets, new { @class = "form-control" })</div>
-    </div>
-    <hr />
-    <div class="row">
-        <div class="col-3">Lokasi Kerugian</div>
-        <div class="col-9">@Html.TextBoxFor(m => m.lossEvent.Location, new { @class = "form-control" })</div>
-    </div>
-    <div class="row">
-        <div class="col-3">Keterangan</div>
-        <div class="col-9">@Html.TextAreaFor(m => m.lossEvent.Keterangan, new { @class = "form-control" })</div>
-    </div>
-    <div class="row">
-        <div class="col-3">Cakupan</div>
-        <div class="col-9">@Html.DropDownListFor(m => m.lossEvent.Coverage, Model.cakupan, new { @class = "form-control" })</div>
-    </div>
-    <div class="row">
-        <div class="col-3">Unit Kerja</div>
-        <div class="col-9">
-            <select id="@Html.IdFor(m => m.lossEvent.Units)" name="@Html.DisplayNameFor(m => m.lossEvent.Units)" class="form-control">
-                <option value=""></option>
-            </select>
+        <div class="form-group row d-none">
+            <div class="col-3">Cakupan</div>
+            <div class="col-9">@Html.DropDownListFor(m => m.lossEvent.Coverage, Model.cakupan, new { @class = "form-control" })</div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-3">Jenis Kerugian</div>
-        <div class="col-9">
-            @Html.DropDownListFor(m => m.lossEvent.LossType, new SelectList(new Dictionary<string,string> { { "berulang", "Berulang" }, { "tidak berulang", "Tidak berulang" }, { "baru", "Baru" } }, "Key", "Value"), new { @class = "form-control" })
+        <div class="form-group row d-none">
+            <div class="col-3">Unit Kerja</div>
+            <div class="col-9">
+                <select id="@Html.IdFor(m => m.lossEvent.Units)" name="@Html.DisplayNameFor(m => m.lossEvent.Units)" class="form-control">
+                    <option value=""></option>
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-3"></div>
-        <div class="col-9 text-right" style="padding-top: 12px;">
-            <input type="Submit" value="Simpan" class="btn askrindo-btn" />
+        <div class="form-group row">
+            <div class="col-3">Jenis Kerugian</div>
+            <div class="col-9">
+                @Html.DropDownListFor(m => m.lossEvent.LossType, new SelectList(new Dictionary<string, string> { { "berulang", "Berulang" }, { "tidak berulang", "Tidak berulang" }, { "baru", "Baru" } }, "Key", "Value"), new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3"></div>
+            <div class="col-9 text-right" style="padding-top: 12px;">
+                <input type="Submit" value="Simpan" class="btn askrindo-btn btn askrindo-btn-color" />
+            </div>
         </div>
     </div>
 }

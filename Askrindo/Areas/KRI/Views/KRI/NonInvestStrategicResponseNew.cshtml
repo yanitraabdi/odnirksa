@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-6">
             <div class="form-group row">
-                <label class="col-3 col-form-label">Lokas</label>
+                <label class="col-3 col-form-label">Lokasi</label>
                 <label class="col-9 col-form-label">: @Model.User.OrgPosName</label>
             </div>
             <div class="form-group row">
@@ -62,7 +62,7 @@
         </div>
 
         <div class="text-right">
-            <a class="btn btn-outline-danger askrindo-btn" href="@Url.Action("NonInvestStrategicResponseList", new { Id = Model.KRINonInvestData.Id })">Batal</a>
+            <a class="btn btn-outline-danger askrindo-btn" href="@Url.Action("NonInvestStrategicResponseList", new { Model.KRINonInvestData.Id })">Batal</a>
             <button type="submit" class="btn btn-secondary askrindo-btn askrindo-btn-color">Submit</button>
         </div>
     }
