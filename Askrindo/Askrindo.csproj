@@ -706,6 +706,7 @@
     <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.ro.js" />
     <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.sk.js" />
     <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.zh.js" />
+    <Content Include="Scripts\apps\report\riskmap.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-tagsinput.js" />
     <Content Include="Scripts\bootstrap.js" />
