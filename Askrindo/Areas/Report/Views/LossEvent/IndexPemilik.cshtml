@@ -1,5 +1,5 @@
 ﻿@model Askrindo.Areas.Report.Models.LossEvent.LossEventViewModel
-           
+
 @using Askrindo.Helpers
 
 @{
@@ -7,19 +7,94 @@
     Layout = "~/Areas/Report/Views/Shared/_LossEvent.cshtml";
 }
 
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<div id="params" class="mt-2">
+    <input type="button" class="btn askrindo-btn askrindo-btn-color" value="Filter Parameter" style="padding-top: 6px;padding-bottom: 6px;vertical-align: top;" data-toggle="collapse" data-target="#frmFilterParameter" aria-controls="frmFilterParameter" aria-expanded="false" aria-label="Toggle navigation">
+    <div id="frmFilterParameter" class="collapse show col-sm-8 p-4 my-2 border">
+        @using (Html.BeginForm())
+        {
+            <div class="form-group row">
+                <h4>Filter</h4>
+            </div>
+            <div class="form-group row">
+                <label for="ddlLokasi" class="col-sm-2 control-label">Lokasi</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.Param.PosId, Model.Param.PosList, "", new { id = "ddlLokasi", @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ddlLokasi" class="col-sm-2 control-label">Lokasi</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.Param.BranchId, Model.Param.Unit, "", new { id = "ddlUnitKerja", @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ddlLokasi" class="col-sm-2 control-label">Lokasi</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.Param.KlasId, Model.Param.klasList, "", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ddlLokasi" class="col-sm-2 control-label">Unit Kerja</label>
+                <div class="col-sm-4">
+                    @Html.EditorFor(m => m.Param.ReportDate, "{0:dd/MM/yyyy}", new { @class = "form-control date" })
+                </div>
+                <label for="ddlLokasi" class="col-sm-2 control-label">s/d</label>
+                <div class="col-sm-4">
+                    @Html.EditorFor(m => m.Param.ReportDate2, "{0:dd/MM/yyyy}", new { @class = "form-control date" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ddlLokasi" class="col-sm-2 control-label">Approved?</label>
+                <div class="col-sm-10">
+                    @Html.CheckBoxFor(m => m.Param.IsApproved)
+                    @Html.ValidationMessageFor(m => m.Param.IsApproved)
+                </div>
+            </div>
 
-<script type="text/javascript">
-    $(function () {
-        $("#params").accordion({
-            collapsible: true,
-            active: -1
-        });
-    });
-</script>
+            <div style="padding-top: 12px">
+                <input type="submit" value="Refresh" class="btn askrindo-btn askrindo-btn-color" />
+            </div>
+        }
+    </div>
+</div>
 
-<script type="text/javascript">
+
+<table class="table table-bordered mt-3">
+    <tr>
+        <th>Tahun</th>
+        <th>Unit Kerja(Pemilik Kerugian)</th>
+        <th>Klasifikasi Kerugian</th>
+        <th>Jumlah Kasus</th>
+        <th>Dampak Keuangan</th>
+        <th>Dampak Non Keuangan</th>
+    </tr>
+    @foreach (var item in Model.LossList)
+    {
+        <tr style="background-color:White">
+            <td>@Html.DisplayFor(m => item.lossEventPemilik.tahun)</td>
+            <td>@Html.DisplayFor(m => item.lossEventPemilik.pemilik)</td>
+            <td>@Html.DisplayFor(m => item.lossEventPemilik.Klasifikasi)</td>
+            <td>@Html.DisplayFor(m => item.lossEventPemilik.jml_kasus)</td>
+            <td>@Html.DisplayFor(m => item.lossEventPemilik.ImpactFinancial)</td>
+            <td>-</td>
+        </tr>
+    }
+</table>
+
+<div style="padding-top: 12px">
+    @Html.ActionLink("Ekspor ke Excel", "ExportToExcelPemilik",
+        new
+        {
+            posId = Model.Param.PosId,
+            branchId = Model.Param.BranchId,
+            klasId = Model.Param.KlasId,
+            reportDate = Model.Param.ReportDate,
+            reportDate2 = Model.Param.ReportDate2
+        }, new { @class="btn askrindo-btn askrindo-btn-color" })
+</div>
+
+@section scripts {
+    <script type="text/javascript">
     $(document).ready(function () {
         $('#ddlLokasi').change(function () {
             var selectedValue = $(this).val();
@@ -39,85 +114,5 @@
             });
         });
     });
-</script>
-
-<div id="params" style="padding-bottom: 12px">
-    <h3>
-        <a href="#">Parameter</a>
-    </h3>
-    <div>
-        @using (Html.BeginForm()) {
-            <table class="edit">
-                <tr style="background-color: #ddd">
-                    <td colspan="2"><b>FILTER</b></td>
-                </tr>
-                <tr>
-                    <td>Lokasi</td>
-                    <td>@Html.DropDownListFor(m => m.Param.PosId, Model.Param.PosList, "",
-                        new { id = "ddlLokasi", style = "width: 200px;" })</td>
-                </tr>
-                <tr>
-                    <td>Unit Kerja</td>
-                    <td>@Html.DropDownListFor(m => m.Param.BranchId, Model.Param.Unit, "",
-                        new { id = "ddlUnitKerja", style = "width: 200px;" })</td>
-                </tr>
-                <tr>
-                    <td>Klasifikasi Kerugian</td>
-                    <td>@Html.DropDownListFor(m => m.Param.KlasId, Model.Param.klasList, "",
-                        new { style = "width: 200px;" })</td>
-                </tr>
-                <tr>
-                    <td>Tanggal</td>
-                    <td>@Html.EditorFor(m => m.Param.ReportDate) s/d @Html.EditorFor(m => m.Param.ReportDate2)</td>
-                </tr>
-                <tr>
-                    <td>Approved?</td>
-                    <td>
-                        @Html.CheckBoxFor(m => m.Param.IsApproved)
-                        @Html.ValidationMessageFor(m => m.Param.IsApproved)
-                    </td>
-                </tr>
-            </table>
-        
-            <div style="padding-top: 12px">
-                <input type="submit" value="Refresh" />
-            </div>
-        }
-    </div>
-</div>
-
-
-<table class="list">
-    <tr >
-        <th>Tahun</th>
-        <th>Unit Kerja(Pemilik Kerugian)</th> 
-        <th>Klasifikasi Kerugian</th>
-        <th>Jumlah Kasus</th>
-        <th>Dampak Keuangan</th>
-        <th>Dampak Non Keuangan</th>
-    </tr>
-@foreach (var item in Model.LossList)
-{
-    <tr style="background-color:White">
-        <td>@Html.DisplayFor(m => item.lossEventPemilik.tahun)</td>
-        <td>@Html.DisplayFor(m => item.lossEventPemilik.pemilik)</td>
-        <td>@Html.DisplayFor(m => item.lossEventPemilik.Klasifikasi)</td>
-        <td>@Html.DisplayFor(m => item.lossEventPemilik.jml_kasus)</td>
-        <td>@Html.DisplayFor(m => item.lossEventPemilik.ImpactFinancial)</td>
-        <td>-</td>
-    </tr>
+    </script>
 }
-</table>
-
-<div style="padding-top: 12px">
-    @Html.ActionLink("Ekspor ke Excel", "ExportToExcelPemilik",
-        new
-        {
-            posId = Model.Param.PosId,
-            branchId = Model.Param.BranchId,
-            klasId = Model.Param.KlasId,
-            reportDate = Model.Param.ReportDate,
-            reportDate2 = Model.Param.ReportDate2
-        }, null)
-</div>
-

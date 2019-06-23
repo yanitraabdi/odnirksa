@@ -9,7 +9,7 @@
 
 <div id="params" class="mt-2">
     <input type="button" class="btn askrindo-btn askrindo-btn-color" value="Filter Parameter" style="padding-top: 6px;padding-bottom: 6px;vertical-align: top;" data-toggle="collapse" data-target="#frmFilterParameter" aria-controls="frmFilterParameter" aria-expanded="false" aria-label="Toggle navigation">
-    <div id="frmFilterParameter" class="collapse col-sm-8 p-4 my-2 border">
+    <div id="frmFilterParameter" class="collapse show col-sm-8 p-4 my-2 border">
         @using (Html.BeginForm())
         {
             <div class="form-group row">
@@ -38,7 +38,7 @@
                 <div class="col-sm-4">
                     @Html.EditorFor(m => m.Param.ReportDate, "{0:dd/MM/yyyy}", new { @class = "form-control date" })
                 </div>
-                <label for="ddlLokasi" class="col-sm-2 control-label">Unit Kerja</label>
+                <label for="ddlLokasi" class="col-sm-2 control-label">s/d</label>
                 <div class="col-sm-4">
                     @Html.EditorFor(m => m.Param.ReportDate2, "{0:dd/MM/yyyy}", new { @class = "form-control date" })
                 </div>
