@@ -57,7 +57,7 @@
 
 <div id="params" class="mt-2">
     <input type="button" class="btn askrindo-btn askrindo-btn-color" value="Filter Parameter" style="padding-top: 6px;padding-bottom: 6px;vertical-align: top;" data-toggle="collapse" data-target="#frmFilterParameter" aria-controls="frmFilterParameter" aria-expanded="false" aria-label="Toggle navigation">
-    <div id="frmFilterParameter" class="collapse col-sm-8 p-4 my-2 border">
+    <div id="frmFilterParameter" class="collapse show col-sm-8 p-4 my-2 border">
         @using (Html.BeginForm())
         {
             <div class="form-group row">
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="ddlLokasi" class="col-sm-2 control-label">Unit Kerja</label>
+                <label for="ddlUnitKerja" class="col-sm-2 control-label">Unit Kerja</label>
                 <div class="col-sm-10">
                     @Html.DropDownListFor(m => m.Param.BranchId, Model.Param.Unit, "", new { id = "ddlUnitKerja", @class = "form-control" })
                 </div>
@@ -75,11 +75,11 @@
             <div class="form-group row">
                 <label for="ddlLokasi" class="col-sm-2 control-label">Unit Kerja</label>
                 <div class="col-sm-4">
-                    @Html.TextBoxFor(m => m.Param.MapDate, "{0:dd/MM/yyyy}", new { @class = "form-control date" })
+                    @Html.EditorFor(m => m.Param.MapDate, "{0:dd/MM/yyyy}", new { @class = "form-control date" })
                 </div>
                 <label for="ddlLokasi" class="col-sm-2 control-label">Unit Kerja</label>
                 <div class="col-sm-4">
-                    @Html.TextBoxFor(m => m.Param.MapDate2, "{0:dd/MM/yyyy}", new { @class = "form-control date" })
+                    @Html.EditorFor(m => m.Param.MapDate2, "{0:dd/MM/yyyy}", new { @class = "form-control date" })
                 </div>
             </div>
             <div class="form-group row">
@@ -159,7 +159,7 @@
 </table>
 
 <div style="padding-top: 12px">
-    @Html.ActionLink("Ekspor ke Word", "ExportToWord", new { posId = Model.Param.PosId, branchId = Model.Param.BranchId, mapDate = Model.Param.MapDate, mapDate2 = Model.Param.MapDate2, isApproved = Model.Param.IsApproved }, null)
+    @Html.ActionLink("Ekspor ke Word", "ExportToWord", new { posId = Model.Param.PosId, branchId = Model.Param.BranchId, mapDate = Model.Param.MapDate, mapDate2 = Model.Param.MapDate2, isApproved = Model.Param.IsApproved }, new { @class="btn askrindo-btn askrindo-btn-color" })
 </div>
 
 @section scripts {

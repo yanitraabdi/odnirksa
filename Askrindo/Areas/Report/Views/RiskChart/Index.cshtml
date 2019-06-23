@@ -1,5 +1,5 @@
 ﻿@model Askrindo.Areas.Report.Models.RiskChart.RiskChartViewModel
-           
+
 @using Askrindo.Helpers
 
 @{
@@ -7,16 +7,84 @@
     Layout = "~/Areas/Report/Views/Shared/_RiskChart.cshtml";
 }
 
-<script type="text/javascript">
-    $(function () {
-        $("#params").accordion({
-            collapsible: true,
-            active: -1
-        });
-    });
-</script>
+<div id="params" class="mt-2">
+    <input type="button" class="btn askrindo-btn askrindo-btn-color" value="Filter Parameter" style="padding-top: 6px;padding-bottom: 6px;vertical-align: top;" data-toggle="collapse" data-target="#frmFilterParameter" aria-controls="frmFilterParameter" aria-expanded="false" aria-label="Toggle navigation">
+    <div id="frmFilterParameter" class="collapse show col-sm-8 p-4 my-2 border">
+        @using (Html.BeginForm())
+        {
+            <div class="form-group row">
+                <h4>Filter</h4>
+            </div>
+            <div class="form-group row">
+                <label for="ddlLokasi" class="col-sm-2 control-label">Lokasi</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.PosId, Model.PosList, "", new { id = "ddlLokasi", @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ddlLokasi" class="col-sm-2 control-label">Lokasi</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.BranchId, Model.Unit, "", new { id = "ddlUnitKerja", @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ddlLokasi" class="col-sm-2 control-label">Unit Kerja</label>
+                <div class="col-sm-4">
+                    @Html.EditorFor(m => m.ReportDate, "{0:dd/MM/yyyy}", new { @class = "form-control date" })
+                </div>
+                <label for="ddlLokasi" class="col-sm-2 control-label">s/d</label>
+                <div class="col-sm-4">
+                    @Html.EditorFor(m => m.ReportDate2, "{0:dd/MM/yyyy}", new { @class = "form-control date" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="IsApproved" class="col-sm-2 control-label">Approved?</label>
+                <div class="col-sm-10">
+                    @Html.CheckBoxFor(m => m.IsApproved)
+                    @Html.ValidationMessageFor(m => m.IsApproved)
+                </div>
+            </div>
+            <div class="form-group row">
+                <h4>Tampilan</h4>
+            </div>
+            <div class="form-group row">
+                <label for="DataTypeId" class="col-sm-2 control-label">Data</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.ChartTypeId, Model.ChartTypes, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="RowGroupId" class="col-sm-2 control-label">Baris</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.YValueId, Model.YValues, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ColGroupId" class="col-sm-2 control-label">Kolom</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.XValueId, Model.XValues, new { @class = "form-control" })
+                </div>
+            </div>
 
-<script type="text/javascript">
+            <div style="padding-top: 12px">
+                <input type="submit" value="Refresh" />
+            </div>
+        }
+    </div>
+</div>
+
+<div style="padding-bottom: 12px">
+    <h3>Data: @ViewBag.DataTypeText</h3>
+</div>
+
+<img src="@Url.Action("ChartGenerator")" alt="chart" />
+
+<div style="padding-top: 12px">
+    @Html.ActionLink("Ekspor Grafik", "ExportChart", new { @class="btn askrindo-btn askrindo-btn-color" })
+</div>
+
+@section scripts {
+    <script type="text/javascript">
     $(document).ready(function () {
         $('#ddlLokasi').change(function () {
             var selectedValue = $(this).val();
@@ -36,69 +104,5 @@
             });
         });
     });
-</script>
-
-<div id="params" style="padding-bottom: 12px">
-    <h3>
-        <a href="#">Parameter</a>
-    </h3>
-    <div>
-        @using (Html.BeginForm()) {
-            <table class="edit">
-                <tr style="background-color: #ddd">
-                    <td colspan="2"><b>FILTER</b></td>
-                </tr>
-                <tr>
-                    <td>Lokasi</td>
-                    <td>@Html.DropDownListFor(m => m.PosId, Model.PosList, "",
-                        new { id = "ddlLokasi", style = "width: 200px;" })</td>
-                </tr>
-                <tr>
-                    <td>Unit Kerja</td>
-                    <td>@Html.DropDownListFor(m => m.BranchId, Model.Unit, "",
-                        new { id = "ddlUnitKerja", style = "width: 200px;" })</td>
-                </tr>
-                <tr>
-                    <td>Tanggal</td>
-                    <td>@Html.EditorFor(m => m.ReportDate) s/d @Html.EditorFor(m => m.ReportDate2)</td>
-                </tr>
-                <tr>
-                    <td>Approved?</td>
-                    <td>
-                        @Html.CheckBoxFor(m => m.IsApproved)
-                        @Html.ValidationMessageFor(m => m.IsApproved)
-                    </td>
-                </tr>
-                <tr style="background-color: #ddd">
-                    <td colspan="2"><b>TAMPILAN</b></td>
-                </tr>
-                <tr>
-                    <td>Tampilan Grafik</td>
-                    <td>@Html.DropDownListFor(m => m.ChartTypeId, Model.ChartTypes)</td>
-                </tr>
-                <tr>
-                    <td>Data Grafik</td>
-                    <td>@Html.DropDownListFor(m => m.YValueId, Model.YValues)</td>
-                </tr>
-                <tr>
-                    <td>Pengelompokan</td>
-                    <td>@Html.DropDownListFor(m => m.XValueId, Model.XValues)</td>
-                </tr>
-            </table>
-        
-            <div style="padding-top: 12px">
-                <input type="submit" value="Refresh" />
-            </div>
-        }
-    </div>
-</div>
-
-<div style="padding-bottom: 12px; font-size: 1.2em">
-    Data: @ViewBag.DataTypeText
-</div>
-
-<img src="@Url.Action("ChartGenerator")" alt="chart" />
-
-<div style="padding-top: 12px">
-    @Html.ActionLink("Ekspor Grafik", "ExportChart")
-</div>
+    </script>
+}
