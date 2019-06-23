@@ -471,11 +471,23 @@
     </Compile>
     <Compile Include="Models\LossEventKantorView.cs">
       <DependentUpon>Askrindo2019Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LossEventPemilikView.cs">
-      <DependentUpon>Askrindo2019Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LossEventTahunView.cs">
+   </Compile>
+   <Compile Include="Models\LossEventKantorView1.cs">
+     <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+   </Compile>
+   <Compile Include="Models\LossEventPemilikView.cs">
+	<DependentUpon>Askrindo2019Model.tt</DependentUpon>
+	</Compile>
+	<Compile Include="Models\LossEventPemilikView1.cs">
+	<DependentUpon>Askrindo2019Model.tt</DependentUpon>
+	</Compile>
+  <Compile Include="Models\LossEventsBulanView.cs">
+   <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+   </Compile>
+   <Compile Include="Models\LossEventTahunView.cs">
+     <DependentUpon>Askrindo2019Model.tt</DependentUpon>
+	 </Compile>
+   <Compile Include="Models\LossEventTahunView1.cs">
       <DependentUpon>Askrindo2019Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
@@ -646,6 +658,7 @@
     <Content Include="Content\Fontawesome\webfonts\fa-brands-400.svg" />
     <Content Include="Content\Fontawesome\webfonts\fa-regular-400.svg" />
     <Content Include="Content\Fontawesome\webfonts\fa-solid-900.svg" />
+	<Content Include="Content\Image\bell.png" />
     <Content Include="Content\Image\bg-login-with-text.jpg" />
     <Content Include="Content\Image\bg-login.jpg" />
     <Content Include="Content\Image\default-avatar.png" />
@@ -700,6 +713,7 @@
     <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.fr.js" />
     <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.hu.js" />
     <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.nl.js" />
+	<Content Include="Scripts\apps\report\riskmap.js" />
     <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.pl.js" />
     <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.pt-BR.js" />
     <Content Include="Scripts\AirDatepicker\js\i18n\datepicker.pt.js" />
@@ -791,7 +805,7 @@
     <Content Include="Areas\KRI\Views\Shared\KRILayout.cshtml" />
     <Content Include="Areas\KRI\Views\KRI\Index.cshtml" />
     <Content Include="Areas\KRI\Views\KRI\InvestStrategicResponseNew.cshtml" />
-    <Content Include="Areas\KRI\Views\KRI\InvestStrategicResponseDetail.cshtml" />
+    <Content Include="Areas\KRI\Views\KRI\InvestStrategicResponseEdit.cshtml" />
     <Content Include="Areas\KRI\Views\KRI\ManageInvest.cshtml" />
     <Content Include="Areas\KRI\Views\KRI\Invest.cshtml" />
     <Content Include="Areas\KRI\Views\KRI\ManageNonInvest.cshtml" />
@@ -1050,12 +1064,21 @@
     <Content Include="Areas\Dashboard\Views\web.config" />
     <Content Include="Areas\Dashboard\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Report\Views\Shared\_Navigation.cshtml" />
+	<Content Include="Areas\KRI\Views\KRI\ISRProgressActionList.cshtml" />
+	<Content Include="Areas\KRI\Views\KRI\ISRProgressActionNew.cshtml" />
+	<Content Include="Areas\KRI\Views\KRI\ISRProgressDetail.cshtml" />
+	<Content Include="Areas\KRI\Views\KRI\ISRProgressList.cshtml" />
+	<Content Include="Areas\KRI\Views\KRI\ISRProgressNew.cshtml" />
+	<Content Include="Areas\KRI\Views\KRI\ISRProgressView.cshtml" />
+	<Content Include="Areas\RCSA\Views\Mitigation\MitigationActionApproval.cshtml" />
+	<Content Include="Areas\RCSA\Views\Mitigation\MitigationActionAppView.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Bootstrap4\bootstrap.min.js" />
     <Content Include="Scripts\Bootstrap4\popper.js" />
     <Content Include="Scripts\gauge.min.js" />
+	<Content Include="Scripts\download.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />

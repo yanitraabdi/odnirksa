@@ -70,7 +70,7 @@ namespace Askrindo.Areas.RCSA.Models
     {
         public int? PosId { get; set; }
         public SelectList PosList { get; set; }
-
+        public string riskCode { get; set; }
         public int? BranchId { get; set; }
         public SelectList Branches { get; set; }
 

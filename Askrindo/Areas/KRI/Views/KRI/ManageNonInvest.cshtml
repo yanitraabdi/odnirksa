@@ -89,7 +89,7 @@
                         <td>@item.TransactionDate.ToString("dddd, dd MMMM yyyy")</td>
                         <td>@item.UserInfo.FullName</td>
                         <td>
-                            <a href="@Url.Action("NonInvestStrategicResponseList", "KRI", new { Id = item.Id })" class="btn askrindo-btn btn-warning">Strategic Respon</a>
+                            <a href="@Url.Action("NonInvestStrategicResponseList", "KRI", new { item.Id })" class="btn askrindo-btn btn-warning">Strategic Respon</a>
 
                             <a href="#" class="btn askrindo-btn btn-danger">Manajemen Risiko</a>
                         </td>

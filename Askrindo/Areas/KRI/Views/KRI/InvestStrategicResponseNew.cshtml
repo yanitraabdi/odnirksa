@@ -1,64 +1,70 @@
-﻿
+﻿@model Askrindo.Areas.KRI.Models.InvestStrategicResponseViewModel
 @{
     Layout = "~/Areas/KRI/Views/Shared/KRILayout.cshtml";
 }
 
+
 <div class="askrindo-content-box">
-    @using (Html.BeginForm("SubmitRisk", "New", FormMethod.Post, new { onsubmit = "return validateForm();" }))
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Lokasi</label>
+                <label class="col-9 col-form-label">: @Model.User.OrgPosName</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Unit Kerja</label>
+                <label class="col-9 col-form-label">: Major Account</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Kode</label>
+                <label class="col-9 col-form-label">: @Model.KRIInvestData.Code</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Indikator</label>
+                <label class="col-9 col-form-label">: @Model.KRIInvestData.KRIInvest.Name</label>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Status</label>
+                <label class="col-9 col-form-label">: @Model.KRIInvestData.Grade</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Nilai / Acuan </label>
+                <label class="col-9 col-form-label">: @String.Format("{0:n}", Model.KRIInvestData.Value) / @String.Format("{0:n}", Model.KRIInvestData.Target)</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Tanggal Transaksi</label>
+                <label class="col-9 col-form-label">: @DateTime.Now.ToString("dddd, dd MMMM yyyy")</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Penginput</label>
+                <label class="col-9 col-form-label">: @Model.User.FullName</label>
+            </div>
+        </div>
+    </div>
+    <hr>
+    @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <div class="row">
-            <div class="col-2">Kantor Cabang</div>
-            <div class="col-10">: Semarang</div>
-        </div>
-        <div class="row">
-            <div class="col-2">Tanggal Submit</div>
-            <div class="col-10">: 1 March 2019</div>
-        </div>
-        <div class="row">
-            <div class="col-2">Indikator KRI</div>
-            <div class="col-10">: Premi Bruto</div>
-        </div>
-        <div class="row">
-            <div class="col-2">Analisa Sebab</div>
-            <div class="col-10">
-                <div>
-                    <select class="form-control askrindo-form-control">
-                        <option>Data / informasi kurang relevan</option>
-                    </select>
-                </div>
-                <div>
-                    <label>
-                        <input type="checkbox" />
-                        Tidak ada di daftar analisa sebab
-                    </label>
-                </div>
-                <div>
-                    <textarea class="form-control askrindo-form-control" placeholder="Analisa sebab..."></textarea>
-                </div>
+        @Html.HiddenFor(d => d.KRIInvestData.Id)
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Analisa Sebab</label>
+            <div class="col-sm-10">
+                @Html.TextAreaFor(d => d.SRInvest.CauseAnalysis, new { @class = "form-control" })
             </div>
         </div>
-        <div class="row">
-            <div class="col-2">Target Penyelesaian</div>
-            <div class="col-10">
-                <div>
-                    <input type="text" class="form-control askrindo-form-control" />
-                </div>
-                <div>
-                    <input type="text" class="form-control askrindo-form-control" />
-                </div>
-                <div>
-                    <label>
-                        <input type="checkbox" />
-                        Masukkan ke RKAP tahun depan
-                    </label>
-                </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Strategic Respon/Mitigasi</label>
+            <div class="col-sm-10">
+                @Html.TextAreaFor(d => d.SRInvest.StrategicResponse, new { @class = "form-control" })
             </div>
         </div>
-        <hr/>
+
         <div class="text-right">
-            <input type="reset" class="btn askrindo-btn btn-outline-danger" value="Batal" />
-            <input type="submit" class="btn askrindo-btn askrindo-btn-color" value="Masukan" />
+            <a class="btn btn-outline-danger askrindo-btn" href="@Url.Action("InvestStrategicResponseList", new { Model.KRIInvestData.Id })">Batal</a>
+            <button type="submit" class="btn btn-secondary askrindo-btn askrindo-btn-color">Submit</button>
         </div>
     }
+
 </div>

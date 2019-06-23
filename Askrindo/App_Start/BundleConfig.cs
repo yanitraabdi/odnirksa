@@ -35,11 +35,9 @@ namespace Askrindo
 
             bundles.Add(new StyleBundle("~/Content/askrindo/css").Include(
                       "~/Content/Style/bootstrap.css",
+                      "~/Content/Fontawesome/css/all.css",
                       "~/Content/Style/Web.css"));
-
-            bundles.Add(new StyleBundle("~/Content/fontawesome").Include(
-                      "~/Content/Fontawesome/css/all.css"));
-
+            
             bundles.Add(new StyleBundle("~/Content/airdatepickercss").Include(
                       "~/Content/AirDatepicker/css/datepicker.css"));
 

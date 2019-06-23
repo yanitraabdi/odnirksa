@@ -48,6 +48,7 @@ namespace Askrindo.Models
         public Nullable<int> SubBranchId { get; set; }
         public Nullable<int> BizUnitId { get; set; }
         public bool IsReadOnly { get; set; }
+        public string RiskCode1 { get; set; }
     
         public virtual ProbLevel ProbLevel { get; set; }
         public virtual ImpactLevel ImpactLevel { get; set; }
