@@ -14,4 +14,9 @@
         </tr>
     </table>
 </div>
+
 @RenderBody()
+
+@section scripts{
+    @RenderSection("scripts", required: false)
+}
